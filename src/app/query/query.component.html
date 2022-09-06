@@ -1,0 +1,210 @@
+<div class="container pb-5 mt-3">
+    <div class="panel panel-primary">
+        <div class="">
+            <h4 class="text-center">Add Program name and Query</h4>
+        </div>
+        <div class="panel-body float-left">
+            <form [formGroup]="myform" (ngSubmit)="onSubmit(myform.value)">
+                <div class="form-group d-none" [ngClass]="{'has-error': !formData.operation.valid && formData.operation.touched}">
+                    <label>operations</label>
+                    <input type="text" class="form-control" name="operation" formControlName="operation" [(ngModel)]="this.operation" />
+                    <div *ngIf="formData.operation.touched && formData.operation.errors" class="mt_div">
+                        <div class="alert alert-danger" *ngIf="formData.operation.errors.required">
+                            The operations is required
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group d-none" [ngClass]="{'has-error': !formData.moduleID.valid && formData.moduleID.touched}">
+                    <label>moduleID</label>
+                    <input type="text" class="form-control" name="moduleID" formControlName="moduleID" [(ngModel)]="this.moduleID" />
+                    <div *ngIf="formData.moduleID.touched && formData.moduleID.errors" class="mt_div">
+                        <div class="alert alert-danger" *ngIf="formData.moduleID.errors.required">
+                            The moduleID is required
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group position-relative" [ngClass]="{'has-error': !formData.ProgramName.valid && formData.ProgramName.touched}">
+                    <!-- <label>Program Name</label> -->
+                    <!--  <button matTooltipClass="example-tooltip-red" title="query list" type="button" class="info_btn" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+          </button> -->
+                    <a href="mailto:chenthilkumaranx.thirusangu@intel.com?subject=Query ID Criteria changes &cc=vijayaramanx.paramasivam@intel.com; badarinath.sharma@intel.com &body=Hi Admin,%0D%0A%20Please update the below criteria changes and I have attached the screenshot of Hsdes criteria  edit page.%0D%0A%0D%0A%20Platform Name : {{this.platformName}}%0D%0A%20Queryid: {{this.QueryID}}%0D%0A%0D%0A%20Thanks"
+                        title="send mail" type="button" class="info_btn1">
+                        <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i> Send Query ID Criteria Changes
+                    </a>
+                    <a href="mailto:chenthilkumaranx.thirusangu@intel.com?subject=Platform Onboarding &cc=vijayaramanx.paramasivam@intel.com; badarinath.sharma@intel.com &body=Hi Admin,%0D%0A%20Please Add the new onboard platform.%0D%0A%0D%0A%20Platform Name : {{this.platformName}}%0D%0A%20Queryid: {{this.QueryID}}%0D%0A%20Power BI URL: {{this.QueryID}}%0D%0A%20QRC Query: {{this.QueryID}}%0D%0A%20Enable CSLP dashboard: {{this.QueryID}}%0D%0A%20Add Milestones in trend chart!(Optional){{this.QueryID}}%0D%0A%20Power on: {{this.QueryID}}%0D%0A%20Pre Alpha: {{this.QueryID}}%0D%0A%20Alpha: {{this.QueryID}}%0D%0A%20POE: {{this.QueryID}}%0D%0A%20Beta: {{this.QueryID}}%0D%0A%20PV: {{this.QueryID}}%0D%0A%0D%0A%20Thanks"
+                        title="send mail" type="button" class="info_btn1">
+                        <i class="fa fa-envelope-o mr-2" aria-hidden="true"></i> Platform Onboarding
+                    </a>
+                    <!--   <input type="text" class="form-control" name="ProgramName" formControlName="ProgramName" [(ngModel)]="this.programName" />
+                    <div *ngIf="formData.ProgramName.touched && formData.ProgramName.errors" class="mt_div">
+                        <div class="alert alert-danger" *ngIf="formData.ProgramName.errors.required">
+                            The Program Name is required
+                        </div>
+                    </div> -->
+                </div>
+                <!-- <div class="form-group" [ngClass]="{'has-error': !formData.QueryID.valid && formData.QueryID.touched}">
+                    <label>Query ID</label>
+                    <input type="text" class="form-control" name="QueryID" formControlName="QueryID" [(ngModel)]="this.QueryID" />
+                    <div *ngIf="formData.QueryID.touched && formData.QueryID.errors" class="mt_div">
+                        <div class="alert alert-danger" *ngIf="formData.QueryID.errors.required">
+                            The Query ID is required
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" [ngClass]="{'has-error': !formData.PowerBI.valid && formData.PowerBI.touched}">
+                    <label>Power BI URL</label>
+                    <input type="text" class="form-control" name="PowerBI" formControlName="PowerBI" [(ngModel)]="this.PowerBI" />
+                    <div *ngIf="formData.PowerBI.touched && formData.PowerBI.errors" class="mt_div">
+                        <div class="alert alert-danger" *ngIf="formData.PowerBI.errors.required">
+                            The Power BI url is required
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group" [ngClass]="{'has-error': !formData.QRCQuery.valid && formData.QRCQuery.touched}">
+                    <label>QRC Query</label>
+                    <input type="text" class="form-control" name="QRCQuery" formControlName="QRCQuery" [(ngModel)]="this.QRCQuery" />
+                    <div *ngIf="formData.QRCQuery.touched && formData.QRCQuery.errors" class="mt_div">
+                        <div class="alert alert-danger" *ngIf="formData.QRCQuery.errors.required">
+                            The QRC Query required
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group chlp_in my-md-3">
+                    <label>Enable CSLP dashboard:</label>
+                    <input type="checkbox" class="form-control" name="enable_cslp" formControlName="enable_cslp" [(ngModel)]="enable_cslp" />
+                </div>
+
+
+                <div class="pt-2" class="form-group">
+                    <button id="milestone" type="button" class="btn btn-secondary" value="" (click)="toggleDisplay()">Add
+            Milestones in trend chart!(Optional)</button>
+                    <div *ngIf="isShow" class="row">
+                        <div class="form-group col-md-4 pt-2" [ngClass]="{'has-error': !formData.PowerOn.valid && formData.PowerOn.touched}">
+                            <label>Power on</label>
+                            <input type="text" class="form-control input_width" placeholder="Format WW'YY" name="PowerOn" formControlName="PowerOn" [(ngModel)]="this.PowerOn" />
+                        </div>
+                        <div class="form-group col-md-4 pt-2" [ngClass]="{'has-error': !formData.PreAlpha.valid && formData.PreAlpha.touched}">
+                            <label>Pre Alpha</label>
+                            <input type="text" class="form-control input_width" placeholder="Format WW'YY" name="PreAlpha" formControlName="PreAlpha" [(ngModel)]="this.PreAlpha" />
+                        </div>
+                        <div class="form-group col-md-4 pt-2" [ngClass]="{'has-error': !formData.alpha.valid && formData.alpha.touched}">
+                            <label>Alpha</label>
+                            <input type="text" class="form-control input_width" placeholder="Format WW'YY" name="alpha" formControlName="alpha" [(ngModel)]="this.alpha" />
+                        </div>
+                    </div>
+                    <div *ngIf="isShow" class="row">
+                        <div class="form-group col-md-4 pt-2" [ngClass]="{'has-error': !formData.POE.valid && formData.POE.touched}">
+                            <label>POE</label>
+                            <input type="text" class="form-control input_width" placeholder="Format WW'YY" name="POE" formControlName="POE" [(ngModel)]="this.POE" />
+                        </div>
+                        <div class="form-group col-md-4 pt-2" [ngClass]="{'has-error': !formData.Beta.valid && formData.Beta.touched}">
+                            <label>Beta</label>
+                            <input type="text" class="form-control input_width" placeholder="Format WW'YY" name="Beta" formControlName="Beta" [(ngModel)]="this.Beta" />
+                        </div>
+                        <div class="form-group col-md-4 pt-2" [ngClass]="{'has-error': !formData.PV.valid && formData.PV.touched}">
+                            <label>PV</label>
+                            <input type="text" class="form-control input_width" placeholder="Format WW'YY" name="PV" formControlName="PV" [(ngModel)]="this.PV" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div> -->
+            </form>
+            <div class="col-12 float-left mb-2 p-0 mt-2">
+                <ng-container>
+                    <div class="chart-wrapper-title mb-5">
+                        <div class="row  ml-3">
+                            <div class="col-5 p-0">
+                                <div class="captions">
+                                    <i class="fa fa-bar-chart" aria-hidden="true" style="color: #9eacb4;font-size: 22px;margin-top: -1px;"></i>
+                                    <span class="chart-header"> Platform QueryID List </span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="download-block p-3" style="padding-top: 0rem!important;">
+                            <div class="intro">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table table-striped add_query">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">PlatformName</th>
+                                                    <th scope="col">Original QueryId</th>
+                                                    <th scope="col">Generated QueryId</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of infoButtonData;let i=index">
+                                                    <th scope="row">{{i+1}}</th>
+                                                    <td>{{item.platformName}}</td>
+                                                    <td>
+                                                        <a href="{{item.original}}" target="_blank" rel="noopener noreferrer">{{item.original}}
+                                                      </a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{item.copy}}" target="_blank" rel="noopener noreferrer">{{item.copy}}
+                                                      </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title text-center" id="exampleModalLabel">Platform QueryID List</h2>
+                <button type="button" class="close close_btn" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mx-0">
+                    <div class="col-4 col-sm-2 col-lg-2 text-center txt_header">
+                        <h4>PlatformName</h4>
+                    </div>
+                    <div class="col-4 col-sm-5 col-lg-5 text-left txt_body">
+                        <h4>Original QueryId</h4>
+                    </div>
+                    <div class="col-4 col-sm-5 col-lg-5 text-left txt_body">
+                        <h4>Copied QueryId</h4>
+                    </div>
+                </div>
+                <div class="row mx-0 tablee" *ngFor="let item of infoButtonData">
+                    <div class="col-4 col-sm-2 col-lg-2 text-center txt_header">
+                        <h4>{{item.platformName}}</h4>
+                    </div>
+                    <div class="col-4 col-sm-5 col-lg-5 text-left txt_body">
+                        <a href="{{item.original}}
+                " target="_blank" rel="noopener noreferrer">{{item.original}}
+              </a>
+                    </div>
+                    <div class="col-4 col-sm-5 col-lg-5 text-left txt_body">
+                        <a href="{{item.copy}}
+              " target="_blank" rel="noopener noreferrer">{{item.copy}}
+            </a>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div> -->
+        </div>
+    </div>
+</div>
+<notifier-container></notifier-container>

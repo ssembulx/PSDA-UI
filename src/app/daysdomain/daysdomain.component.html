@@ -1,0 +1,415 @@
+<div class="col-12 mt-2 p-2 heat_table px-auto w-100">
+    <div class="main-div">
+        <div class="portlet box blue-hoki tableStyle">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-list"></i> <a class="tableHeadertext">
+            &nbsp; &nbsp;Days by Domain
+          </a>
+                    <mat-form-field>
+                        <mat-select #select multiple [(ngModel)]="selectedTable" [matTooltip]="selectedTable" placeholder="{{selectedTable}}" [formControl]="bankMultiCtrl" placeholder="Select Domain">
+                            <ng-container>
+                                <mat-option (click)="toggleAllSelection()" value="All Domain">
+                                    Select All
+                                </mat-option>
+                            </ng-container>
+                            <ng-container *ngFor="let plat of domainList">
+                                <mat-option (click)="optionClick()" [value]="plat.domain">
+                                    {{plat.domain}}
+                                </mat-option>
+                            </ng-container>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <col class="bg_col">
+                <colgroup span="2"></colgroup>
+                <colgroup span="2"></colgroup>
+                <tr>
+                    <td rowspan="2" scope="colgroup" class="domain_style">Domain
+                    </td>
+                    <th colspan="2" scope="colgroup">Days_Decimal_Triage</th>
+                    <th colspan="2" scope="colgroup">Days_Implemented</th>
+                    <th colspan="2" scope="colgroup">Days_Rejected</th>
+                    <th colspan="2" scope="colgroup">Days_Verified</th>
+                    <th colspan="2" scope="colgroup">Days_Complete</th>
+                    <th colspan="2" scope="colgroup">Days_Open</th>
+                </tr>
+                <tr>
+                    <th scope="col">Count</th>
+                    <th scope="col">Mean</th>
+                    <th scope="col">Count</th>
+                    <th scope="col">Mean</th>
+                    <th scope="col">Count</th>
+                    <th scope="col">Mean</th>
+                    <th scope="col">Count</th>
+                    <th scope="col">Mean</th>
+                    <th scope="col">Count</th>
+                    <th scope="col">Mean</th>
+                    <th scope="col">Count</th>
+                    <th scope="col">Mean</th>
+                </tr>
+
+                <tr *ngFor="let daydomain of dataSource1">
+                    <th scope="row" *ngIf="daydomain.domain">{{daydomain.domain}}</th>
+                    <th scope="row" *ngIf="daydomain.domain_debug">{{daydomain.domain_debug}}</th>
+                    <td [ngClass]="{'count10': daydomain.days_decimal_triage_count >= 1 && daydomain.days_decimal_triage_count <= 10,
+                          'count20': daydomain.days_decimal_triage_count >= 11 && daydomain.days_decimal_triage_count <= 20,
+                          'count30': daydomain.days_decimal_triage_count >= 21 && daydomain.days_decimal_triage_count <= 30,
+                          'count40': daydomain.days_decimal_triage_count >= 31 && daydomain.days_decimal_triage_count <= 40,
+                          'count50': daydomain.days_decimal_triage_count >= 41 && daydomain.days_decimal_triage_count <= 50,
+                          'count60': daydomain.days_decimal_triage_count >= 51 && daydomain.days_decimal_triage_count <= 60,
+                          'count70': daydomain.days_decimal_triage_count >= 61 && daydomain.days_decimal_triage_count <= 70,
+                          'count80': daydomain.days_decimal_triage_count >= 71 && daydomain.days_decimal_triage_count <= 80,
+                          'count90': daydomain.days_decimal_triage_count >= 81 && daydomain.days_decimal_triage_count <= 90,
+                          'count100': daydomain.days_decimal_triage_count >= 91 && daydomain.days_decimal_triage_count <= 100,
+                          'count110': daydomain.days_decimal_triage_count >= 101 && daydomain.days_decimal_triage_count <= 150,
+                          'count120': daydomain.days_decimal_triage_count >= 151 && daydomain.days_decimal_triage_count <= 200,
+                          'count130': daydomain.days_decimal_triage_count >= 201}">{{daydomain.days_decimal_triage_count}}</td>
+
+                    <td [ngClass]="{'mean10': daydomain.days_decimal_triage_mean >= 1 && daydomain.days_decimal_triage_mean <= 10,
+                          'mean20': daydomain.days_decimal_triage_mean >= 11 && daydomain.days_decimal_triage_mean <= 20,
+                          'mean30': daydomain.days_decimal_triage_mean >= 21 && daydomain.days_decimal_triage_mean <= 30,
+                          'mean40': daydomain.days_decimal_triage_mean >= 31 && daydomain.days_decimal_triage_mean <= 40,
+                          'mean50': daydomain.days_decimal_triage_mean >= 41 && daydomain.days_decimal_triage_mean <= 50,
+                          'mean60': daydomain.days_decimal_triage_mean >= 51 && daydomain.days_decimal_triage_mean <= 60,
+                          'mean70': daydomain.days_decimal_triage_mean >= 61 && daydomain.days_decimal_triage_mean <= 70,
+                          'mean80': daydomain.days_decimal_triage_mean >= 71 && daydomain.days_decimal_triage_mean <= 80,
+                          'mean90': daydomain.days_decimal_triage_mean >= 81 && daydomain.days_decimal_triage_mean <= 90,
+                          'mean100': daydomain.days_decimal_triage_mean >= 91 && daydomain.days_decimal_triage_mean <= 100,
+                          'mean110': daydomain.days_decimal_triage_mean >= 101 && daydomain.days_decimal_triage_mean <= 150,
+                          'mean120': daydomain.days_decimal_triage_mean >= 151 && daydomain.days_decimal_triage_mean <= 200,
+                          'mean130': daydomain.days_decimal_triage_mean >= 201}">{{daydomain.days_decimal_triage_mean}}</td>
+
+                    <td [ngClass]="{'count10': daydomain.days_implemented_count >= 1 && daydomain.days_implemented_count <= 10,
+                          'count20': daydomain.days_implemented_count >= 11 && daydomain.days_implemented_count <= 20,
+                          'count30': daydomain.days_implemented_count >= 21 && daydomain.days_implemented_count <= 30,
+                          'count40': daydomain.days_implemented_count >= 31 && daydomain.days_implemented_count <= 40,
+                          'count50': daydomain.days_implemented_count >= 41 && daydomain.days_implemented_count <= 50,
+                          'count60': daydomain.days_implemented_count >= 51 && daydomain.days_implemented_count <= 60,
+                          'count70': daydomain.days_implemented_count >= 61 && daydomain.days_implemented_count <= 70,
+                          'count80': daydomain.days_implemented_count >= 71 && daydomain.days_implemented_count <= 80,
+                          'count90': daydomain.days_implemented_count >= 81 && daydomain.days_implemented_count <= 90,
+                          'count100': daydomain.days_implemented_count >= 91 && daydomain.days_implemented_count <= 100,
+                          'count110': daydomain.days_implemented_count >= 101 && daydomain.days_implemented_count <= 150,
+                          'count120': daydomain.days_implemented_count >= 151 && daydomain.days_implemented_count <= 200,
+                          'count130': daydomain.days_implemented_count >= 201}">{{daydomain.days_implemented_count}}</td>
+
+                    <td [ngClass]="{'mean10': daydomain.days_implemented_mean >= 1 && daydomain.days_implemented_mean <= 10,
+                          'mean20': daydomain.days_implemented_mean >= 11 && daydomain.days_implemented_mean <= 20,
+                          'mean30': daydomain.days_implemented_mean >= 21 && daydomain.days_implemented_mean <= 30,
+                          'mean40': daydomain.days_implemented_mean >= 31 && daydomain.days_implemented_mean <= 40,
+                          'mean50': daydomain.days_implemented_mean >= 41 && daydomain.days_implemented_mean <= 50,
+                          'mean60': daydomain.days_implemented_mean >= 51 && daydomain.days_implemented_mean <= 60,
+                          'mean70': daydomain.days_implemented_mean >= 61 && daydomain.days_implemented_mean <= 70,
+                          'mean80': daydomain.days_implemented_mean >= 71 && daydomain.days_implemented_mean <= 80,
+                          'mean90': daydomain.days_implemented_mean >= 81 && daydomain.days_implemented_mean <= 90,
+                          'mean100': daydomain.days_implemented_mean >= 91 && daydomain.days_implemented_mean <= 100,
+                          'mean110': daydomain.days_implemented_mean >= 101 && daydomain.days_implemented_mean <= 150,
+                          'mean120': daydomain.days_implemented_mean >= 151 && daydomain.days_implemented_mean <= 200,
+                          'mean130': daydomain.days_implemented_mean >= 201}">{{daydomain.days_implemented_mean}}</td>
+
+                    <td [ngClass]="{'count10': daydomain.days_rejected_count >= 1 && daydomain.days_rejected_count <= 10,
+                          'count20': daydomain.days_rejected_count >= 11 && daydomain.days_rejected_count <= 20,
+                          'count30': daydomain.days_rejected_count >= 21 && daydomain.days_rejected_count <= 30,
+                          'count40': daydomain.days_rejected_count >= 31 && daydomain.days_rejected_count <= 40,
+                          'count50': daydomain.days_rejected_count >= 41 && daydomain.days_rejected_count <= 50,
+                          'count60': daydomain.days_rejected_count >= 51 && daydomain.days_rejected_count <= 60,
+                          'count70': daydomain.days_rejected_count >= 61 && daydomain.days_rejected_count <= 70,
+                          'count80': daydomain.days_rejected_count >= 71 && daydomain.days_rejected_count <= 80,
+                          'count90': daydomain.days_rejected_count >= 81 && daydomain.days_rejected_count <= 90,
+                          'count100': daydomain.days_rejected_count >= 91 && daydomain.days_rejected_count <= 100,
+                          'count110': daydomain.days_rejected_count >= 101 && daydomain.days_rejected_count <= 150,
+                          'count120': daydomain.days_rejected_count >= 151 && daydomain.days_rejected_count <= 200,
+                          'count130': daydomain.days_rejected_count >= 201}">{{daydomain.days_rejected_count}}</td>
+
+                    <td [ngClass]="{'mean10': daydomain.days_rejected_mean >= 1 && daydomain.days_rejected_mean <= 10,
+                          'mean20': daydomain.days_rejected_mean >= 11 && daydomain.days_rejected_mean <= 20,
+                          'mean30': daydomain.days_rejected_mean >= 21 && daydomain.days_rejected_mean <= 30,
+                          'mean40': daydomain.days_rejected_mean >= 31 && daydomain.days_rejected_mean <= 40,
+                          'mean50': daydomain.days_rejected_mean >= 41 && daydomain.days_rejected_mean <= 50,
+                          'mean60': daydomain.days_rejected_mean >= 51 && daydomain.days_rejected_mean <= 60,
+                          'mean70': daydomain.days_rejected_mean >= 61 && daydomain.days_rejected_mean <= 70,
+                          'mean80': daydomain.days_rejected_mean >= 71 && daydomain.days_rejected_mean <= 80,
+                          'mean90': daydomain.days_rejected_mean >= 81 && daydomain.days_rejected_mean <= 90,
+                          'mean100': daydomain.days_rejected_mean >= 91 && daydomain.days_rejected_mean <= 100,
+                          'mean110': daydomain.days_rejected_mean >= 101 && daydomain.days_rejected_mean <= 150,
+                          'mean120': daydomain.days_rejected_mean >= 151 && daydomain.days_rejected_mean <= 200,
+                          'mean130': daydomain.days_rejected_mean >= 201}">{{daydomain.days_rejected_mean}}</td>
+
+                    <td [ngClass]="{'count10': daydomain.days_Verified_count >= 1 && daydomain.days_Verified_count <= 10,
+                          'count20': daydomain.days_Verified_count >= 11 && daydomain.days_Verified_count <= 20,
+                          'count30': daydomain.days_Verified_count >= 21 && daydomain.days_Verified_count <= 30,
+                          'count40': daydomain.days_Verified_count >= 31 && daydomain.days_Verified_count <= 40,
+                          'count50': daydomain.days_Verified_count >= 41 && daydomain.days_Verified_count <= 50,
+                          'count60': daydomain.days_Verified_count >= 51 && daydomain.days_Verified_count <= 60,
+                          'count70': daydomain.days_Verified_count >= 61 && daydomain.days_Verified_count <= 70,
+                          'count80': daydomain.days_Verified_count >= 71 && daydomain.days_Verified_count <= 80,
+                          'count90': daydomain.days_Verified_count >= 81 && daydomain.days_Verified_count <= 90,
+                          'count100': daydomain.days_Verified_count >= 91 && daydomain.days_Verified_count <= 100,
+                          'count110': daydomain.days_Verified_count >= 101 && daydomain.days_Verified_count <= 150,
+                          'count120': daydomain.days_Verified_count >= 151 && daydomain.days_Verified_count <= 200,
+                          'count130': daydomain.days_Verified_count >= 201}">{{daydomain.days_Verified_count}}</td>
+
+                    <td [ngClass]="{'mean10': daydomain.days_Verified_mean >= 1 && daydomain.days_Verified_mean <= 10,
+                          'mean20': daydomain.days_Verified_mean >= 11 && daydomain.days_Verified_mean <= 20,
+                          'mean30': daydomain.days_Verified_mean >= 21 && daydomain.days_Verified_mean <= 30,
+                          'mean40': daydomain.days_Verified_mean >= 31 && daydomain.days_Verified_mean <= 40,
+                          'mean50': daydomain.days_Verified_mean >= 41 && daydomain.days_Verified_mean <= 50,
+                          'mean60': daydomain.days_Verified_mean >= 51 && daydomain.days_Verified_mean <= 60,
+                          'mean70': daydomain.days_Verified_mean >= 61 && daydomain.days_Verified_mean <= 70,
+                          'mean80': daydomain.days_Verified_mean >= 71 && daydomain.days_Verified_mean <= 80,
+                          'mean90': daydomain.days_Verified_mean >= 81 && daydomain.days_Verified_mean <= 90,
+                          'mean100': daydomain.days_Verified_mean >= 91 && daydomain.days_Verified_mean <= 100,
+                          'mean110': daydomain.days_Verified_mean >= 101 && daydomain.days_Verified_mean <= 150,
+                          'mean120': daydomain.days_Verified_mean >= 151 && daydomain.days_Verified_mean <= 200,
+                          'mean130': daydomain.days_Verified_mean >= 201}">{{daydomain.days_Verified_mean}}</td>
+
+                    <td [ngClass]="{'count10': daydomain.days_complete_count >= 1 && daydomain.days_complete_count <= 10,
+                          'count20': daydomain.days_complete_count >= 11 && daydomain.days_complete_count <= 20,
+                          'count30': daydomain.days_complete_count >= 21 && daydomain.days_complete_count <= 30,
+                          'count40': daydomain.days_complete_count >= 31 && daydomain.days_complete_count <= 40,
+                          'count50': daydomain.days_complete_count >= 41 && daydomain.days_complete_count <= 50,
+                          'count60': daydomain.days_complete_count >= 51 && daydomain.days_complete_count <= 60,
+                          'count70': daydomain.days_complete_count >= 61 && daydomain.days_complete_count <= 70,
+                          'count80': daydomain.days_complete_count >= 71 && daydomain.days_complete_count <= 80,
+                          'count90': daydomain.days_complete_count >= 81 && daydomain.days_complete_count <= 90,
+                          'count100': daydomain.days_complete_count >= 91 && daydomain.days_complete_count <= 100,
+                          'count110': daydomain.days_complete_count >= 101 && daydomain.days_complete_count <= 150,
+                          'count120': daydomain.days_complete_count >= 151 && daydomain.days_complete_count <= 200,
+                          'count130': daydomain.days_complete_count >= 201}">{{daydomain.days_complete_count}}</td>
+
+                    <td [ngClass]="{'mean10': daydomain.days_complete_mean >= 1 && daydomain.days_complete_mean <= 10,
+                          'mean20': daydomain.days_complete_mean >= 11 && daydomain.days_complete_mean <= 20,
+                          'mean30': daydomain.days_complete_mean >= 21 && daydomain.days_complete_mean <= 30,
+                          'mean40': daydomain.days_complete_mean >= 31 && daydomain.days_complete_mean <= 40,
+                          'mean50': daydomain.days_complete_mean >= 41 && daydomain.days_complete_mean <= 50,
+                          'mean60': daydomain.days_complete_mean >= 51 && daydomain.days_complete_mean <= 60,
+                          'mean70': daydomain.days_complete_mean >= 61 && daydomain.days_complete_mean <= 70,
+                          'mean80': daydomain.days_complete_mean >= 71 && daydomain.days_complete_mean <= 80,
+                          'mean90': daydomain.days_complete_mean >= 81 && daydomain.days_complete_mean <= 90,
+                          'mean100': daydomain.days_complete_mean >= 91 && daydomain.days_complete_mean <= 100,
+                          'mean110': daydomain.days_complete_mean >= 101 && daydomain.days_complete_mean <= 150,
+                          'mean120': daydomain.days_complete_mean >= 151 && daydomain.days_complete_mean <= 200,
+                          'mean130': daydomain.days_complete_mean >= 201}">{{daydomain.days_complete_mean}}</td>
+
+                    <td [ngClass]="{'count10': daydomain.days_open_count >= 1 && daydomain.days_open_count <= 10,
+                          'count20': daydomain.days_open_count >= 11 && daydomain.days_open_count <= 20,
+                          'count30': daydomain.days_open_count >= 21 && daydomain.days_open_count <= 30,
+                          'count40': daydomain.days_open_count >= 31 && daydomain.days_open_count <= 40,
+                          'count50': daydomain.days_open_count >= 41 && daydomain.days_open_count <= 50,
+                          'count60': daydomain.days_open_count >= 51 && daydomain.days_open_count <= 60,
+                          'count70': daydomain.days_open_count >= 61 && daydomain.days_open_count <= 70,
+                          'count80': daydomain.days_open_count >= 71 && daydomain.days_open_count <= 80,
+                          'count90': daydomain.days_open_count >= 81 && daydomain.days_open_count <= 90,
+                          'count100': daydomain.days_open_count >= 91 && daydomain.days_open_count <= 100,
+                          'count110': daydomain.days_open_count >= 101 && daydomain.days_open_count <= 150,
+                          'count120': daydomain.days_open_count >= 151 && daydomain.days_open_count <= 200,
+                          'count130': daydomain.days_open_count >= 201}">{{daydomain.days_open_count}}</td>
+
+                    <td [ngClass]="{'mean10': daydomain.days_open_mean >= 1 && daydomain.days_open_mean <= 10,
+                          'mean20': daydomain.days_open_mean >= 11 && daydomain.days_open_mean <= 20,
+                          'mean30': daydomain.days_open_mean >= 21 && daydomain.days_open_mean <= 30,
+                          'mean40': daydomain.days_open_mean >= 31 && daydomain.days_open_mean <= 40,
+                          'mean50': daydomain.days_open_mean >= 41 && daydomain.days_open_mean <= 50,
+                          'mean60': daydomain.days_open_mean >= 51 && daydomain.days_open_mean <= 60,
+                          'mean70': daydomain.days_open_mean >= 61 && daydomain.days_open_mean <= 70,
+                          'mean80': daydomain.days_open_mean >= 71 && daydomain.days_open_mean <= 80,
+                          'mean90': daydomain.days_open_mean >= 81 && daydomain.days_open_mean <= 90,
+                          'mean100': daydomain.days_open_mean >= 91 && daydomain.days_open_mean <= 100,
+                          'mean110': daydomain.days_open_mean >= 101 && daydomain.days_open_mean <= 150,
+                          'mean120': daydomain.days_open_mean >= 151 && daydomain.days_open_mean <= 200,
+                          'mean130': daydomain.days_open_mean >= 201}">{{daydomain.days_open_mean}}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+
+    <div class="col-12 float-left pt-2 pb-5 chart_sel" [class]="fullScreenFlag? 'fullscreen-width':''">
+        <div class="brd_div">
+            <h4 class="mb-0 p-2 header">
+                <i class="fa fa-bar-chart pr-1" aria-hidden="true"></i>Days by Domain
+            </h4>
+            <div class="drop_down">
+                <div class=""><span>Domain</span>
+                    <mat-form-field class="mt-1">
+                        <mat-select #selectDomains multiple [(ngModel)]="preSelectedList" [matTooltip]="preSelectedList" [formControl]="bankMultiCtrl1" placeholder="{{preSelectedList}}">
+                            <ng-container>
+                                <mat-option class="mat_opt" (click)="toggleAllDomain($event)" value="all">
+                                    Select All
+                                </mat-option>
+                            </ng-container>
+                            <ng-container *ngFor="let platform of domainList1">
+                                <mat-option (click)="selectDomain($event)" name="trades" [value]="platform.domain">
+                                    {{platform.domain}}
+                                </mat-option>
+                            </ng-container>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="mt-1">
+                   <button type="button" class="filter_btn btn btn-primary" [matMenuTriggerFor]="menu"><i class="fa fa-filter" aria-hidden="true" ></i> Status</button>
+                    <mat-menu #menu="matMenu" [hasBackdrop]="false">
+                        <ng-container>
+                          <h2 mat-dialog-title class="popup_header" >Status</h2>
+                          <mat-dialog-content class="pl-0 mb-3 selectAll">
+                            <mat-checkbox class="example-margin" [(ngModel)]="isStatusSelectedAll" (change)="statusSelectedAll()"
+                              (click)="$event.stopPropagation();">Select All</mat-checkbox><br>
+                          </mat-dialog-content>
+                          <mat-dialog-content *ngFor="let item of statusList">
+                            <mat-checkbox class="example-margin" [(ngModel)]="item.checked" (change)="changeStatusSelected()" (click)="$event.stopPropagation();">
+                              {{item.status}}</mat-checkbox><br>
+                          </mat-dialog-content>
+                          <mat-dialog-actions>
+                            <div class="row">
+                              <div class="col-6 mt-0 text-right pr-2"><button class="mat-raised-button bg_btn"
+                                  (click)="menu.Closed()">Close</button></div>
+                              <div class="col-6 mt-0 text-left pl-0"><button class="mat-raised-button mat-primary bg_btn1"
+                                  (click)="columnGlobalFilter('status')">Apply</button></div>
+                            </div>
+                          </mat-dialog-actions>
+                        </ng-container>
+                      </mat-menu>
+                    <!-- <mat-form-field class="mt-1">
+                        <mat-select #selectStatus multiple [(ngModel)]="preSelectedListstatus" [matTooltip]="preSelectedListstatus" [formControl]="bankMultiCtrl2" placeholder="{{preSelectedListstatus}}">
+                            <ng-container>
+                                <mat-option (click)="toggleAllStatus($event)" value="all">
+                                    Select All
+                                </mat-option>
+                            </ng-container>
+                            <ng-container *ngFor="let platform of statusList">
+                                <mat-option (click)="Selectstatus($event)" name="trades" [value]="platform.status">
+                                    {{platform.status}}
+                                </mat-option>
+                            </ng-container>
+                        </mat-select>
+                    </mat-form-field> -->
+                </div>
+                <div class="mt-1">
+                    <button type="button" class="filter_btn btn btn-primary" [matMenuTriggerFor]="menu1"><i class="fa fa-filter" aria-hidden="true" ></i> Exposure</button>
+                    <mat-menu #menu1="matMenu" [hasBackdrop]="false">
+                        <ng-container>
+                          <h2 mat-dialog-title class="popup_header">Exposure</h2>
+                          <mat-dialog-content class="pl-0 mb-3 selectAll">
+                            <mat-checkbox class="example-margin" [(ngModel)]="isExposureSelectedAll" (change)="exposureSelectedAll()" (click)="$event.stopPropagation();">Select All</mat-checkbox><br>
+                          </mat-dialog-content>
+                          <mat-dialog-content *ngFor="let item of exposureList">
+                            <mat-checkbox class="example-margin" [(ngModel)]="item.checked" (change)="changeExposureSelected()" (click)="$event.stopPropagation();">
+                              {{item.exposure}}</mat-checkbox><br>
+                          </mat-dialog-content>
+                          <mat-dialog-actions>
+                            <div class="row">
+                              <div class="col-6 mt-0 text-right pr-2"><button class="mat-raised-button bg_btn"
+                                   (click)="menu.Closed()">Close</button></div>
+                              <div class="col-6 mt-0 text-left pl-0"><button class="mat-raised-button mat-primary bg_btn1"
+                                  (click)="columnGlobalFilter('exposure')">Apply</button></div>
+                            </div>
+                          </mat-dialog-actions>
+                        </ng-container>
+                      </mat-menu>
+                    <!-- <mat-form-field class="mt-1">
+                        <mat-select #selectExposure multiple [(ngModel)]="preSelectedListexposure" [matTooltip]="preSelectedListexposure" [formControl]="bankMultiCtrl3" placeholder="{{preSelectedListexposure}}">
+                            <ng-container>
+                                <mat-option (click)="toggleAllExposure($event)" value="all">
+                                    Select All
+                                </mat-option>
+                            </ng-container>
+                            <ng-container *ngFor="let platform of exposureList">
+                                <mat-option (click)="selectexposure($event)" name="trades" [value]="platform.exposure">
+                                    {{platform.exposure}}
+                                </mat-option>
+                            </ng-container>
+                        </mat-select>
+                    </mat-form-field> -->
+                </div>
+                <mat-icon class="mr-2 float-right fullscreen"  (click)="getfullScreen()">
+                    fullscreen</mat-icon>
+                    <div class="text-right pop_btn_critic"><button matTooltipClass="example-tooltip-red" matTooltip="formula" type="button" class="info_btn" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                      </button>
+                    </div>
+            </div>
+        </div>
+        <div class="chart_style" id=chartdiv></div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" id="exampleModalLabel">Days by domain formula:</h2>
+              <button type="button" class="close close_btn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row mx-0">
+                <div class="col-4 text-center txt_header">
+                       <h4>Days_decimal_triage</h4>
+                </div>
+                <div class="col-8 text-left txt_body">
+                    <p>Calculation - Days_decimal_triage All Data from HSDES</p>
+                    <p><b>Count</b> - count(days_decimal_triage)</p>
+                    <p><b>Mean</b> - sum(days_decimal_triage)/count(days_decimal_triage)</p>
+                </div>
+              </div>
+              <div class="row mx-0">
+                <div class="col-4 text-center txt_header">
+                       <h4>Days_implemented</h4>
+                </div>
+                <div class="col-8 text-left txt_body">
+                    <p>Calculation -  Submitted_date – Implemented_date</p>
+                    <p><b>Count</b> - count(implemented_date)</p>
+                    <p><b>Mean</b> - sum(implemented_date)*1.00/count(implemented_date)</p>
+                </div>
+              </div>
+              <div class="row mx-0">
+                <div class="col-4 text-center txt_header">
+                       <h4>Days_verified</h4>
+                </div>
+                <div class="col-8 text-left txt_body">
+                    <p>Calculation - Submitted_date – Verified_date</p>
+                    <p><b>Count</b> - count(verified_date)</p>
+                    <p><b>Mean</b> - sum(verified_date)*1.00/count(verified_date)</p>
+                </div>
+              </div>
+              <div class="row mx-0">
+                <div class="col-4 text-center txt_header">
+                       <h4>Days_complete</h4>
+                </div>
+                <div class="col-8 text-left txt_body">
+                    <p>Calculation - Submitted_date – Closed_date & Status - complete</p>
+                    <p><b>Count</b> -  count(closed_date)</p>
+                    <p><b>Mean</b> - sum(closed_date)*1.00/count(closed_date)</p>
+                </div>
+              </div>
+              <div class="row mx-0">
+                <div class="col-4 text-center txt_header">
+                       <h4>Days_rejected</h4>
+                </div>
+                <div class="col-8 text-left txt_body">
+                    <p>Calculation - Submitted_date – Closed_date & Status - rejected</p>
+                    <p><b>Count</b> - count(closed_date)</p>
+                    <p><b>Mean</b> - sum(closed_date)*1.00/count(closed_date)</p>
+                </div>
+              </div>
+              <div class="row mx-0">
+                <div class="col-4 text-center txt_header1">
+                       <h4>Days_open</h4>
+                </div>
+                <div class="col-8 text-left txt_body1">
+                    <p>Calculation - Days_open All Data from HSDES</p>
+                    <p><b>Count</b> - count(Days_open)</p>
+                    <p><b>Mean</b> - sum(Days_open)*1.00/count(Days_open)</p>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+</div>

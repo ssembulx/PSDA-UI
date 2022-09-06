@@ -1,0 +1,161 @@
+<div class="text-center program" *ngIf="router.url != '/'">
+    <h2>SELECT PROGRAM</h2>
+</div>
+<div class="landing-page" *ngIf="router.url != '/'">
+    <div class="row1">
+        <div class="cardSpace" *ngFor="let platform of platformList">
+            <div class="circle_div text-center text-uppercase d-block">
+                <div class="d-block prog_btn"><button class="platform_txt" (click)="platformRoute(platform.programName)" [routerLink]="['/home']" (selectionChange)="platformChange($event.value)">{{platform.programName}}</button></div>
+                <div class="mt-1" *ngIf="router.url != '/'">
+                    <span class="add px-1" data-toggle="tooltip" title="Edit Query" (click)="platformEdit(platform.programName)"><i class="fa fa-pencil-square-o pr-1" aria-hidden="true"></i>Edit</span>
+                    <span class="remove px-1" data-toggle="tooltip" title="Remove Query" (click)="platformRemove(platform.programName)"><i class="fa fa-trash pr-1" aria-hidden="true"></i>Remove</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid custom-width mt-4" *ngIf="router.url == '/'">
+    <div class="col-12 float-left mb-2">
+        <ng-container>
+            <div class="chart-wrapper-title">
+                <div class="row  ml-3">
+                    <div class="col-5 p-0">
+                        <div class="captions">
+                            <i class="fa fa-bar-chart" aria-hidden="true" style="color: #9eacb4;font-size: 22px;margin-top: -1px;"></i>
+                            <span class="chart-header"> Introduction </span>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="download-block p-3" style="padding-top: 0rem!important;">
+                    <div class="intro">
+                        Sighting indicators and SysDebug aid for platforms that are under execution by SIV.
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <!--  <div class="col-12 float-left mb-2">
+        <ng-container>
+            <div class="chart-wrapper-title">
+                <div class="row  mr-3 ml-3">
+                    <div class="col-5 p-0">
+                        <div class="captions">
+                            <i class="fa fa-bar-chart" aria-hidden="true" style="color: #9eacb4;font-size: 22px;margin-top: -1px;"></i>
+                            <span class="chart-header"> Terminologies </span>
+                        </div>
+                    </div>
+                    <div class="col-7 p-0">
+                        <div class="float-right mt_8">
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="download-block p-3" style="padding-top: 0rem!important;">
+                    <table class="table table-bordered mb-0 home-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col" class="col-2">Chart Name</th>
+                                <th scope="col" class="col-5">Definition</th>
+                                <th scope="col" class="col-5">How to compute</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Open/Closed Trend Chart</td>
+                                <td>This chart is used to show the different counts for exposure wise Submitted count , Closed count , Cumulative Submitted Sightings, Cumulative closed Sightings and Cumulative open count
+                                </td>
+                                <td>Submitted Count value for the HSD-ES record which is in ISNULL submitted_date not equal to Empty. Closed Count value for the HSD-ES record which is ISNULL Closed_date not equal to Empty AND Status Complete & rejected Cummulative
+                                    Submitted Count value for sum of the submittedCount Cummulative Closed Count value for sum of the ClosedCount Cummulative Open Count value for sum of the submitted Count - sum of theClosedCount
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Open Sightings By Domain and Exposure</td>
+                                <td>This chart is used to show domain wise count for critical, high, medium and low exposure.
+                                </td>
+                                <td>We compute this graph by using status is open and exposure filter is critical, high, medium and low</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Domain - Defects Vs Regression By Components</td>
+                                <td>This graph is used to show the comparison between defects and Regression for ingredients
+                                </td>
+                                <td>We compute this graph by using defect in status complete and verified. Regression in status complete and verified and Regression is yes
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td>Open Sightings By Ingredient and Exposure</td>
+                                <td>This chart is used to show Ingredient wise count for critical, high, medium and low exposure.
+                                </td>
+                                <td>We compute this graph by using exposure filter is critical, high, medium and low</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">5</th>
+                                <td>Trend Chart by domain</td>
+                                <td>This chart is used to show the different counts for domain wise Submitted count, Closed count and Cumulative open count
+                                </td>
+                                <td>Submitted Count value for the HSD-ES record which is in ISNULL submitted_date not equal to Empty. Closed Count value for the HSD-ES record which is ISNULL Closed_date not equal to Empty AND Status Complete & rejected Cummulative
+                                    Open Count value for sum of the submitted Count - sum of theClosedCount
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </ng-container>
+    </div> -->
+    <div class="col-12 float-left mb-2">
+        <ng-container>
+            <div class="chart-wrapper-title mb-5">
+                <div class="row  mr-3 ml-3">
+                    <div class="col-5 p-0">
+                        <div class="captions">
+                            <i class="fa fa-eye fa-2x" style="color: #9eacb4;font-size: 22px;margin-top: -1px;"></i>
+                            <span class="chart-header"> User View Details </span>
+                            <!--  <span class="chart-header" style="font-size: 15px;"> ( Data Source: HSDES )</span> -->
+                        </div>
+                    </div>
+                    <div class="col-7 p-0">
+                        <div class="float-right mt_8">
+                            <!--    <i class="fas fa-info-circle filter-color  mr-3 mt-1" matTooltip="Info" (click)="openLg(content)" aria-hidden="true"></i> -->
+                            <!--  <i (click)="getfullScreen()" [matTooltip]="fullScreenFlag? ' Exit fullscreen':'Fullscreen'" class="fas fa-expand filter-color mt-1" matTooltip="Full Screen" aria-hidden="true"></i> -->
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="download-block p-3" style="padding-top: 0rem!important;">
+                    <table class="table table-bordered mb-0 home-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col" class="col-3">Chart Name</th>
+                                <th scope="col" class="col-3">User Count</th>
+                                <th scope="col" class="col-3">Current Month Hit</th>
+                                <th scope="col" class="col-3">Total View</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of userviewDetails;let i=index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{user.chartName}}</td>
+                                <td>{{user.usercount}}</td>
+                                <td>{{user.currentMonthhit}}</td>
+                                <td>{{user.totalView}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

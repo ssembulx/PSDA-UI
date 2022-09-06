@@ -1,0 +1,26 @@
+.footerelement.style {
+    background-image: linear-gradient(to top, #000000b0, #8181810f);
+    z-index: 99;
+    background-color: #0e5e9a;
+}
+
+.page-footer {
+    background-color: #2a5980;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-image: linear-gradient(to top, #000000b0, #8181810f);
+    z-index:99;
+    background-color:#0e5e9a;
+}
+
+.page-footer .page-footer-inner {
+    color: #bbcccd;
+    margin-left: 10px;
+    padding: 5px;
+}
+
+.page-footer .page-footer-inner {
+    display: inline-block;
+}

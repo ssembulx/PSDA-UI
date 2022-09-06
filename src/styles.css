@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+    font: 400 15x/20px Roboto, Helvetica Neue, sans-serif !important;
+    font-family: Intel Clear, tahoma, Helvetica, Arial, sans-serif !important;
+}
+
+body {
+    margin: 0;
+}
+
+@import "~angular-notifier/styles";

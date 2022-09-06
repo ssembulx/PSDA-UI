@@ -1,0 +1,45 @@
+.dob_input{
+    width: 190px;
+    position: absolute;
+    top: -10px;
+    left: 110px;
+}
+.milestone_input{
+    width: 190px;
+    position: absolute;
+    top: -10px;
+    left: 145px;
+}
+.trend_input{
+    width:250px;
+    position: absolute;
+    top: -10px;
+    left: 380px;
+}
+.trend_input{
+    width:250px;
+    position: absolute;
+    top: -10px;
+    left: 380px;
+}
+label{
+    font-weight: 500;
+}
+.program{
+    background-color: lightgray;
+    font-size: 30px;
+    margin-top:0px;
+  }
+  .form-group input{
+      background-color: #f1f2f5;
+      border: 1px solid gray;
+      border-radius: 25px;
+  }
+.div_brd{
+    border-top: 2px solid #3498db;
+}
+.form_select{
+    border-radius: 30px;
+    border: 1px solid #000;
+    background-color: #f1f2f5;
+}

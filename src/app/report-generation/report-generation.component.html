@@ -1,0 +1,305 @@
+<div class="text-center program"><h2>Config for Generating Report</h2></div>
+<div class="container pb-5">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <form [formGroup]="myform" (ngSubmit)="onSubmit(myform.value)">
+          <div class="form-group d-none"
+            [ngClass]="{'has-error': !formData.operation.valid && formData.operation.touched}">
+            <label>operations</label>
+            <input type="text" class="form-control" name="operation" formControlName="operation"
+              [(ngModel)]="this.operation" />
+            <div *ngIf="formData.operation.touched && formData.operation.errors" class="mt_div" >
+              <div class="alert alert-danger" *ngIf="formData.operation.errors.required">
+                The operations is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group d-none"
+            [ngClass]="{'has-error': !formData.moduleID.valid && formData.moduleID.touched}">
+            <label>moduleID</label>
+            <input type="text" class="form-control" name="moduleID" formControlName="moduleID"
+              [(ngModel)]="this.moduleID" />
+            <div *ngIf="formData.moduleID.touched && formData.moduleID.errors" class="mt_div">
+              <div class="alert alert-danger" *ngIf="formData.moduleID.errors.required">
+                The moduleID is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': !formData.query_for_config_gen.valid && formData.query_for_config_gen.touched}">
+            <label>Query used for Generating the Report(To be Auto-generated)</label>
+            <input type="text" class="form-control" name="query_for_config_gen" formControlName="query_for_config_gen" [(ngModel)]="this.query_for_config_gen"/>
+            <div *ngIf="formData.query_for_config_gen.touched && formData.query_for_config_gen.errors" class="mt_div">
+              <div class="alert alert-danger" *ngIf="formData.query_for_config_gen.errors.required">
+                The Query is required
+              </div>
+            </div>
+          </div>
+          <div class="form-group"
+            [ngClass]="{'has-error': !formData.query_for_report_gen.valid && formData.query_for_report_gen.touched}">
+          <label>Enter the Query to be given to the End user in the Report</label>
+          <input type="text" class="form-control" name="query_for_report_gen" formControlName="query_for_report_gen" [(ngModel)]="this.query_for_report_gen"/>
+          <div *ngIf="formData.query_for_report_gen.touched && formData.query_for_report_gen.errors" class="mt_div">
+            <div class="alert alert-danger" *ngIf="formData.query_for_report_gen.errors.required">
+              The QRC Query required
+            </div>
+          </div>
+        </div>
+        <div class="container px-0">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group"[ngClass]="{'has-error': !formData.platform_name.valid && formData.platform_name.touched}">
+                        <label>Program Name</label>
+                        <input type="text" class="form-control" name="platform_name" formControlName="platform_name" [(ngModel)]="this.platform_name" />
+                        <div *ngIf="formData.platform_name.touched && formData.platform_name.errors" class="mt_div">
+                            <div class="alert alert-danger" *ngIf="formData.platform_name.errors.required">
+                                The Program Name is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group"[ngClass]="{'has-error': !formData.report_name.valid && formData.report_name.touched}">
+                        <label>Enter Report Name</label>
+                        <input type="text" class="form-control" name="report_name" formControlName="report_name" [(ngModel)]="report_name" />
+                        <div *ngIf="formData.report_name.touched && formData.report_name.errors" class="mt_div">
+                            <div class="alert alert-danger" *ngIf="formData.report_name.errors.required">
+                                The report_name is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container px-0">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group"[ngClass]="{'has-error': !formData.Title.valid && formData.Title.touched}">
+                        <label>Enter Report Title</label>
+                        <input type="text" class="form-control" name="Title" formControlName="Title" [(ngModel)]="this.Title" />
+                        <div *ngIf="formData.Title.touched && formData.Title.errors" class="mt_div">
+                            <div class="alert alert-danger" *ngIf="formData.Title.errors.required">
+                                The report_title is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group"
+                    [ngClass]="{'has-error': !formData.power_bi_link.valid && formData.power_bi_link.touched}">
+                    <label>Power BI URL</label>
+                    <input type="text" class="form-control" name="power_bi_link" formControlName="power_bi_link" [(ngModel)]="this.power_bi_link"/>
+                    <div *ngIf="formData.power_bi_link.touched && formData.power_bi_link.errors" class="mt_div">
+                      <div class="alert alert-danger" *ngIf="formData.power_bi_link.errors.required">
+                        The Power BI url is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pl-3 pt-2 pt-md-4"><label>Sightings Summary Table</label>
+            <div class="form-check pl-5">
+                <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="power_bi_summary_table" formControlName="power_bi_summary_table" value="true" >
+                Add Power_bi_screenshot
+                </label>
+            </div>
+            <div class="form-check pl-5">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="generated_summary_table"  formControlName="generated_summary_table" value="true" checked>
+                Generated Summary Table
+                </label>
+            </div>
+        </div>
+        <div class="row pl-3 pt-2 pb-md-4"><label>Sightings Summary Trend</label>
+            <div class="form-check pl-5">
+                <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="power_bi_summary_trend" formControlName="power_bi_summary_trend" value="true" >
+                Add Power_bi_screenshot
+                </label>
+            </div>
+            <div class="form-check pl-5">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="generated_summary_trend"  formControlName="generated_summary_trend" value="true" checked>
+                Generated Summary Trend
+                </label>
+            </div>
+            <div class="form-check" [ngClass]="{'has-error': !formData.trend_start_date.valid && formData.trend_start_date.touched}">
+                <label>Start Date in</label>
+                <input type="date" class="form-control dob_input" name="trend_start_date" formControlName="trend_start_date"/>
+                <div *ngIf="formData.trend_start_date.touched && formData.trend_start_date.errors" style="margin-top:10px">
+                    <div class="alert alert-danger" *ngIf="formData.trend_start_date.errors.required">
+                        The trend start data is required
+                    </div>         
+                </div>
+            </div>
+        </div>
+        <div class="container px-0 py-3 py-md-4">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group" [ngClass]="{'has-error': !formData.qrc_by_target_list.valid && formData.qrc_by_target_list.touched}">
+                      <label>Enter the Milestone</label>
+                      <input type="text" class="form-control milestone_input" name="qrc_by_target_list" formControlName="qrc_by_target_list" [(ngModel)]="this.qrc_by_target_list"/>
+                      <div *ngIf="formData.qrc_by_target_list.touched && formData.qrc_by_target_list.errors" class="mt_div">
+                        <div class="alert alert-danger" *ngIf="formData.qrc_by_target_list.errors.required">
+                            The Milestone is required
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group"  [ngClass]="{'has-error': !formData.qrc_by_milestone_table.valid && formData.qrc_by_milestone_table.touched}">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="qrc_by_milestone_table" formControlName="qrc_by_milestone_table">
+                            Qrc by Milestone table
+                          </label>
+                        </div>
+                            <div *ngIf="formData.qrc_by_milestone_table.touched && formData.qrc_by_milestone_table.errors" style="margin-top:10px">
+                              <div class="alert alert-danger" *ngIf="formData.qrc_by_milestone_table.errors.required">
+                                The Qrc by Milestone table is required
+                              </div>         
+                            </div>
+                      </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group"  [ngClass]="{'has-error': !formData.high_open_by_qrc_vector.valid && formData.high_open_by_qrc_vector.touched}">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="high_open_by_qrc_vector" formControlName="high_open_by_qrc_vector">
+                            High QRC by Milestone Table
+                          </label>
+                        </div>
+                            <div *ngIf="formData.high_open_by_qrc_vector.touched && formData.high_open_by_qrc_vector.errors" style="margin-top:10px">
+                              <div class="alert alert-danger" *ngIf="formData.high_open_by_qrc_vector.errors.required">
+                                High QRC by Milestone Table is required
+                              </div>         
+                            </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+        <div class="container px-0">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group"  [ngClass]="{'has-error': !formData.No_of_keyIngredients.valid && formData.No_of_keyIngredients.touched}">
+                        <label for="exampleSelect1">Select Number for Top key Ingredients</label>
+                        <select class="form-control form_select" name="No_of_keyIngredients" formControlName="No_of_keyIngredients">
+                            <option value="">number</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                         <div *ngIf="formData.No_of_keyIngredients.touched && formData.No_of_keyIngredients.errors" style="margin-top:10px">
+                            <div class="alert alert-danger" *ngIf="formData.No_of_keyIngredients.errors.required">
+                              The key ingredients is required
+                            </div>
+                          </div>
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'has-error': !formData.n_lines_of_sysdebug_forum.valid && formData.n_lines_of_sysdebug_forum.touched}">
+                        <label>Select the number of lines for #sysdebug_forum</label>
+                        <input type="text" class="form-control" name="n_lines_of_sysdebug_forum" formControlName="n_lines_of_sysdebug_forum" [(ngModel)]="this.n_lines_of_sysdebug_forum"/>
+                        <div *ngIf="formData.n_lines_of_sysdebug_forum.touched && formData.n_lines_of_sysdebug_forum.errors" class="mt_div">
+                            <div class="alert alert-danger" *ngIf="formData.n_lines_of_sysdebug_forum.errors.required">
+                                The Power BI url is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container px-0 pb-md-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'has-error': !formData.n_key_ingredients.valid && formData.n_key_ingredients.touched}">
+                        <label>Select number of Ingredients for n_key_ingredients graph</label>
+                        <input type="text" class="form-control" name="n_key_ingredients" formControlName="n_key_ingredients" [(ngModel)]="this.n_key_ingredients"/>
+                        <div *ngIf="formData.n_key_ingredients.touched && formData.n_key_ingredients.errors" class="mt_div">
+                            <div class="alert alert-danger" *ngIf="formData.n_key_ingredients.errors.required">
+                                The Power BI url is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'has-error': !formData.no_los_n_key_ingredients.valid && formData.no_los_n_key_ingredients.touched}">
+                        <label>Select number of Ingredients for NO LOS Graphs</label>
+                        <input type="text" class="form-control" name="no_los_n_key_ingredients" formControlName="no_los_n_key_ingredients" [(ngModel)]="this.no_los_n_key_ingredients"/>
+                        <div *ngIf="formData.no_los_n_key_ingredients.touched && formData.no_los_n_key_ingredients.errors" class="mt_div">
+                            <div class="alert alert-danger" *ngIf="formData.no_los_n_key_ingredients.errors.required">
+                                The Power BI url is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container px-0">
+            <div><h3>Weekly Report:</h3></div>
+            <div class="row pt-md-5 div_brd">
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="mmf_indicator" formControlName="mmf_indicator" value="true">
+                            Milestone must fix trend indicator
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="form-group" [ngClass]="{'has-error': !formData.milestone_for_mmf.valid && formData.milestone_for_mmf.touched}">
+                        <label>Enter the Milestone for Milestone Must fix trend indicator</label>
+                        <input type="text" class="form-control trend_input" name="milestone_for_mmf" formControlName="milestone_for_mmf" [(ngModel)]="this.milestone_for_mmf"/>
+                        <div *ngIf="formData.milestone_for_mmf.touched && formData.milestone_for_mmf.errors" class="mt_div">
+                            <div class="alert alert-danger" *ngIf="formData.milestone_for_mmf.errors.required">
+                                The Milestone is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group" [ngClass]="{'has-error': !formData.milestone_start_date.valid && formData.milestone_start_date.touched}">
+                        <label>Milestone start date in yyy-mm-dd</label>
+                        <input type="text" class="form-control" name="milestone_start_date" formControlName="milestone_start_date" [(ngModel)]="this.milestone_start_date"/>
+                        <div *ngIf="formData.milestone_start_date.touched && formData.milestone_start_date.errors" class="mt_div">
+                            <div class="alert alert-danger" *ngIf="formData.milestone_start_date.errors.required">
+                                The Milestone is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                  <div class="form-group" [ngClass]="{'has-error': !formData.email_to_send.valid && formData.email_to_send.touched}">
+                      <label>Email</label>
+                      <input type="text" class="form-control" name="email_to_send" formControlName="email_to_send" [(ngModel)]="this.email_to_send"/>
+                      <div *ngIf="formData.email_to_send.touched && formData.email_to_send.errors" class="mt_div">
+                          <div class="alert alert-danger" *ngIf="formData.email_to_send.errors.required">
+                              The Email is required
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,15 @@
+::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: rgb(89, 170, 236);
+}
+::ng-deep .cdk-overlay-dark-backdrop {
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  height: 100%;
+}
+.loading_text{
+    margin-top: 120px;
+    color:#0071c5;
+    font-size: 20px;
+    font-weight: 300;
+    margin-left:10px;
+}

@@ -1,0 +1,155 @@
+<section class="header-top">
+    <div class="header-wrapper">
+        <div class="brand-text">
+            <h3>Platform Sysdebug Assist</h3>
+        </div>
+        <div class="left-header">
+            <div class="jarvis-logo">
+                <a href="/" routerlink="/" ng-reflect-router-link="/">
+                    <img alt="logo" class="jarvis-logo__brand" src="./assets/image/Siv_white.png">
+                </a>
+            </div>
+        </div>
+        <div class="right-header1">
+            <div class="user-section version-heading"><img [src]="avatarurl" class="avatar" alt="user image" onerror="this.src='https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png';">
+                <p id="username">{{name}}</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+<section class="second-header">
+    <div class="text-width-left text-center">
+
+        <a [routerLink]="['/']" class="top-link-text" (click)="goHome()">Home</a>
+        <a [routerLinkActive]="['active']" [routerLink]="['/query']" (click)="platformAdd()" class="top-link-text">Add Query</a>
+
+        <!-- <div > -->
+        <!-- <a  *ngIf="router.url != '/'" [routerLinkActive]="['active']" [routerLink]="['/report']" (click)="report()" class="top-link-text">Report Generation</a> -->
+        <!-- </div> -->
+        <!-- <div  *ngIf="router.url != '/admin'"> -->
+        <!-- <div class="col-2 top-link-text1" *ngIf="!(router.url === '/' || router.url === '/query?operation=AddQuery' ||  router.url === '/admin' || router.url === '/ingredient_mapped')" >
+                    <span >
+                    <mat-select [(value)]="selectedPlatform"(selectionChange)="platformChange($event.value)" placeholder="">
+                        <mat-option class="text-uppercase mat_option"  *ngFor="let platform of ddList" [value]="platform.programName">
+                        {{platform.programName}}
+                        </mat-option>
+                    </mat-select>  
+                    </span>
+                </div> -->
+        <div class="col-2 top-link-text1">
+            <span> 
+                    <mat-select [(value)]="selectedPlatform" (selectionChange)="platformChange($event.value)" placeholder="Select Program" >
+                        <mat-option class="text-uppercase mat_option"  *ngFor="let platform of ddList" [value]="platform.programName" >
+                        {{platform.programName}}
+                        </mat-option>
+                        <!-- <div class="mt-1" *ngIf="router.url != '/'">
+                            <span class="add px-1" data-toggle="tooltip" title="Edit Query" (click)="platformEdit(platform.programName)"><i class="fa fa-pencil-square-o pr-1" aria-hidden="true"></i>Edit</span>
+            <span class="remove px-1" data-toggle="tooltip" title="Remove Query" (click)="platformRemove(platform.programName)"><i class="fa fa-trash pr-1" aria-hidden="true"></i>Remove</span>
+        </div> -->
+        </mat-select>
+        </span>
+
+    </div>
+    <div class="dropdown d-flex">
+        <button class="dropdown_btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Component Mapping <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </button>
+        <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
+            <a (click)="tableDetails(1)" class="dropdown-item">Component Mapped</a>
+            <a (click)="tableDetails1(1)" class="dropdown-item">Component Unmapped</a>
+        </div>
+    </div>
+    <!-- </div> -->
+    </div>
+    <div class="text-width-right text-left pt-1">
+        <div class="time_div" style="display:inline">
+            <span class="pr-2 time_stamp" *ngIf="!(router.url === '/' || router.url === '/query?operation=AddQuery' ||  router.url === '/admin' || router.url === '/ingredient_mapped')"><span>Updated on: {{timelog}}</span></span>
+            <span>Version 1.0 <i aria-hidden="true" (click)="openReleaseNotes()" data-toggle="modal" data-target="#releaseInfo" class="fa fa-question-circle" style="padding-left: 2px; cursor: pointer;"></i>
+               
+            </span>
+        </div>
+        <span class="dropdown d-flex float-right">
+            <button class="dropdown_btn dropdown-toggle pl-0" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-cogs" aria-hidden="true" style="padding-left: 5px; cursor: pointer;"></i>
+                        </button>
+            <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton" style="right: 0;left: unset;">
+                <a (click)="refreshPage()" class="dropdown-item">Refresh</a>
+                <!-- <a (click)="tableDetails1(1)" class="dropdown-item">Component Unmapped</a> -->
+            </div>
+        </span>
+    </div>
+
+
+</section>
+
+<!-- <section class="second-header">
+    <div class="text-width-left text-center">
+         <div class="row text-center"> 
+            <div class="">
+                <a [routerLink]="['/']" class="top-link-text">Home</a>
+            </div>
+            <div class="">
+                <a [routerLink]="['/query']" (click)="platformAdd()" class="top-link-text">Add Query</a>
+            </div>
+            <div class="col-2" *ngIf="router.url != '/'" >
+                <span *ngIf="router.url != '/report'">
+                <mat-select [(value)]="selectedPlatform"(selectionChange)="platformChange($event.value)" placeholder="">
+                    <mat-option class="text-uppercase mat_option"  *ngFor="let platform of ddList" [value]="platform.programName">
+                      {{platform.programName}}
+                    </mat-option>
+                  </mat-select>  
+                </span>
+            </div>
+            <div class="" *ngIf="router.url != '/'">
+                <a [routerLink]="['/report']" (click)="report()" class="top-link-text">Report Generation</a>
+            </div>
+         </div> 
+    </div>
+    <div class="text-width-right text-center">
+        <div class="time_div">
+            <span class="pr-2" *ngIf="router.url != '/'"><span *ngIf="router.url != '/admin'">Updated on: {{timelog}}<span class="pl-2"> | </span></span></span>
+            <span>Version 1.0 </span>
+        </div>
+    </div>
+</section> -->
+
+<div class="modal fade" id="releaseInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalLabel">Release Notes</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+            </div>
+            <div class="modal-body" style="padding: 10px 42px;">
+                <ng-container *ngFor="let item of releaseNote">
+                    <h4 class="header-version-modal"> {{item.version}}</h4>
+                    <p style="font-size: 14px;"> {{item.releaseDate}}</p>
+                    <ul style="line-height: 3em;">
+                        <li style="font-size: 14px;word-break: break-all;    list-style: disc;height: auto;border: none;" *ngFor="let ite of item.releaseIteam"> {{ite}}</li>
+                    </ul>
+                </ng-container>
+                <ng-container>
+                    <h4 class="header-version-modal">Technology used</h4>
+                    <!-- <p style="font-size: 14px;"> {{item.releaseDate}}</p> -->
+                    <ul style="line-height: 3em;">
+                        <li style="font-size: 14px;   list-style: disc;height: auto;border: none;">
+                            {{link[0]}}
+                            <a href="{{link[1]}}" target="_blank">{{link[1]}} </a>
+                        </li>
+                        <ng-container *ngFor="let item of techInfo;let i = index">
+                            <li style="font-size: 14px;   list-style: disc;height: auto;border: none;" *ngIf="i !=0">
+                                {{item.technologyInfo}}
+                            </li>
+                        </ng-container>
+                    </ul>
+                </ng-container>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

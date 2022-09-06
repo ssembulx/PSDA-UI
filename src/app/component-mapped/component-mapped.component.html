@@ -1,0 +1,472 @@
+<div class="kt-content">
+    <div class="col-12 mt-2 px-2">
+        <div class="portlet box blue-hoki">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class="fa fa-link"></i> <a class="tableHeadertext">
+                &nbsp; &nbsp;<strong>Component Mapped</strong>
+              </a>
+            <div class="d-flex flex-row-reverse bd-highlight">
+              <div class="p-0 bd-highlight mr-3 ml_div d-none">
+                <a class="exp_excel" (click)="exportexcel()">
+                  <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true"
+                    data-mat-icon-type="font"> cloud_download</mat-icon>
+                </a>
+                <div class="col-sm-4 col-xs-4 searchBar">
+                  <input (input)="updateSearch($event)" id="search-term" type="search" matInput (keyup)="applyFilter($event)" placeholder="Search" #input
+                  class="form-control input-sm ng-pristine ng-valid ng-empty ng-touched" placeholder="Search">
+                </div>
+                  
+              </div>
+              <div class="p-0 bd-highlight btnDesign d-none">
+                <button class="btn btn-sm btn-lightGray top-margin float-right" #menuTrigger="matMenuTrigger"
+                [matMenuTriggerFor]="mainMenuButton">
+                Column Show
+              </button>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+    </div>
+      <div>
+        <div class="my-2 mx-1 row">
+            <div class="col-3 searchBar">
+                <input [(ngModel)]="searchResult" (input)="updateSearch($event)" id="search-term" type="search" matInput (keyup)="applyFilter($event)" placeholder="Search" #input
+                class="form-control input-sm ng-pristine ng-valid ng-empty ng-touched" placeholder="Search any fields">
+                <i class="fa fa-times" (click)="clearInput('search')"></i>
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <div class="col-9">
+                <div class="row float-right">
+                    <div class="action_btn">
+                        <select class="form-control filter-option mr-3" [(ngModel)]="selected" (change)="changeComponentDropdown(selected)">
+                            <option value="0">All</option>
+                            <option *ngFor="let component of mainComponent" [value]="component.componentID">
+                                {{component.componentName}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-3"><button class="save_btn" (click)="exportexcel()" >Download</button></div>
+                </div>
+            </div>
+        </div>  
+        <hr class="dotted-red" />
+        <h4 class="text-center" *ngIf="dataSource.data?.length === 0">No Users found.</h4>
+        <div class="ml-3 mr-3">
+          <mat-menu #mainMenuButton="matMenu" >
+            <h2 mat-dialog-title class="popup_header">Column Selection</h2>
+            <mat-dialog-content class="pl-0 m-0  selectAll">
+              <mat-checkbox class="example-margin" [(ngModel)]="select_all" (ngModelChange)="onSelectAll($event)"
+                 (click)="$event.stopPropagation();">Select All column</mat-checkbox><br>
+            </mat-dialog-content>
+            <div class="mat_span">
+              <span (click)="$event.stopPropagation()" *ngFor="let column of columnShowHideList;index as i">
+                <mat-checkbox #checkBox [(ngModel)]="column.isActive"  (change)="toggleColumn(column); iscolSelected(column); getCheckbox(checkBox)">
+                  {{column.name}}</mat-checkbox><br>
+            </span>
+          </div>
+          </mat-menu>
+          
+          <table mat-table *ngIf="dataSource.data?.length !== 0" [dataSource]="dataSource" id="excel-table" matSort class="table m-0">
+            <ng-container matColumnDef="selection_column">
+              <th mat-header-cell *matHeaderCellDef class="select_column position-relative">
+                ACTION
+              </th>
+              <td mat-cell class="select_column" *matCellDef="let row;let element">
+                  <div class="container m-0 p-0 d-flex">
+                    <span class="col-12 p-1 m-0" >
+                      <i class="fa fa-pencil"   aria-hidden="true" (click)="startEdit(element.mappedComponentID,element.mainComponentName,element.componentName,element.createdby,element.createdDate)"></i>
+                      <i class="fa fa-trash-o ml-2" aria-hidden="true" (click)="deleteEdit(element.mappedComponentID,element.mainComponentName,element.componentName,element.createdby,element.createdDate)"></i>
+                    </span>             
+                  </div>
+              </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef class="id_column text-center">SL NO.</th>
+              <td mat-cell *matCellDef="let element; let i = index;" class="id_column">{{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="promoted_ID">
+              <th mat-header-cell *matHeaderCellDef class="promoted_ID_col1 text-center">INGREDIENTS NAME</th>
+              <td class="pro_id" mat-cell *matCellDef="let element" class="promoted_ID_col text-capitalise" [innerHTML]="element.mainComponentName | highlight: searchTerm">
+                {{element.mainComponentName}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef class="tableStyle">COMPONENT NAME(HSDES) </th>
+              <td mat-cell *matCellDef="let element" class="tableStyle title_wrap" data-tooltip="{{element.componentName}}"  [componentName]="element.componentName" [innerHTML]="element.componentName | highlight: searchTerm"><span  ></span></td>
+            </ng-container>
+      
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef class="status_column">CREATED BY</th>
+              <td mat-cell *matCellDef="let element" class="status_column" [innerHTML]="element.createdby | highlight: searchTerm"> {{element.createdby}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="exposure">
+              <th mat-header-cell *matHeaderCellDef class="text-center">CREATED DATE</th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.createdDate | highlight: searchTerm">{{element.createdDate}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="domain">
+              <th mat-header-cell *matHeaderCellDef> Domain
+                <i class="fa fa-filter ml-1" aria-hidden="true" mat-button [matMenuTriggerFor]="menu"></i>
+                <mat-menu #menu="matMenu" [hasBackdrop]="false">
+                  <ng-container>
+                    <h2 mat-dialog-title class="popup_header">Domain</h2>
+                    <mat-dialog-content class="pl-0 selectAll">
+                      <mat-checkbox class="example-margin" [(ngModel)]="isDomainSelectedAll" (change)="domainSelectedAll()"
+                        (click)="$event.stopPropagation();">Select All</mat-checkbox><br>
+                    </mat-dialog-content>
+                    <mat-dialog-content *ngFor="let item of domainList">
+                      <mat-checkbox class="example-margin" [(ngModel)]="item.checked" (change)="changeDomainSelected()" (click)="$event.stopPropagation();">
+                        {{item.domain}}</mat-checkbox><br>
+                    </mat-dialog-content>
+                    <mat-dialog-actions>
+                      <div class="row">
+                        <div class="col-6 mt-0 text-right pr-2"><button class="mat-raised-button bg_btn"
+                             (click)="menu.Closed()">Close</button></div>
+                        <div class="col-6 mt-0 text-left pl-0"><button class="mat-raised-button mat-primary"
+                            (click)="columnGlobalFilter('domain')">Apply</button></div>
+                      </div>
+                    </mat-dialog-actions>
+                  </ng-container>
+                </mat-menu>
+              </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.domain | highlight: searchTerm"> {{element.domain}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="domain_debug">
+              <th mat-header-cell *matHeaderCellDef> Domain_debug
+                <i class="fa fa-filter" aria-hidden="true" mat-button [matMenuTriggerFor]="menu"></i>
+                <mat-menu #menu="matMenu" [hasBackdrop]="false">
+                  <ng-container>
+                    <h2 mat-dialog-title class="popup_header">Domain_debug</h2>
+                    <mat-dialog-content class="pl-0 selectAll">
+                      <mat-checkbox class="example-margin" [(ngModel)]="isDomainDebugSelectedAll" (change)="domainDebugSelectedAll()" (click)="$event.stopPropagation();">Select All</mat-checkbox><br>
+                    </mat-dialog-content>
+                    <mat-dialog-content *ngFor="let item of domainDebugList">
+                      <mat-checkbox class="example-margin" [(ngModel)]="item.checked" (change)="changeDomainDebugSelected()" (click)="$event.stopPropagation();">
+                        {{item.domainDebug}}</mat-checkbox><br>
+                    </mat-dialog-content>
+                    <mat-dialog-actions>
+                      <div class="row">
+                        <div class="col-6 mt-0 text-right pr-2"><button class="mat-raised-button bg_btn"
+                             (click)="menu.Closed()">Close</button></div>
+                        <div class="col-6 mt-0 text-left pl-0"><button class="mat-raised-button mat-primary"
+                            (click)="columnGlobalFilter('domainDebug')">Apply</button></div>
+                      </div>
+                    </mat-dialog-actions>
+                  </ng-container>
+                </mat-menu>
+              </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.domain_debug | highlight: searchTerm"> {{element.domain_debug}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="target">
+              <th mat-header-cell *matHeaderCellDef> Target
+                <i class="fa fa-filter" aria-hidden="true" mat-button [matMenuTriggerFor]="menu"></i>
+                <mat-menu #menu="matMenu" [hasBackdrop]="false">
+                  <ng-container>
+                    <h2 mat-dialog-title class="popup_header">Target</h2>
+                    <mat-dialog-content class="pl-0 selectAll">
+                      <mat-checkbox class="example-margin" [(ngModel)]="isTargetSelectedAll" (change)="targetSelectedAll()" (click)="$event.stopPropagation();">Select All</mat-checkbox><br>
+                    </mat-dialog-content>
+                    <mat-dialog-content *ngFor="let item of targetList">
+                      <mat-checkbox class="example-margin" [(ngModel)]="item.checked" (change)="changeTargetSelected()" (click)="$event.stopPropagation();">
+                        {{item.target}}</mat-checkbox><br>
+                    </mat-dialog-content>
+                    <mat-dialog-actions>
+                      <div class="row">
+                        <div class="col-6 mt-0 text-right pr-2"><button class="mat-raised-button bg_btn"
+                             (click)="menu.Closed()">Close</button></div>
+                        <div class="col-6 mt-0 text-left pl-0"><button class="mat-raised-button mat-primary"
+                            (click)="columnGlobalFilter('target')">Apply</button></div>
+                      </div>
+                    </mat-dialog-actions>
+                  </ng-container>
+                </mat-menu>
+              </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.target | highlight: searchTerm"> {{element.target}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="progress">
+              <th mat-header-cell *matHeaderCellDef> Progress
+                <i class="fa fa-filter" aria-hidden="true" mat-button [matMenuTriggerFor]="menu"></i>
+                <mat-menu #menu="matMenu" [hasBackdrop]="false">
+                  <ng-container>
+                    <h2 mat-dialog-title class="popup_header">Progress</h2>
+                    <mat-dialog-content class="pl-0 selectAll">
+                      <mat-checkbox class="example-margin" [(ngModel)]="isProgressSelectedAll"
+                        (change)="progressSelectedAll()" (click)="$event.stopPropagation();">Select All</mat-checkbox><br>
+                    </mat-dialog-content>
+                    <mat-dialog-content *ngFor="let item of progressList">
+                      <mat-checkbox class="example-margin" [(ngModel)]="item.checked" (change)="changeProgressSelected()" (click)="$event.stopPropagation();">
+                        {{item.progress}}</mat-checkbox><br>
+                    </mat-dialog-content>
+                    <mat-dialog-actions>
+                      <div class="row">
+                        <div class="col-6 mt-0 text-right pr-2"><button class="mat-raised-button bg_btn"
+                            (click)="menu.Closed()">Close</button></div>
+                        <div class="col-6 mt-0 text-left pl-0"><button class="mat-raised-button mat-primary"
+                            (click)="columnGlobalFilter('progress')">Apply</button></div>
+                      </div>
+                    </mat-dialog-actions>
+                  </ng-container>
+                </mat-menu>
+              </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.progress | highlight: searchTerm"> {{element.progress}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="sysdebug_forum">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="sysdebug_for"> Sysdebug_forum </th>
+              <td mat-cell *matCellDef="let element" class="sysdebug_for" [title]="element.sysdebug_forum" [innerHTML]="element.sysdebug_forum | highlight: searchTerm">
+                {{element.sysdebug_forum}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="reason">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.reason | highlight: searchTerm"> {{element.reason}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="isolated">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Isolated </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.isolated | highlight: searchTerm"> {{element.isolated}} </td>
+            </ng-container>
+      
+      
+            <ng-container matColumnDef="priority">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.priority | highlight: searchTerm"> {{element.priority}} </td>
+            </ng-container>
+      
+      
+            <ng-container matColumnDef="component">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="common_col"> Component </th>
+              <td mat-cell *matCellDef="let element" class="common_col" [innerHTML]="element.component | highlight: searchTerm"> {{element.component}} </td>
+            </ng-container>
+      
+      
+            <ng-container matColumnDef="owner">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Owner </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.owner | highlight: searchTerm"> {{element.owner}} </td>
+            </ng-container>
+      
+      
+            <ng-container matColumnDef="next_step">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="common_col"> Next_step </th>
+              <td mat-cell *matCellDef="let element" class="common_col" [innerHTML]="element.next_step | highlight: searchTerm"> {{element.next_step}} </td>
+            </ng-container>
+      
+      
+            <ng-container matColumnDef="days_open">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Days_open </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.days_open | highlight: searchTerm"> {{element.days_open}} </td>
+            </ng-container>
+      
+      
+            <ng-container matColumnDef="board">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Board </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.board | highlight: searchTerm"> {{element.board}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="regression">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Regression </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.regression | highlight: searchTerm"> {{element.regression}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="from_subject">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> From_subject </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.from_subject | highlight: searchTerm"> {{element.from_subject}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="submitted_by">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted_by </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.submitted_by | highlight: searchTerm"> {{element.submitted_by}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="ext_access">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Ext_access </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.ext_access | highlight: searchTerm"> {{element.ext_access}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="submitter_org">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitter_org </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.submitter_org | highlight: searchTerm"> {{element.submitter_org}} </td>
+            </ng-container>
+      
+      
+            <ng-container matColumnDef="soc_stepping">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Soc_stepping </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.soc_stepping | highlight: searchTerm"> {{element.soc_stepping}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="target_impact">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Target_impact </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.target_impact | highlight: searchTerm"> {{element.target_impact}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="impact">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="common_col"> Impact </th>
+              <td mat-cell *matCellDef="let element" class="common_col" [innerHTML]="element.impact | highlight: searchTerm"> {{element.impact}} </td>
+            </ng-container>
+      
+      
+            <ng-container matColumnDef="submitted_date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted_date </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.submitted_date | highlight: searchTerm"> {{element.submitted_date}} </td>
+            </ng-container>
+      
+      
+            <ng-container matColumnDef="closed_date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Closed_date </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.closed_date | highlight: searchTerm"> {{element.closed_date}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="closed_reason">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Closed_reason </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.closed_reason | highlight: searchTerm"> {{element.closed_reason}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="repro_on_rvp">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Repro_on_rvp </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.repro_on_rvp | highlight: searchTerm"> {{element.repro_on_rvp}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="open_date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Open_date </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.open_date | highlight: searchTerm"> {{element.open_date}} </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="sysdebug">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Sysdebug </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.sysdebug | highlight: searchTerm"> {{element.sysdebug}} </td>
+            </ng-container>
+            <ng-container matColumnDef="implemented_date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Implemented_date </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.implemented_date | highlight: searchTerm"> {{element.implemented_date}} </td>
+            </ng-container>
+            <ng-container matColumnDef="verified_date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Verified_date </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.verified_date | highlight: searchTerm"> {{element.verified_date}} </td>
+            </ng-container>
+            <ng-container matColumnDef="days_triage" >
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="min_width_col"> Days_triage </th>
+              <td mat-cell *matCellDef="let element"  [innerHTML]="element.days_triage | highlight: searchTerm"> {{element.days_triage}} </td>
+            </ng-container>
+            <ng-container matColumnDef="qrc_vector">
+              <th mat-header-cell *matHeaderCellDef> Qrc_vector
+                <i class="fa fa-filter" aria-hidden="true" mat-button [matMenuTriggerFor]="menu"></i>
+                <mat-menu #menu="matMenu" [hasBackdrop]="false">
+                  <ng-container>
+                    <h2 mat-dialog-title class="popup_header">Qrc_vector</h2>
+                    <mat-dialog-content class="pl-0 selectAll">
+                      <mat-checkbox class="example-margin" [(ngModel)]="isQrcvectorSelectedAll"
+                        (change)="qrcVectorSelectedAll()" (click)="$event.stopPropagation();">Select All</mat-checkbox><br>
+                    </mat-dialog-content>
+                    <mat-dialog-content *ngFor="let item of qrcvectorList">
+                      <mat-checkbox class="example-margin" [(ngModel)]="item.checked" (change)="changeQRCSelected()" (click)="$event.stopPropagation();">
+                        {{item.qrc_vector}}</mat-checkbox><br>
+                    </mat-dialog-content>
+                    <mat-dialog-actions>
+                      <div class="row">
+                        <div class="col-6 mt-0 text-right pr-2"><button class="mat-raised-button bg_btn"
+                             (click)="menu.Closed()">Close</button></div>
+                        <div class="col-6 mt-0 text-left pl-0"><button class="mat-raised-button mat-primary"
+                            (click)="columnGlobalFilter('qrc_vector')">Apply</button></div>
+                      </div>
+                    </mat-dialog-actions>
+                  </ng-container>
+                </mat-menu>
+              </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.qrc_vector | highlight: searchTerm"> {{element.qrc_vector}} </td>
+            </ng-container>
+            <ng-container matColumnDef="days_decimal_triage">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="min_width_col"> Days_decimal_triage </th>
+              <td mat-cell *matCellDef="let element" class="min_width_col" [innerHTML]="element.days_decimal_triage | highlight: searchTerm"> {{element.days_decimal_triage}} </td>
+            </ng-container>
+            <ng-container matColumnDef="days_validating">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Days_validating </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.days_validating | highlight: searchTerm"> {{element.days_validating}} </td>
+            </ng-container>
+            <ng-container matColumnDef="days_development">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="min_width_col"> Days_development </th>
+              <td mat-cell *matCellDef="let element" class="min_width_col" [innerHTML]="element.days_development | highlight: searchTerm"> {{element.days_development}} </td>
+            </ng-container>
+            <ng-container matColumnDef="days_decimal_debugging">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="min_width_col"> Days_decimal_debugging </th>
+              <td mat-cell *matCellDef="let element" class="min_width_col" [innerHTML]="element.days_decimal_debugging | highlight: searchTerm"> {{element.days_decimal_debugging}} </td>
+            </ng-container>
+            <ng-container matColumnDef="tag">
+              <th mat-header-cell *matHeaderCellDef class="text-left" >
+                <span class="tag_txt">Tag<span class="tag_search"><span class="search_icon"><button class="btn_click">
+                  <i class="fa fa-search" aria-hidden="true"></i></button></span><input
+                       type="search" matInput (keyup)="applyTagFilter($event)" placeholder="Tag Search" #input
+                      class="form-control input-sm ng-pristine ng-valid ng-empty ng-touched"></span></span>
+              </th>
+              <td mat-cell *matCellDef="let element" [innerHTML]="element.tag | highlight: searchTerm"> {{element.tag}} </td>
+            </ng-container>
+            <ng-container matColumnDef="ingredient">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="common_col"> Ingredient </th>
+              <td mat-cell *matCellDef="let element" class="common_col" [innerHTML]="element.ingredient | highlight: searchTerm"> {{element.ingredient}} </td>
+            </ng-container>
+            <ng-container matColumnDef="suspected_Ingredient">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="suspected_ing"> Suspected Ingredient </th>
+              <td mat-cell *matCellDef="let element" class="suspected_ing" [innerHTML]="element.suspected_Ingredient | highlight: searchTerm"> {{element.suspected_Ingredient}} </td>
+            </ng-container>
+            <ng-container matColumnDef="count">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="suspected_ing">Count</th>
+              <td mat-cell *matCellDef="let element" class="suspected_ing" [innerHTML]="element.count | highlight: searchTerm"> {{element.count}} </td>
+            </ng-container>
+            <ng-container matColumnDef="updated_by">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="suspected_ing">updated_by</th>
+              <td mat-cell *matCellDef="let element" class="suspected_ing" [innerHTML]="element.updated_by | highlight: searchTerm"> {{element.updated_by}} </td>
+            </ng-container>
+            <ng-container matColumnDef="updated_date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="suspected_ing">updated_date</th>
+              <td mat-cell *matCellDef="let element" class="suspected_ing" [innerHTML]="element.updated_date | highlight: searchTerm"> {{element.updated_date}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator #paginatorRef [pageSizeOptions]="[10]"></mat-paginator>
+        </div>
+      </div>
+      <notifier-container></notifier-container>
+</div>
+
+<ng-template #callAPIDialog let-data>
+    <h2 mat-dialog-title>Edit Main Component</h2>
+    <mat-dialog-content>
+        <h4>Main Component Name</h4>
+        <p>
+            <select class="form-control filter-option1 col-12" [(ngModel)]="editedComponent.mainComponentName">
+                <option *ngFor="let component of mainComponent" [value]="component.componentName">
+                    {{component.componentName}}
+                </option>
+            </select>
+        </p>
+        <h4>Component Name</h4>
+        <p>{{data.componentName}}</p>
+        <h4>Created By</h4>
+        <p>{{data.createdby}}</p>
+        <h4>Created Date</h4>
+        <p>{{data.createdDate}}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions class="float-right">
+        <button class="btn btn-danger outline-none mr-3" matDialogClose>Cancel</button>
+        <button class="btn btn-primary save_btn" (click)='updateEdit()'>Update</button>
+    </mat-dialog-actions>
+</ng-template>
+
+<ng-template #deleteMappedComponent let-data>
+    <h1 mat-dialog-title>Alert</h1>
+    <div mat-dialog-content>
+        <p>Are you sure you want to delete?</p>
+    </div>
+    <div class="action-btn float-right">
+        <button class="btn btn-danger mr-3" matDialogClose>No Thanks</button>
+        <button class="btn btn-primary save_btn" (click)="onYesClick(data.mappedComponentID)">Ok</button>
+    </div>
+</ng-template>

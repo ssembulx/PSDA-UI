@@ -1,0 +1,525 @@
+<ng-container>
+
+    <div class="row row-height px-md-3 th_setwidth">
+        <div class="col-6 brd_div">
+            <div class="row">
+                <h4 class="col-12 home_heading header_blk">Active Sighting Distribution</h4>
+                <div class="col-4 active-closed-row col_inner_pad">
+                    <div class="active_close_table">
+                        <table class="table table-bordered header-grey-table table_ml">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#ACTIVE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="HeaderText" (click)="sampleData1('1','1-Critical','active')"> <strong>{{activeCount || 0}}</strong> </td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th scope="col">#VERIFIED</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="HeaderText" (click)="sampleData('1','1-Critical','verified')"> <strong>{{verifiedCount || 0}}</strong> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <table class="table table-bordered header-grey-table table_mr">
+                        <thead>
+                            <tr>
+                                <th scope="col">Exposure</th>
+                                <th scope="col">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="header_bold header_red" scope="row">Critical</th>
+                                <td><a (click)="sampleData('2','1-Critical','active')"><strong>{{exposureCount && exposureCount.length >
+                  0 ? exposureCount[0]?.counts: 0}}</strong></a></td>
+                            </tr>
+                            <tr>
+                                <th class="header_bold header_orange" scope="row">High</th>
+                                <td><a (click)="sampleData('2','2-High','active')"><strong>{{exposureCount && exposureCount.length > 0 ?
+                  exposureCount[1]?.counts: 0}}</strong></a></td>
+                            </tr>
+                            <tr>
+                                <th class="header_bold header_yellow" scope="row">Medium</th>
+                                <td><a (click)="sampleData('2','3-Medium','active')"><strong>{{exposureCount && exposureCount.length > 0
+                  ? exposureCount[2]?.counts: 0}}</strong></a></td>
+                            </tr>
+                            <tr>
+                                <th class="header_bold header_gray" scope="row">Low</th>
+                                <td><a (click)="sampleData('2','4-Low','active')"><strong>{{exposureCount && exposureCount.length > 0 ?
+                  exposureCount[3]?.counts : 0}}</strong></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-5 col_inner_pad" style="text-align: center">
+                    <mat-button-toggle-group name="fontStyle" class="mt-1" appearance="legacy" aria-label="Font Style" [value]="selectedValToggleGroup">
+                        <mat-button-toggle value="Total Sighting" (click)="onValChangeToggleGroup('Total Sighting')" matTooltip="Total Sighting">Total Sighting</mat-button-toggle>
+                        <mat-button-toggle value="Active" (click)="onValChangeToggleGroup('Active')" matTooltip="Active">Active</mat-button-toggle>
+                        <!--  <mat-button-toggle value="verified" (click)="onValChangeToggleGroup('verified')" matTooltip="Verified">Verified</mat-button-toggle> -->
+                    </mat-button-toggle-group>
+                    <div id=chartdivbar></div>
+                </div>
+                <div class="col-3 col_inner_pad">
+                    <div id=chartdivpie></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 brdr_div">
+            <div class="row">
+                <h4 class="col-12 home_heading header_blk">Closed Sighting Distribution</h4>
+                <div class="col-7 active-closed-row col_inner_pad">
+                    <div class="active_close_table">
+                        <table class="table table-bordered header-grey-table table_str">
+                            <thead>
+                                <tr>
+                                    <th scope="col" colspan="2">#Closed
+                                        <br />
+                                        <a class="HeaderText" (click)="sampleData('1','','closed')"><strong>{{closedCount || 0}}</strong></a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>DCR
+                                        <br /> {{dcrCount}}%
+                                    </td>
+                                    <td>SCE
+                                        <br /> {{sceCount}}%
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <table class="table table-bordered header-grey-table table_rit">
+                        <thead>
+                            <tr>
+                                <th scope="col">Exposure</th>
+                                <th scope="col">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="header_bold header_up" scope="row" style="padding: 13.5px;">Critical</td>
+                                <td><a (click)="sampleData('2','1-Critical','closed')"><strong>{{exposureClosedCount &&
+                  exposureClosedCount.length >0 ? exposureClosedCount[0]?.counts : 0}}</strong></a></td>
+                            </tr>
+                            <tr>
+                                <td class="header_bold header_zero" scope="row" style="padding: 13.5px;">High</td>
+                                <td><a (click)="sampleData('2','2-High','closed')"><strong>{{exposureClosedCount &&
+                  exposureClosedCount.length >0 ? exposureClosedCount[1]?.counts : 0}}</strong></a></td>
+                            </tr>
+                            <tr>
+                                <td class="header_bold header_one" scope="row" style="padding: 13.5px;">Medium</td>
+                                <td><a (click)="sampleData('2','3-Medium','closed')"><strong>{{exposureClosedCount &&
+                  exposureClosedCount.length >0 ? exposureClosedCount[2]?.counts : 0}}</strong></a></td>
+                            </tr>
+                            <tr>
+                                <td class="header_bold header_two" scope="row" style="padding: 13.5px;">Low</td>
+                                <td><a (click)="sampleData('2','4-Low','closed')"><strong>{{exposureClosedCount &&
+                  exposureClosedCount.length >0 ? exposureClosedCount[3]?.counts : 0}}</strong></a></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-5 col_inner_pad">
+                    <div id=closeExposurepie></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 px-2 bordr_sld">
+            <table class="table table-bordered header-grey-table table_down">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="2">#Total Sighting
+                            <br />
+                            <a class="HeaderText" (click)="sampleData('1','1-Critical','Total')"> <strong> {{totalCount || 0}}</strong></a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr align="center">
+                        <td colspan="2">Weekly Count</td>
+                    </tr>
+                    <tr class="avg_width">
+                        <td>Avg New
+                            <br/> {{avgNew}}
+                        </td>
+                        <td>Avg Closed
+                            <br/> {{avgClosed}}
+                        </td>
+                    </tr>
+                    <tr class="avg_width">
+                        <td><button class="Call_btn mt-1" (click)="onNavigate()" mat-raised-button color="primary">Power BI</button></td>
+                        <td><button class="Call_btn mt-1 outline-none" (click)="report();" mat-raised-button color="primary">{{show_chart?"&nbsp;&nbsp;Report&nbsp;&nbsp;":"Hide Report"}}</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="intro mt-5" style="margin-top: 5.5rem!important;">
+        <div class="mt-3">
+            <b>Program Summary:</b>
+        </div>
+        <div>{{text}}<b>{{dataCriticalFunctional}}</b>{{text1}}<b>{{dataCriticalNonFunctional}}</b>{{text2}}<b>{{dataHighFunctional}}</b>{{text3}}<b>{{dataHighNonFunctional}}</b>{{text4}}</div>
+        <div>Total Backlog : <b>{{backlog}}</b></div>
+        <div>Defect prospect :
+            <ng-container *ngFor="let sighting of defectProspect"><span>{{sighting.ingredientCategory}} : <b>{{sighting.counts}} </b></span></ng-container>
+        </div>
+        <div>Sighting Ageing :
+            <ng-container *ngFor="let sighting of sightingAging"><span>{{sighting.exposure}} : <b>{{sighting.counts}} </b></span></ng-container>
+        </div>
+        <div>Sightings domains :
+            <ng-container *ngFor="let sighting of sightingDomains"><span>{{sighting.ingredientCategory}} : <b>{{sighting.counts}} </b></span></ng-container>
+        </div>
+        <div>{{txt31}}<b>{{txtB}}</b>{{txt32}}</div>
+    </div>
+</ng-container>
+
+
+<div class="intro">
+    <div>Sightings trend towards milestone is <span style="background-color: red;color: white;"> red </span>, <span style="background-color: green;color: white;"> green </span> based on defect criteria set.</div>
+</div>
+<div class="row">
+    <div class="col-12 col-md-6 mt-2 pr-md-1">
+        <div class="qrc main-div border-0">
+            <div class="portlet box blue-hoki">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-list"></i>
+                        <a class="tableHeadertext">
+          &nbsp; &nbsp;<strong>Critical / PV (Across all QRC vectors )</strong>
+        </a>
+                    </div>
+                    <div class="text-right pop_btn_critic"><button matTooltipClass="example-tooltip-red" type="button" class="info_btn" data-toggle="modal" data-target="#exampleModal">
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+      </button>
+                    </div>
+                </div>
+                <table class="table table_white">
+                    <col>
+                    <colgroup span="2"></colgroup>
+                    <colgroup span="2"></colgroup>
+                    <tr>
+                        <th colspan="1" scope="colgroup" class="tableQRCWhite"></th>
+                        <th colspan="2" scope="colgroup" class="tableQRCRed">No LOS in debug</th>
+                        <th colspan="2" scope="colgroup" class="tableQRCYellow">Fix in Pipeline</th>
+                        <th colspan="1" scope="colgroup" class="tableQRCWhite"></th>
+                    </tr>
+                    <tr>
+                        <th scope="col" class="tableQRCBlue">Defect Vector</th>
+                        <th scope="col" class="tableQRCBlue">WSS Debug</th>
+                        <th scope="col" class="tableQRCBlue">Ingredient</th>
+                        <th scope="col" class="tableQRCBlue txt_width">Verified on eng version & ingredient release to OWR</th>
+                        <th scope="col" class="tableQRCBlue">Implemented Pending BKC integration /Verification</th>
+                        <th scope="col" class="tableQRCBlue">Total</th>
+                    </tr>
+                    <tr *ngFor="let criticalQRCtable of getCriticalQRCvectorData">
+                        <th scope="row" class="tableQRCBlue" *ngIf="criticalQRCtable.qrc_vector">{{criticalQRCtable.qrc_vector}}</th>
+
+                        <td class="tableQRCWhite bg_yelow">{{criticalQRCtable.wssDebug}}</td>
+                        <td class="tableQRCWhite">{{criticalQRCtable.ingrediant}}</td>
+                        <td class="tableQRCWhite">{{criticalQRCtable.verified_on_eng_OWR}}</td>
+                        <td class="tableQRCWhite">{{criticalQRCtable.implemented_BKC}}</td>
+                        <td class="tableQRCWhite">{{criticalQRCtable.total}}</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2" scope="colgroup"></th>
+                        <th colspan="2" scope="colgroup" class="tableQRCRed text-white">
+                            {{calculate('ingrediant','wssDebug',getCriticalQRCvectorData)}}</th>
+                        <th colspan="2" scope="colgroup" class="tableQRCYellow">
+                            {{calculate('verified_on_eng_OWR','implemented_BKC',getCriticalQRCvectorData)}}</th>
+                        <th colspan="1" scope="colgroup"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 mt-2 pl-md-1">
+        <div class="qrc main-div border-0">
+            <div class="portlet box blue-hoki">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-list"></i>
+                        <a class="tableHeadertext">
+          &nbsp; &nbsp;<strong>High (Across all QRC vectors )</strong>
+        </a>
+                    </div>
+                    <div class="text-right pop_btn"><button matTooltipClass="example-tooltip-red" type="button" class="info_btn" data-toggle="modal" data-target="#exampleModal">
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+      </button>
+                    </div>
+                </div>
+                <table class="table table_white">
+                    <col>
+                    <colgroup span="2"></colgroup>
+                    <colgroup span="2"></colgroup>
+                    <tr>
+                        <th colspan="1" scope="colgroup" class="tableQRCWhite"></th>
+                        <th colspan="2" scope="colgroup" class="tableQRCRed">No LOS in debug</th>
+                        <th colspan="2" scope="colgroup" class="tableQRCYellow">Fix in Pipeline</th>
+                        <th colspan="1" scope="colgroup" class="tableQRCWhite"></th>
+                    </tr>
+                    <tr>
+                        <th scope="col" class="tableQRCBlue">Defect Vector</th>
+
+                        <th scope="col" class="tableQRCBlue">WSS Debug</th>
+                        <th scope="col" class="tableQRCBlue">Ingredient</th>
+                        <th scope="col" class="tableQRCBlue txt_width">Verified on eng version & ingredient release to OWR</th>
+                        <th scope="col" class="tableQRCBlue">Implemented Pending BKC integration /Verification</th>
+                        <th scope="col" class="tableQRCBlue">Total</th>
+                    </tr>
+                    <tr *ngFor="let highQRC of getHighQRCvector">
+                        <th scope="row" class="tableQRCBlue" *ngIf="highQRC.qrc_vector">{{highQRC.qrc_vector}}</th>
+                        <td class="tableQRCWhite bg_yelow">{{highQRC.wssDebug}}</td>
+                        <td class="tableQRCWhite">{{highQRC.ingrediant}}</td>
+
+                        <td class="tableQRCWhite">{{highQRC.verified_on_eng_OWR}}</td>
+                        <td class="tableQRCWhite">{{highQRC.implemented_BKC}}</td>
+                        <td class="tableQRCWhite">{{highQRC.total}}</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2" scope="colgroup"></th>
+                        <th colspan="2" scope="colgroup" class="tableQRCRed text-white">{{calculate('ingrediant','wssDebug',getHighQRCvector)}}
+                        </th>
+                        <th colspan="2" scope="colgroup" class="tableQRCYellow">
+                            {{calculate('verified_on_eng_OWR','implemented_BKC',getHighQRCvector)}}</th>
+                        <th colspan="1" scope="colgroup"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-lg-6 mt-2 pr-lg-1">
+        <div class="defects main-div border-0">
+            <div class="portlet box blue-hoki set_mxwidth mx-auto">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-list"></i>
+                        <a class="tableHeadertext">
+          &nbsp; &nbsp;<strong>Critical (Functional defects only)</strong>
+        </a>
+                    </div>
+                    <div class="text-right pop_btn_critic"><button matTooltipClass="example-tooltip-red" type="button" class="info_btn" data-toggle="modal" data-target="#exampleModal">
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+      </button>
+                    </div>
+                </div>
+                <table class="table brd_tble table_white">
+                    <thead>
+                        <tr>
+                            <th rowspan="1" colspan="2" class="tableQRCWhite"></th>
+                            <th rowspan="1" colspan="2" class="tableQRCRed th_white">No LOS in debug</th>
+                            <th rowspan="1" colspan="2" class="tableQRCYellow">Fix in Pipeline</th>
+                            <th rowspan="1" class="tableQRCWhite"></th>
+                        </tr>
+                        <tr>
+                            <th rowspan="1" colspan="2" class="tableQRCBlue divBorderStyle defect_vector set_height">Defect Vector</th>
+
+                            <th rowspan="1" colspan="1" class="tableQRCBlue wss_width set_height">WSS Debug</th>
+                            <th rowspan="1" colspan="1" class="tableQRCBlue ingred_width set_height">Ingredient</th>
+                            <th rowspan="1" colspan="1" class="tableQRCBlue verified_width set_height txt_width">Verified eng version & ingredient release to OWR</th>
+                            <th rowspan="1" colspan="1" class="tableQRCBlue implement_width set_height">Implemented Pending BKC integration /Verification</th>
+                            <th rowspan="1" colspan="1" class="tableQRCBlue divBorderStyle total_width set_height">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="funct text-center thCell th_style" colspan="1">
+                                <tr class="Blue_base_tr">
+                                    <td class="noborder_td">&nbsp;</td>
+                                    <tr class="Blue_base_tr">
+                                        <td class="noborder_td defect_width">Defects/Bugs</td>
+                                    </tr>
+                                    <tr class="Blue_base_tr">
+                                        <td class="noborder_td blue_td">&nbsp;</td>
+                                    </tr>
+                                    <tr class="base_tr">
+                                        <td class="noborder_td blue_td">CMF</td>
+                                    </tr>
+                                    <tr class="base_tr">
+                                        <td class="noborder_td blue_td">&nbsp;</td>
+                                    </tr>
+                            </th>
+                            <th colspan="1" class="funct fontie th_border th_style table_Blue">
+                                <tr class="base_tr fifthie_blutotal" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
+                                    <td class="white_td td_fifthie">
+                                        <div class="text-center pl-2 pr-1 m-0">{{criticalDefectQRC.qrc_vector}}</div>
+                                    </td>
+                                </tr>
+                            </th>
+
+                            <th colspan="1" class="funct fontie th_border th_style wss_width">
+                                <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
+                                    <td class="white_td">
+                                        <div class="text-center px-4 m-0">{{criticalDefectQRC.wssDebug}}</div>
+                                    </td>
+                                </tr>
+                            </th>
+                            <th colspan="1" class="funct fontie th_border th_style ingred_width">
+                                <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
+                                    <td class="white_td">
+                                        <div class="text-center px-4 m-0">{{criticalDefectQRC.ingrediant}}</div>
+                                    </td>
+                                </tr>
+                            </th>
+                            <th colspan="1" class="funct fontie th_border th_style verified_width">
+                                <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
+                                    <td class="white_td">
+                                        <div class="text-center px-4 m-0">{{criticalDefectQRC.verified_on_eng_OWR}}</div>
+                                    </td>
+                                </tr>
+                            </th>
+                            <th colspan="1" class="funct fontie th_border th_style implement_width">
+                                <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
+                                    <td class="white_td">
+                                        <div class="text-center px-4 m-0">{{criticalDefectQRC.implemented_BKC}}</div>
+                                    </td>
+                                </tr>
+                            </th>
+                            <th colspan="1" class="funct fontie th_border th_style total_width">
+                                <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
+                                    <td class="white_td">
+                                        <div class="text-center px-4 m-0">{{criticalDefectQRC.total}}</div>
+                                    </td>
+                                </tr>
+                            </th>
+                            </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2"></th>
+                            <th colspan="2" class="tableQRCRed text-white">
+                                {{calculate('ingrediant','wssDebug',getCriticalDefectsvector)}}</th>
+                            <th colspan="2" class="tableQRCYellow">
+                                {{calculate('verified_on_eng_OWR','implemented_BKC',getCriticalDefectsvector)}}</th>
+                            <th colspan="2"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6 mt-2 pl-lg-1">
+        <div class="defects main-div border-0">
+            <div class="portlet box blue-hoki set_mxwidth mx-auto">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-list"></i>
+                        <a class="tableHeadertext">
+        &nbsp; &nbsp;<strong>High (Functional defects only)</strong>
+      </a>
+                    </div>
+                    <div class="text-right pop_btn"><button matTooltipClass="example-tooltip-red" type="button" class="info_btn" data-toggle="modal" data-target="#exampleModal">
+      <i class="fa fa-info-circle" aria-hidden="true"></i>
+    </button>
+                    </div>
+                </div>
+                <table class="table brd_tble table_white">
+                    <thead>
+                        <tr>
+                            <th rowspan="1" colspan="2" class="tableQRCWhite"></th>
+                            <th rowspan="1" colspan="2" class="tableQRCRed th_white">No LOS in debug</th>
+                            <th rowspan="1" colspan="2" class="tableQRCYellow">Fix in Pipeline</th>
+                            <th rowspan="1" class="tableQRCWhite"></th>
+                        </tr>
+                        <tr>
+                            <th rowspan="1" colspan="2" class="tableQRCBlue divBorderStyle defect_vector set_height">Defect Vector</th>
+
+                            <th rowspan="1" colspan="1" class="tableQRCBlue wss_width set_height">WSS<br>Debug</th>
+                            <th rowspan="1" colspan="1" class="tableQRCBlue ingred_width set_height">Ingredient</th>
+                            <th rowspan="1" colspan="1" class="tableQRCBlue verified_width set_height txt_width">Verified eng version & ingredient release to OWR</th>
+                            <th rowspan="1" colspan="1" class="tableQRCBlue implement_width set_height">Implemented Pending BKC integration /Verification</th>
+                            <th rowspan="1" colspan="1" class="tableQRCBlue divBorderStyle total_width set_height">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="funct text-center thCell th_style" colspan="1">
+                                <tr class="Blue_base_tr">
+                                    <td class="noborder_td">&nbsp;</td>
+                                    <tr class="base_tr">
+                                        <td class="noborder_td defect_width">Defects/Bugs</td>
+                                    </tr>
+                                    <tr class="Blue_base_tr">
+                                        <td class="noborder_td blue_td">&nbsp;</td>
+                                    </tr>
+                                    <tr class="base_tr">
+                                        <td class="blue_td">CMF</td>
+                                    </tr>
+                                    <tr class="base_tr">
+                                        <td class="blue_td">&nbsp;</td>
+                                    </tr>
+                            </th>
+                            <th colspan="1" class="funct fontie th_border th_style table_Blue">
+                                <tr class="base_tr fifthie_blutotal fourthie_txt" *ngFor="let tableDefectsvector of  getHighDefectsvector">
+                                    <td class="white_td">
+                                        <div class="text-center pl-2 pr-1 m-0">{{tableDefectsvector.qrc_vector}}</div>
+                                    </td>
+                                </tr>
+                            </th>
+
+                            <th colspan="1" class="funct fontie th_border th_style wss_width">
+                                <tr class="base_tr fifthie_blu fourthie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
+                                    <td class="white_td">
+                                        <div class="text-center px-4 m-0">{{tableDefectsvector.wssDebug}}</div>
+                                    </td>
+                                </tr>
+                            </th>
+                            <th colspan="1" class="funct fontie th_border th_style ingred_width">
+                                <tr class="base_tr fifthie_blu fourthie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
+                                    <td class="white_td">
+                                        <div class="text-center px-4 m-0">{{tableDefectsvector.ingrediant}}</div>
+                                    </td>
+                                </tr>
+                            </th>
+                            <th colspan="1" class="funct fontie th_border th_style verified_width">
+                                <tr class="base_tr fifthie_blu fourthie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
+                                    <td class="white_td">
+                                        <div class="text-center px-4 m-0">{{tableDefectsvector.verified_on_eng_OWR}}</div>
+                                    </td>
+                                </tr>
+                            </th>
+                            <th colspan="1" class="funct fontie th_border th_style implement_width">
+                                <tr class="base_tr fifthie_blu fourthie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
+                                    <td class="white_td">
+                                        <div class="text-center px-4 m-0">{{tableDefectsvector.implemented_BKC}}</div>
+                                    </td>
+                                </tr>
+                            </th>
+                            <th colspan="1" class="funct fontie th_border th_style total_width">
+                                <tr class="base_tr fifthie_blu fourthie total_redie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
+                                    <td class="white_td">
+                                        <div class="text-center px-4 m-0">{{tableDefectsvector.total}}</div>
+                                    </td>
+                                </tr>
+                            </th>
+                            </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2"></th>
+                            <th colspan="2" class="tableQRCRed text-white">
+                                {{calculate('ingrediant','wssDebug',getHighDefectsvector)}}</th>
+                            <th colspan="2" class="tableQRCYellow">
+                                {{calculate('verified_on_eng_OWR','implemented_BKC',getHighDefectsvector)}}</th>
+                            <th colspan="2"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

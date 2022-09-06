@@ -1,0 +1,140 @@
+<div class="">
+    <div class="">
+        <h2 matDialogTitle class="text-center config_title">Edit HSDES Data</h2>
+        <button class="close_btn mr-2" (click)="$event.stopPropagation();" matDialogClose="no"><i
+            class="fa fa-window-close" aria-hidden="true"></i></button>
+        <form class="" #userForm="ngForm" (ngSubmit)="submit" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="row mx-5">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Title</label>
+                <input class="form-control" matInput type="text"placeholder="Enter value"  formControlName="title"
+                  [(ngModel)]="this.title">
+              </div>
+            </div>
+          </div>
+          <div class="row mx-5">
+            <div class="col-md-4">
+                <div class="form-group">
+                  <label>ID</label>
+                  <input class="form-control" matInput type="text"placeholder="Enter value" formControlName="id"
+                    [(ngModel)]="this.id" readonly>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Promoted ID</label>
+                  <input class="form-control" matInput type="text"placeholder="Enter value" formControlName="promoted_ID"
+                    [(ngModel)]="data.promoted_ID" readonly>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Status</label>
+                  <input class="form-control" matInput type="text"placeholder="Enter value" formControlName="status"
+                    [(ngModel)]="data.status" readonly>
+                </div>
+              </div>
+          </div>
+          <div class="row mx-5">
+            <div class="col-md-4">
+                <div class="form-group">
+                  <label>Domain</label>
+                  <input class="form-control" matInput type="text"placeholder="Enter value" formControlName="domain"
+                    [(ngModel)]="this.domain">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Domain Debug</label>
+                  <input class="form-control" matInput type="text"placeholder="Enter value" formControlName="domain_debug"
+                    [(ngModel)]="this.domain_debug">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Reason</label>
+                  <input class="form-control" matInput type="text"placeholder="Enter value" formControlName="reason"
+                    [(ngModel)]="data.reason" readonly>
+                </div>
+              </div>
+          </div>
+          <div class="row mx-5">
+            <div class="col-md-12">
+                <div class="form-group">
+                  <label>Sysdebug Forum</label>
+                  <textarea class="form-control set_height" matInput type="text" placeholder="Enter value" formControlName="sysdebug_forum"
+                    [(ngModel)]="this.sysdebug_forum"></textarea>
+                </div>
+              </div>
+          </div>
+          <div class="row mx-5">
+            <div class="col-md-12">
+                <div class="form-group">
+                  <label>next_step</label>
+                  <textarea class="form-control set_height" matInput type="text" placeholder="Enter value" formControlName="next_step"
+                    [(ngModel)]="this.next_step"></textarea>
+                </div>
+              </div>
+          </div>
+          <div class="row mx-5">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>suspected Ingredient</label>
+                  <input class="form-control" matInput type="text" placeholder="Enter value" formControlName="suspected_Ingredient"
+                    [(ngModel)]="data.suspected_Ingredient" readonly>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Count</label>
+                  <input class="form-control" matInput type="text"placeholder="Enter value" formControlName="count"
+                    [(ngModel)]="data.count" readonly>
+                </div>
+              </div>
+          </div>
+          <div class="row mx-5">
+            <div class="col-6 pt-3">Comments:</div><div class="col-6 text-right text-decoration-none pr-0"><a class="outline-none text-decoration-none hide_tn mb-2" (click)="getfullScreen();" mat-raised-button color="primary" >{{fullScreenFlag?"show less comments":"Show all comments"}}</a></div>
+          </div>
+          <div class="row mx-5" *ngIf="comments.length == 0"><div class="text-center col-12">No comments available</div></div>
+          <div class="row ml-5 mr-4">
+            <div class="col-12">
+                <div class="comments">
+                    <div class="es-comments-list">
+                      <div id="parent" class="content-list">
+                        <div class="comment-row" [class]="fullScreenFlag? 'fullscreen-width':''" *ngFor="let comment of comments">
+                          <div class="comment-wrapper">
+                            <div class="comment-header">
+                                <div class="commenter-image"><img src="./assets/image/profile.png"></div>
+                            </div>
+                            <div class="comment-content">
+                                <div class="details">
+                                  <div class="idsid"><span>{{comment.submitted_by}}</span></div>
+                                  <div class="time-stamp">
+                                      <span class="label">Last updated on:</span><!-- react-text: 2050 -->&nbsp;<!-- /react-text --><span class="date-string">{{comment.submitted_date | date:'full' }}</span><!-- react-text: 2052 -->&nbsp;<!-- /react-text --><span class="time-string"></span><!-- react-text: 2054 -->&nbsp;<!-- /react-text -->
+                                      <span class="ago-string">
+                                        
+                                      </span>
+                                  </div>
+                                  <div class="id">
+                                      <span class="label">id:</span><!-- react-text: 2061 -->&nbsp;<!-- /react-text --><span class="id-url-string"><a [href]="'https://hsdes.intel.com/appstore/article/#/' + comment.id" target="_blank" tabindex="-1">{{comment.id}}</a></span>
+                                  </div>
+                                </div>
+                                <div class="es-layout-html-text">
+                                  <div class="MsoNormal" [innerHTML]="comment.description"></div>
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <mat-dialog-actions align="end" class="row mx-5">
+            <button class="form_btn" type="submit" mat-raised-button mat-button>Submit</button>
+          </mat-dialog-actions>
+        </form>
+    </div>
+  </div>
+  

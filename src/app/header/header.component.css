@@ -1,0 +1,352 @@
+.header-top {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px !important;
+    background-color: #0071c5;
+}
+
+.header-wrapper {
+    height: 50px;
+    background-color: #0071c5;
+}
+
+.second-header {
+    background-color: #02101b;
+    display: flex;
+    height: 30px;
+    font-size: 13px;
+}
+
+h6 {
+    font-size: 1rem !important;
+    color: #ffffff;
+    position: relative;
+    padding: 7px 7px 7px 10px;
+}
+
+.brand-text {
+    position: absolute;
+    width: 98%;
+    top: 8px;
+}
+
+h3 {
+    color: #ffffff;
+    text-align: center;
+    font-family: Intel Clear, tahoma, Helvetica, Arial, sans-serif !important;
+    padding-top: 3px;
+}
+
+::ng-deep .mat-typography h3 {
+    /* font-family: Intel Clear,tahoma,Helvetica,Arial,sans-serif !important;   */
+    font-size: 20px;
+}
+
+.jarvis-logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: flex-begin;
+    flex-direction: row;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.left-header .jarvis-logo .jarvis-logo__brand {
+    /* width: 90px; */
+    width: 68px;
+    position: absolute;
+    top: 7px;
+    display: inline-block;
+    left: 4px;
+}
+
+.right-header {
+    position: absolute;
+    width: 98%;
+    text-align: right
+}
+
+.right-header1 {
+    position: absolute;
+    width: 97.3%;
+    text-align: right
+}
+
+.user-section {
+    display: -webkit-inline-box;
+    display: inline-flex;
+}
+
+.avatar {
+    position: relative;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    background: #ddd;
+    border-radius: 50%;
+    border: 2px solid #afb2c1;
+    margin-top: 4.5px;
+}
+
+.user-section p {
+    line-height: 47px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #f7f8f8;
+    margin: 2px 0 0 10px;
+}
+
+.second-header .row .top-link-text {
+    color: #fff;
+}
+
+.text-width-left {
+    width: 72%;
+    display: flex;
+}
+
+.text-width-right {
+    width: 28%;
+    text-align: right;
+    color: #fff;
+}
+
+.header-version-modal {
+    color: #007bff;
+}
+
+
+/******************changes*********************/
+
+.header-version {
+    color: #fff;
+    background-color: black;
+    border: none;
+}
+
+::ng-deep .mat-select-placeholder {
+    color: #fff !important;
+}
+
+::ng-deep .second-header .mat-select-arrow {
+    color: #ffffff;
+}
+
+::ng-deep .mat-select-panel {
+    margin-top: 36px;
+    border-radius: 0px !important;
+    margin-left: -5px;
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+    max-height: 400px !important;
+    /* overflow: hidden !important; */
+}
+
+.mat_option {
+    color: #000000;
+    border: 2px solid #ffffff;
+    height: 35px !important;
+}
+
+.mat_option:hover {
+    background-color: #ddd;
+}
+
+::ng-deep .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+    /* border:2px solid #000; */
+    background: #ddd !important;
+    color: rgb(0, 0, 0);
+}
+
+::ng-deep .cdk-overlay-pane {
+    position: absolute;
+    pointer-events: auto;
+    box-sizing: border-box;
+    z-index: 1000;
+    /* top:48px !important; */
+    display: flex;
+    max-width: 100%;
+    max-height: 100%;
+    transform: none !important;
+    ;
+}
+
+::ng-deep .mat-select-panel {
+    top: 90.9625px;
+}
+
+::ng-deep .second-header .mat-select-value {
+    width: 85% !important;
+    color: #ffffff;
+}
+
+::ng-deep .second-header .mat-select-trigger {
+    border-radius: 2px;
+    width: 131px;
+    /* border: 1px solid #ffffff; */
+}
+
+
+/***************************************/
+
+.modal-body-release {
+    background-color: #fff;
+    width: 70%;
+    margin: 5% 15%;
+    border-radius: 10px;
+}
+
+.margin-left-0 {
+    margin-left: 0;
+}
+
+.modal-header {
+    padding: 1rem 1rem 0 1rem;
+}
+
+.modal-close-button {
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+}
+
+.modal-close-icon {
+    font-size: 19px;
+    margin-right: -6px;
+    margin-left: -7px;
+}
+
+.time_div {
+    /* margin-right: 2%; */
+    margin-top: 4px;
+    font-size: 13px;
+}
+
+.second-header a {
+    vertical-align: middle;
+    text-align: left;
+}
+
+.second-header span {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 13px;
+}
+
+.top-link-text,
+.report_gen,
+.top-link-text1 {
+    padding: 5px 15px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.report_gen a {
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+.top-link-text:hover,
+.report_gen:hover {
+    background-color: #8a8a8a;
+}
+
+.top-link-text1:hover {
+    background-color: #8a8a8a;
+}
+
+.dropdown_btn:hover {
+    background-color: #8a8a8a !important;
+}
+
+.time_stamp {
+    border-right: 2px solid;
+    margin-right: 10px;
+}
+
+
+/* .text-width-left .active{
+    background-color: #8a8a8a;
+} */
+
+.intel-brand-logo {
+    color: #fff;
+    fill: currentColor;
+    height: 3rem;
+    transition: color .25s ease-in-out;
+    vertical-align: middle;
+}
+
+.spark {
+    fill: #00c7fd;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    transition: all 0.3s;
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+}
+
+.dropdown_btn {
+    background-color: #000;
+    color: #ffffff;
+    outline: none;
+    border: none;
+}
+
+.dropdown-item {
+    border: 2px solid #ffffff;
+    color: #000000;
+    font-size: 13px;
+}
+
+.dropdown-item:hover {
+    background-color: #ddd;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.fa-caret-down {
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+.dropdown-menu a {
+    color: #000000;
+    cursor: pointer;
+}
+
+#mat-select-2-panel::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+}
+
+
+/* &::-webkit-scrollbar-thumb {
+     background-color: rgba(255,255,255,.1);
+     border-radius: 3px;
+  
+     &:hover {
+      background: rgba(255,255,255,.2);
+     }
+    }
+  } */
+
+.header-version-modal {
+    color: #007bff;
+}
+
+:host ::ng-deep .mat-select-placeholder {
+    color: white;
+    /* padding-left: 3px; */
+    -webkit-text-fill-color: white;
+}
