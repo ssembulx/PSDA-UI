@@ -5,7 +5,10 @@
             <div class="row row-height px-md-3 th_setwidth">
                 <div class="col-6 brd_div">
                     <div class="row">
-                        <h4 class="col-12 home_heading header_blk">Active Sighting Distribution</h4>
+                        <h4 class="col-12 home_heading header_blk">Active Sighting Distribution<i class="fa fa-info-circle float-right" aria-hidden="true" matTooltip="Info" data-toggle="modal" data-target="#allFormulaInfoGetActiveCountModal"></i></h4>
+                        <!--  <button matTooltipClass="example-tooltip-red" matTooltip="QUERY_ID:{{this.QueryID}}  QRC_QUERY:{{this.QRCQuery}}" type="button" class="info_btn" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                          </button> -->
                         <div class="col-4 active-closed-row col_inner_pad">
                             <div class="active_close_table">
                                 <table class="table table-bordered header-grey-table table_ml">
@@ -77,7 +80,7 @@
                 </div>
                 <div class="col-4 brdr_div">
                     <div class="row">
-                        <h4 class="col-12 home_heading header_blk">Closed Sighting Distribution</h4>
+                        <h4 class="col-12 home_heading header_blk">Closed Sighting Distribution<i class="fa fa-info-circle float-right" aria-hidden="true" matTooltip="Info" data-toggle="modal" data-target="#allFormulaInfoGetClosedCountModal"></i></h4>
                         <div class="col-7 active-closed-row col_inner_pad">
                             <div class="active_close_table">
                                 <table class="table table-bordered header-grey-table table_str">
@@ -142,7 +145,7 @@
                     <table class="table table-bordered header-grey-table table_down">
                         <thead>
                             <tr>
-                                <th scope="col" colspan="2">#Total Sighting
+                                <th scope="col" colspan="2">#Total Sighting <i class="fa fa-info-circle float-right" aria-hidden="true" matTooltip="Info" data-toggle="modal" data-target="#allFormulaInfoGetTotalCountModal"></i>
                                     <br />
                                     <a class="HeaderText" (click)="sampleData('1','1-Critical','Total')"> <strong> {{totalCount || 0}}</strong></a>
                                 </th>
@@ -299,8 +302,12 @@
                                 <h4 class="mb-0 p-2 brd_head">
                                     <i class="fa fa-bar-chart pr-1" aria-hidden="true"></i>Open Sightings By Domain and Exposure
                                 </h4>
+                                <!--   <i class="fa fa-info-circle float-right" aria-hidden="true" matTooltip="Info" data-toggle="modal" data-target="#allFormulaInfoGetDomainAndExposureHSDESResult"></i> -->
                                 <mat-icon class="mr-2 float-right mat_ico" (click)="getfullScreen1()">
                                     fullscreen</mat-icon>
+                                <button matTooltipClass="example-tooltip-red" matTooltip="Info" type="button" class="info_btn m-2 float-right" data-toggle="modal" data-target="#allFormulaInfoGetDomainAndExposureHSDESResult">
+                                        <i class="fa fa-info-circle info1_btn" aria-hidden="true"></i>
+                                      </button>
                             </div>
                             <div class="chart_area" id="openSightingchart"></div>
                         </div>
@@ -313,6 +320,9 @@
                                 </h4>
                                 <mat-icon class="mr-2 float-right mat_ico" (click)="getfullScreen2()">
                                     fullscreen</mat-icon>
+                                <button matTooltipClass="example-tooltip-red" matTooltip="Info" type="button" class="info_btn m-2 float-right" data-toggle="modal" data-target="#allFormulaInfoGetDefectsVsRegressionHSDESResult">
+                                        <i class="fa fa-info-circle info1_btn" aria-hidden="true"></i>
+                                      </button>
                             </div>
                             <div class="chart_area1" id="chartdivnew"></div>
                         </div>
@@ -529,6 +539,191 @@
                                 </tr>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="allFormulaInfoGetActiveCountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 700px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="exampleModalLabel">Information</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Calculation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of allFormulaInfoGetActiveCount; index as i">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item.names}}</td>
+                                            <td>{{item.calculation}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="allFormulaInfoGetClosedCountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: min-content;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header pb-0">
+                        <h2 class="modal-title" id="exampleModalLabel">Information</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Calculation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of allFormulaInfoGetClosedCount; index as i">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item.names}}</td>
+                                            <td>{{item.calculation}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="allFormulaInfoGetTotalCountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 700px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header pb-0">
+                        <h2 class="modal-title" id="exampleModalLabel">Information</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Calculation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of allFormulaInfoGetTotalCount; index as i">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item.names}}</td>
+                                            <td>{{item.calculation}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="allFormulaInfoGetDomainAndExposureHSDESResult" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 700px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header pb-0">
+                        <h2 class="modal-title" id="exampleModalLabel">Information</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Calculation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of allFormulaInfoGetDomainAndExposureHSDESResult; index as i">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item.names}}</td>
+                                            <td>{{item.calculation}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="allFormulaInfoGetDefectsVsRegressionHSDESResult" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 700px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header pb-0">
+                        <h2 class="modal-title" id="exampleModalLabel">Information</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Calculation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of allFormulaInfoGetDefectsVsRegressionHSDESResult; index as i">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item.names}}</td>
+                                            <td>{{item.calculation}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

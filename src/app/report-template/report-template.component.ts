@@ -372,7 +372,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
 
     })
     /*     this.apiService.getEditQueryResult().subscribe((res: any) => {
-          debugger;
+           
           this.editQuery = res.editQueryDetails;
           console.log(this.editQuery);
           let passVal = this.editQuery;
@@ -395,7 +395,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
         }) */
 
     this.apiService.getEditQueryResult().subscribe((res: any) => {
-      //debugger;
+      // 
       this.editQuery = res.editQueryDetails;
       console.log(this.editQuery);
       let passVal = this.editQuery;
@@ -449,7 +449,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
       "target": "beta",
     }
     this.apiService.GetOpenCloseTrendStatus(this.trendStatusinitial).subscribe((res: any) => {
-      // debugger;
+      //  
       console.log("getOpenCloseTrendStatus", res.getOpenCloseTrendStatusInfo);
       let chartTypeOpen1 = res.getOpenCloseTrendStatusInfo;
       if (chartTypeOpen1 != null) {
@@ -701,7 +701,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
       this.getCriticalDefectsvector = res.getFunctionalDefectsvector;
       this.getFunctionalDefectsCount = res.getFunctionalDefectsCount;
 
-      // debugger;
+      //  
       let valuearr = ['Functional', 'Power Management', 'Pre-checks', 'Reproduce on RVP', 'Total']
 
       let len = this.getCriticalDefectsvector.length
@@ -1255,10 +1255,11 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
 
 
   }
-
+  getIngredientSightingInfoCheck = false;
   ingredientSightingInfo(getIngredientSightingInfo) {
     console.log(getIngredientSightingInfo);
     if (!getIngredientSightingInfo || getIngredientSightingInfo.length === 0) {
+      this.getIngredientSightingInfoCheck = true;
       let chart = am4core.create('getIngredientSightingInfo', am4charts.XYChart)
       const noDataMessagecontainer = chart.chartContainer.createChild(am4core.Container);
       chart.background.fill = am4core.color('#ffffff');
@@ -1584,7 +1585,11 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
   }
   openClosedDataReport() {
   }
+  dataOpenCloseTrendInfoCheck = false;
   rendercharOpen(dataOpenCloseTrendInfo) {
+    if (dataOpenCloseTrendInfo.length == 0) {
+      this.dataOpenCloseTrendInfoCheck = true;
+    }
     if (dataOpenCloseTrendInfo) {
       dataOpenCloseTrendInfo.forEach((d, index) => {
         if (d.target == 'power on') {
@@ -1764,10 +1769,12 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
 
   }
   //open close trend status chart for report
+  chartTypeOpenfilteredCheck = false;
   GetOpenCloseTrendStatus(chartTypeOpenfiltered) {
-    // debugger
+    //   
     console.log("getOpenCloseTrendStatus", chartTypeOpenfiltered)
     if (!chartTypeOpenfiltered || chartTypeOpenfiltered.length === 0 || chartTypeOpenfiltered == null) {
+      this.chartTypeOpenfilteredCheck = true;
       let chart = am4core.create('getOpenCloseTrendStatus', am4charts.XYChart)
       const noDataMessagecontainer = chart.chartContainer.createChild(am4core.Container);
       chart.background.fill = am4core.color('#ffffff');
@@ -1923,9 +1930,11 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
       }
     }
   }
+  getNoloscriticalCheck = false;
   noLoscriticalchart(noLosChart) {
     // 
     if (!noLosChart || noLosChart.length === 0) {
+      this.getNoloscriticalCheck = true;
       let chart = am4core.create('getNoloscritical', am4charts.XYChart)
       const noDataMessagecontainer = chart.chartContainer.createChild(am4core.Container);
       chart.background.fill = am4core.color('#ffffff');
@@ -2030,9 +2039,11 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
       categoryAxis.end = 1;
     }
   }
+  getNoloshighCheck = false;
   noLoscriticalhighchart(noLosChart) {
     if (!noLosChart || noLosChart.length === 0) {
-      let chart = am4core.create('getNoloscritical', am4charts.XYChart)
+      this.getNoloshighCheck = true;
+      let chart = am4core.create('getNoloshigh', am4charts.XYChart)
       const noDataMessagecontainer = chart.chartContainer.createChild(am4core.Container);
       chart.background.fill = am4core.color('#ffffff');
       noDataMessagecontainer.align = 'center';
@@ -2233,7 +2244,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
         "target": this.trend_milestone,
       }
       this.apiService.GetOpenCloseTrendStatus(this.trendStatus).subscribe((res: any) => {
-        //  debugger;
+        //   
         console.log("getOpenCloseTrendStatus", res.getOpenCloseTrendStatusInfo);
 
         let trendstatusChart = res.getOpenCloseTrendStatusInfo;
@@ -2307,7 +2318,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
         }
       })
       this.apiService.GetKeyIngredientFailing(this.keyFailing).subscribe((res: any) => {
-        //  debugger;
+        //   
         this.getKey_ing = res.ingredientNamesCountsInfo;
         this.ingNew = this.getKey_ing[0].counts
         this.ingClosedCount = this.getKey_ing[1].counts
@@ -2337,7 +2348,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
           "exposure": "1-critical"
         }
         this.apiService.GetExposureListOfIssues(paylo).subscribe((res: any) => {
-          debugger;
+           
           console.log("res-ta", res);
           /*   this.critical_defectsBugs = res.defectsBugs;
     
@@ -2584,7 +2595,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
       //regression
       this.apiService.getDefectsVsRegressionHSDESResult(payl).subscribe((res: any) => {
         console.log(res.defectsAndRegressionInfo);
-        debugger;
+         
         this.regressionInfo = res.defectsAndRegressionInfo;
         this.regressionInfo.forEach(element => {
           let temp = {
@@ -2631,7 +2642,11 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
 
   defectsInfo; regressionInfo;
   defectRegressionParam = {};
+  defectsAndRegressionInfoCheck = false;
   renderCharData(defectsAndRegressionInfo) {
+    if (defectsAndRegressionInfo.length == 0) {
+      this.defectsAndRegressionInfoCheck = true;
+    }
     am4core.useTheme(am4themes_animated);
     am4core.options.autoSetClassName = true;
     am4core.options.commercialLicense = true;
@@ -2698,7 +2713,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
       // Click
       series.columns.template.events.on("hit", function (ev: any) {
         console.log("clicked on ", ev.target.dataItem._dataContext);
-        debugger;
+         
         let type = (ev.target.dataItem.component.name).split(' ');
         that.chartdetails.COUNTTYPE = type[0];
 
@@ -3117,7 +3132,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
       excludeCss: true
     }
     for (var i = 0; i < arrayLength; i++) {
-      // debugger
+      //   
       console.log("value", myStringArray[i])
       let data = svg.svgAsPngUri(document.querySelector(myStringArray[i]).getElementsByTagName("svg")[0], options).then((value) => {
         if (value == !undefined) {
@@ -3144,18 +3159,53 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
     }
   }
   sendimgdata(chartImage) {
-    debugger;
+     
     let myChartvalue = ["ActiveCountChart", "ClosedCountChart", "TotalSightingChart", "OpenCloseTrendChart", "DefectsvsIngredientsChart", "OpenCloseChart", "IngredientsExposureChart", "CriticalChart", "HighChart"];
     console.log(chartImage)
     console.log(chartImage.length == 8)
     var result = myChartvalue.reduce((acc, item, i) => {
+
       acc[item] = chartImage[i];
+
       return acc;
     }, {});
-    console.log(result)
+    console.log("result", result)
     var r = {};
     for (let i = 0; i < myChartvalue.length; i++) {
       r[myChartvalue[i]] = chartImage[i];
+
+      if (myChartvalue[i] == "OpenCloseTrendChart") {
+        if (this.dataOpenCloseTrendInfoCheck == true) {
+          r[myChartvalue[i]] = "";
+        }
+      }
+      if (myChartvalue[i] == "DefectsvsIngredientsChart") {
+        if (this.defectsAndRegressionInfoCheck == true) {
+          r[myChartvalue[i]] = "";
+        }
+      }
+      if (myChartvalue[i] == "OpenCloseChart") {
+        if (this.chartTypeOpenfilteredCheck == true) {
+          r[myChartvalue[i]] = "";
+        }
+      }
+      if (myChartvalue[i] == "IngredientsExposureChart") {
+        if (this.getIngredientSightingInfoCheck == true) {
+          r[myChartvalue[i]] = "";
+        }
+      }
+      if (myChartvalue[i] == "CriticalChart") {
+        if (this.getNoloscriticalCheck == true) {
+          r[myChartvalue[i]] = "";
+        }
+      }
+      if (myChartvalue[i] == "HighChart") {
+        if (this.getNoloshighCheck == true) {
+          r[myChartvalue[i]] = "";
+        }
+      }
+
+
     }
 
     console.log(JSON.stringify(r));
@@ -3171,11 +3221,11 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
       mailTo: this.mailto,
       query: this.query_for_config_gen
     }
-    debugger
+      
     let merged = { ...val, ...this.mail_value };
     console.log(merged)
     merged['status'] = this.flag.toString();
-    debugger;
+     
     this.apiService.SendEmailReport(merged).subscribe((res: any) => {
       console.log(res)
       if (res.isCompletedSuccessfully == true) {

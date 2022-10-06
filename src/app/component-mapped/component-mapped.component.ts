@@ -743,7 +743,6 @@ export class ComponentMappedComponent implements OnInit {
     });
   }
   updateEdit() {
-    debugger;
     console.log(this.editedComponent)
     let id = this.editComponentDropdown(this.editedComponent.mainComponentName)
     let value = (id.componentID).toString();

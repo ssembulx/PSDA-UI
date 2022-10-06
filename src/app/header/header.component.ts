@@ -102,17 +102,38 @@ export class HeaderComponent implements OnInit {
   public showNotification(type: string, message: string): void {
     this.notifier.notify(type, message);
   }
-
+  firstClick = true;
   refreshPage() {
-    let paylod = {
-      "platformName": this.selectedPlatform
-    }
-    this.apiService.refreshPlatform(paylod).subscribe((res: any) => {
-      if (res.result.message == 'Refreshed Successfully.') {
-        location.reload();
-        // this.showNotification('success', res.result.message);
+    if(this.firstClick){
+      let txt="The "+ this.selectedPlatform +" platform refresh has begun"
+      this.showNotification('success', txt);
+      let paylod = {
+        "platformName": this.selectedPlatform
       }
-    });
+      this.apiService.refreshPlatform(paylod).subscribe((res: any) => {
+        if (res.result.message == 'Refreshed Successfully.') {
+          location.reload();
+          this.showNotification('success', res.result.message);
+        } else {
+          this.showNotification('success', res.result.message);
+        }
+      });
+
+      this.firstClick = false;
+    } else if(!this.firstClick){
+      this.firstClick = false;
+      let paylod = {
+        "platformName": this.selectedPlatform
+      }
+      this.apiService.refreshPlatform(paylod).subscribe((res: any) => {
+        if (res.result.message == 'Refreshed Successfully.') {
+          location.reload();
+          this.showNotification('success', res.result.message);
+        } else {
+          this.showNotification('success', res.result.message);
+        }
+      });
+    }
   }
 
   ngOnInit(): void {
@@ -121,9 +142,9 @@ export class HeaderComponent implements OnInit {
 
 
     /* local server config */
-    // this.localServer();
+    this.localServer();
     /* cloud server config */
-    this.cloudServer();
+    // this.cloudServer();
 
     // let getPhoto = {
     //   "requests": [
@@ -151,6 +172,7 @@ export class HeaderComponent implements OnInit {
         this.platformName = data.params.platform;
         this.platformName = this.platformName;
         this.selectedPlatform = this.platformName;
+        this.firstClick = true;
         console.log(this.platformName, "time stamp")
 
         this.apiService.getLastDataTime().subscribe((res: any) => {
@@ -184,6 +206,7 @@ export class HeaderComponent implements OnInit {
     })
 
   }
+
   selectedPtl;
   platformChange(value) {
     this.selectedPlat = value;

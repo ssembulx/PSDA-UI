@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient ,HttpBackend} from '@angular/common/http'
 import { environment } from '.././environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceAPIService {
+  private customHttpClient: HttpClient;
 
   private API_URL = environment.API_URL;
   private BASE_URL = environment.BASE_URL;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,backend: HttpBackend) { 
+    this.customHttpClient = new HttpClient(backend);
+  }
 
   getUserDetails(body) {
     return this.http.post(this.API_URL + 'GetUserDetails', body, { withCredentials: true });
   }
   refreshPlatform(body) {
-    return this.http.post(this.BASE_URL + 'api/Refresh/PlatformRefresh', body, { withCredentials: true });
+    return this.customHttpClient.post(this.BASE_URL + 'api/Refresh/PlatformRefresh', body, { withCredentials: true });
   }
   getDD() {
     return this.http.post(this.API_URL + 'GetMenu', {}, { withCredentials: true });

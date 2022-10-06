@@ -778,6 +778,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.exposureCount = res.exposureCount;
       this.daysCount = res.daysCount;
       this.percentageInfo = res.percentageInfo;
+      this.allFormulaInfoGetActiveCount = res.allFormulaInfo;
       this.exposureBarChat(res.daysStatusCount);
       this.exposurePieChat(this.percentageInfo);
     })
@@ -790,6 +791,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.closedCount = res.closedCount[0].closedCount;
       this.exposureClosedCount = res.exposureClosedCount;
       this.closedCountPercentages = res.closedCountPercentages;
+      this.allFormulaInfoGetClosedCount = res.allFormulaInfo;
       this.closedExposurePie(this.closedCountPercentages);
       this.dcrCount = res.dcrCount[0].dcrCount;
       this.sceCount = res.sceCount[0].sceCount;
@@ -800,6 +802,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.totalCount = res.totalCountinfomation[0].totalCount;
       this.avgNew = res.averageCountinfomation[0].count;
       this.avgClosed = res.averageCountinfomation[1].count;
+      this.allFormulaInfoGetTotalCount = res.allFormulaInfo;
     })
 
     this.apiService.getCriticalQRCvector(this.criticalQRC).subscribe((res: any) => {
@@ -929,7 +932,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.cslpsightings = false;
     }
   }
-  defectsInfo; regressionInfo;
+  defectsInfo; regressionInfo;allFormulaInfoGetDomainAndExposureHSDESResult;allFormulaInfoGetDefectsVsRegressionHSDESResult;
   selectedTab($event) {
 
     let tabRef = $event.index;
@@ -944,6 +947,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.apiService.getDomainAndExposureHSDESResult(this.domainExposure).subscribe((res: any) => {
         console.log(res.getSightingsInfo);
         this.getSightingsInfo = res.getSightingsInfo;
+        this.allFormulaInfoGetDomainAndExposureHSDESResult = res.allFormulaInfo;
         this.openSightingTrend(this.getSightingsInfo);
       })
       //this.openSightingTrend(domainAndExposure)
@@ -987,7 +991,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         //regression
         this.apiService.getDefectsVsRegressionHSDESResult(payl).subscribe((res: any) => {
           console.log(res.defectsAndRegressionInfo);
-          debugger;
+           
           this.regressionInfo = res.defectsAndRegressionInfo;
           this.regressionInfo.forEach(element => {
             let temp = {
@@ -1011,7 +1015,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
               }
             });
           });
-
+          this.allFormulaInfoGetDefectsVsRegressionHSDESResult = res.allFormulaInfo;
           this.renderCharData(tempDefects);
         })
       })
@@ -1293,6 +1297,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   }
   selectedValToggleGroup: any;
+  allFormulaInfoGetActiveCount;
+  allFormulaInfoGetClosedCount;
+  allFormulaInfoGetTotalCount;
   onValChangeToggleGroup(data) {
     this.selectedValToggleGroup = data;
     if (this.selectedValToggleGroup == "Total Sighting") {
@@ -1320,10 +1327,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
 
       this.apiService.getActiveCount(payload).subscribe((res: any) => {
+         
         this.activeCount = res.activeCount[0].activeCount;
         this.exposureCount = res.exposureCount;
         this.daysCount = res.daysCount;
         this.percentageInfo = res.percentageInfo;
+        this.allFormulaInfoGetActiveCount = res.allFormulaInfo;
         this.exposureBarChat(res.daysStatusCount);
         this.exposurePieChat(this.percentageInfo);
       })
@@ -2520,7 +2529,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       // Click
       series.columns.template.events.on("hit", function (ev: any) {
         console.log("clicked on ", ev.target.dataItem._dataContext);
-        debugger;
+         
         let type = (ev.target.dataItem.component.name).split(' ');
         that.chartdetails.COUNTTYPE = type[0];
 
@@ -2999,7 +3008,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     })
   }
   exposureSelectedAll() {
-    debugger;
+     
     if (this.isExposureSelectedAll) {
       this.exposureList.forEach(element => {
         element["checked"] = true
@@ -3013,7 +3022,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.columnGlobalFilter('exposure')
   }
   changeExposureSelected() {
-    debugger;
+     
     let exposure = this.exposureList.map(element => element["checked"]);
     if (exposure.indexOf(false) > -1) {
       this.isExposureSelectedAll = false
@@ -3023,7 +3032,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   columnGlobalFilter(columnName) {
-    debugger;
+     
     this.selection.clear();
 
     switch (columnName) {
