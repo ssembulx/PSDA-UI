@@ -285,7 +285,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
   defaultColumns: string[];
   // defaultColumns: string[] = ['selection_column', 'id', 'title', 'exposure', 'domain', 'reproducibility', 'sysdebug_forum', 'suspected_Ingredient', 'promoted_ID', 'customer_impact', 'customer_summary', 'days_open', 'target'];
 
-  displayedColumns: string[] = ['selection_column', 'id', 'title', 'exposure', 'domain', 'reproducibility', 'sysdebug_forum', 'suspected_Ingredient'];
+  displayedColumns: string[] = ['selection_column', 'id','promoted_ID', 'title', 'exposure', 'domain', 'reproducibility', 'sysdebug_forum', 'suspected_Ingredient'];
   trendStatusinitial: { platform: any; ChartType: string; target: string; };
   Countobj: {};
   Countobj2: {};
