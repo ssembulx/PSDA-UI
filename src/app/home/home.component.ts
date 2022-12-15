@@ -932,7 +932,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.cslpsightings = false;
     }
   }
-  defectsInfo; regressionInfo;allFormulaInfoGetDomainAndExposureHSDESResult;allFormulaInfoGetDefectsVsRegressionHSDESResult;
+  defectsInfo; regressionInfo; allFormulaInfoGetDomainAndExposureHSDESResult; allFormulaInfoGetDefectsVsRegressionHSDESResult;
   selectedTab($event) {
 
     let tabRef = $event.index;
@@ -991,7 +991,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         //regression
         this.apiService.getDefectsVsRegressionHSDESResult(payl).subscribe((res: any) => {
           console.log(res.defectsAndRegressionInfo);
-           
+
           this.regressionInfo = res.defectsAndRegressionInfo;
           this.regressionInfo.forEach(element => {
             let temp = {
@@ -1279,7 +1279,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   report() {
-    if (this.platformName == "CSLP_ADL_S_ADL_P") {
+    if (this.cslpsightings) {
+      this.openDialog2()
+      return
+    }
+   /*  if (this.platformName == "CSLP_ADL_S_ADL_P") {
       this.openDialog2()
       return
     } else if (this.platformName == "RPL_CSLP") {
@@ -1288,7 +1292,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     } else if (this.platformName == "RPL_P_CSLP") {
       this.openDialog2()
       return
-    }
+    } */
     let t = this.router.serializeUrl(
       this.router.createUrlTree(['mail'], { queryParams: { platform: this.platformName } }))
     window.open("#" + t, '_blank')
@@ -1327,7 +1331,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
 
       this.apiService.getActiveCount(payload).subscribe((res: any) => {
-         
+
         this.activeCount = res.activeCount[0].activeCount;
         this.exposureCount = res.exposureCount;
         this.daysCount = res.daysCount;
@@ -2529,7 +2533,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       // Click
       series.columns.template.events.on("hit", function (ev: any) {
         console.log("clicked on ", ev.target.dataItem._dataContext);
-         
+
         let type = (ev.target.dataItem.component.name).split(' ');
         that.chartdetails.COUNTTYPE = type[0];
 
@@ -3008,7 +3012,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     })
   }
   exposureSelectedAll() {
-     
+
     if (this.isExposureSelectedAll) {
       this.exposureList.forEach(element => {
         element["checked"] = true
@@ -3022,7 +3026,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.columnGlobalFilter('exposure')
   }
   changeExposureSelected() {
-     
+
     let exposure = this.exposureList.map(element => element["checked"]);
     if (exposure.indexOf(false) > -1) {
       this.isExposureSelectedAll = false
@@ -3032,7 +3036,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   columnGlobalFilter(columnName) {
-     
+
     this.selection.clear();
 
     switch (columnName) {

@@ -14,7 +14,7 @@
                                 <table class="table table-bordered header-grey-table table_ml">
                                     <thead>
                                         <tr>
-                                            <th scope="col">#ACTIVE</th>
+                                            <th style="border-top: transparent;" scope="col">#ACTIVE</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -37,8 +37,8 @@
                             <table class="table table-bordered header-grey-table table_mr">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Exposure</th>
-                                        <th scope="col">#</th>
+                                        <th style="border-top: transparent;" scope="col">Exposure</th>
+                                        <th style="border-top: transparent;" scope="col">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -86,7 +86,7 @@
                                 <table class="table table-bordered header-grey-table table_str">
                                     <thead>
                                         <tr>
-                                            <th scope="col" colspan="2">#Closed
+                                            <th style="border-top: transparent;" scope="col" colspan="2">#Closed
                                                 <br />
                                                 <a class="HeaderText" (click)="sampleData('1','','closed')"><strong>{{closedCount || 0}}</strong></a>
                                             </th>
@@ -107,8 +107,8 @@
                             <table class="table table-bordered header-grey-table table_rit">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Exposure</th>
-                                        <th scope="col">#</th>
+                                        <th style="border-top: transparent;" scope="col">Exposure</th>
+                                        <th style="border-top: transparent;" scope="col">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -145,7 +145,7 @@
                     <table class="table table-bordered header-grey-table table_down">
                         <thead>
                             <tr>
-                                <th scope="col" colspan="2">#Total Sighting <i class="fa fa-info-circle float-right" aria-hidden="true" matTooltip="Info" data-toggle="modal" data-target="#allFormulaInfoGetTotalCountModal"></i>
+                                <th scope="col" colspan="2" style="border-top: transparent;">#Total Sighting <i class="fa fa-info-circle float-right" aria-hidden="true" matTooltip="Info" data-toggle="modal" data-target="#allFormulaInfoGetTotalCountModal"></i>
                                     <br />
                                     <a class="HeaderText" (click)="sampleData('1','1-Critical','Total')"> <strong> {{totalCount || 0}}</strong></a>
                                 </th>
@@ -805,7 +805,7 @@
             <div class="row">
                 <div class="col-12 col-lg-6 mt-2 pr-lg-1">
                     <div class="defects main-div border-0">
-                        <div class="portlet box blue-hoki set_mxwidth mx-auto">
+                        <div class="portlet box blue-hoki set_mxwidth mx-auto" style="width: unset">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-list"></i>
@@ -831,13 +831,13 @@
                                          defect_vector set_height">Defect Vector</th>
 
                                         <th rowspan="1" colspan="1" class="tableQRCBlue
-                                         wss_width set_height">WSS Debug</th>
+                                           set_height">WSS Debug</th>
                                         <th rowspan="1" colspan="1" class="tableQRCBlue
-                                         ingred_width set_height">Ingredient</th>
+                                           set_height">Ingredient</th>
                                         <th rowspan="1" colspan="1" class="tableQRCBlue
-                                         verified_width set_height txt_width">Verified eng version & ingredient release to OWR</th>
+                                           set_height txt_width">Verified eng version & ingredient release to OWR</th>
                                         <th rowspan="1" colspan="1" class="tableQRCBlue
-                                         implement_width set_height">Implemented Pending BKC integration /Verification</th>
+                                           set_height">Implemented Pending BKC integration /Verification</th>
                                         <th rowspan="1" colspan="1" class="tableQRCBlue
                                          divBorderStyle total_width set_height">Total</th>
                                     </tr>
@@ -870,28 +870,28 @@
                                             </tr>
                                         </th>
 
-                                        <th colspan="1" class="funct fontie th_border th_style wss_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
                                                 <td class="white_td" [ngClass]="criticalDefectQRC.wssDebug === '' ? 'customHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{criticalDefectQRC.wssDebug}}</div>
                                                 </td>
                                             </tr>
                                         </th>
-                                        <th colspan="1" class="funct fontie th_border th_style ingred_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
                                                 <td class="white_td" [ngClass]="criticalDefectQRC.ingrediant === '' ? 'customHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{criticalDefectQRC.ingrediant}}</div>
                                                 </td>
                                             </tr>
                                         </th>
-                                        <th colspan="1" class="funct fontie th_border th_style verified_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
                                                 <td class="white_td" [ngClass]="criticalDefectQRC.verified_on_eng_OWR === '' ? 'customHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{criticalDefectQRC.verified_on_eng_OWR}}</div>
                                                 </td>
                                             </tr>
                                         </th>
-                                        <th colspan="1" class="funct fontie th_border th_style implement_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
                                                 <td class="white_td" [ngClass]="criticalDefectQRC.implemented_BKC === '' ? 'customHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{criticalDefectQRC.implemented_BKC}}</div>
@@ -923,7 +923,7 @@
                 </div>
                 <div class="col-12 col-lg-6 mt-2 pl-lg-1">
                     <div class="defects main-div border-0">
-                        <div class="portlet box blue-hoki set_mxwidth mx-auto">
+                        <div class="portlet box blue-hoki set_mxwidth mx-auto" style="width: unset">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-list"></i>
@@ -947,10 +947,10 @@
                                     <tr>
                                         <th rowspan="1" colspan="2" class="tableQRCBlue divBorderStyle defect_vector set_height">Defect Vector</th>
 
-                                        <th rowspan="1" colspan="1" class="tableQRCBlue wss_width set_height">WSS<br>Debug</th>
-                                        <th rowspan="1" colspan="1" class="tableQRCBlue ingred_width set_height">Ingredient</th>
-                                        <th rowspan="1" colspan="1" class="tableQRCBlue verified_width set_height txt_width">Verified eng version & ingredient release to OWR</th>
-                                        <th rowspan="1" colspan="1" class="tableQRCBlue implement_width set_height">Implemented Pending BKC integration /Verification</th>
+                                        <th rowspan="1" colspan="1" class="tableQRCBlue   set_height">WSS<br>Debug</th>
+                                        <th rowspan="1" colspan="1" class="tableQRCBlue   set_height">Ingredient</th>
+                                        <th rowspan="1" colspan="1" class="tableQRCBlue   set_height txt_width">Verified eng version & ingredient release to OWR</th>
+                                        <th rowspan="1" colspan="1" class="tableQRCBlue   set_height">Implemented Pending BKC integration /Verification</th>
                                         <th rowspan="1" colspan="1" class="tableQRCBlue divBorderStyle total_width set_height">Total</th>
                                     </tr>
                                 </thead>
@@ -980,28 +980,28 @@
                                             </tr>
                                         </th>
 
-                                        <th colspan="1" class="funct fontie th_border th_style wss_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu fourthie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
                                                 <td class="white_td" [ngClass]="tableDefectsvector.wssDebug === '' ? 'customDefectHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{tableDefectsvector.wssDebug}}</div>
                                                 </td>
                                             </tr>
                                         </th>
-                                        <th colspan="1" class="funct fontie th_border th_style ingred_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu fourthie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
                                                 <td class="white_td" [ngClass]="tableDefectsvector.ingrediant === '' ? 'customDefectHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{tableDefectsvector.ingrediant}}</div>
                                                 </td>
                                             </tr>
                                         </th>
-                                        <th colspan="1" class="funct fontie th_border th_style verified_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu fourthie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
                                                 <td class="white_td" [ngClass]="tableDefectsvector.verified_on_eng_OWR === '' ? 'customDefectHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{tableDefectsvector.verified_on_eng_OWR}}</div>
                                                 </td>
                                             </tr>
                                         </th>
-                                        <th colspan="1" class="funct fontie th_border th_style implement_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu fourthie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
                                                 <td class="white_td" [ngClass]="tableDefectsvector.implemented_BKC === '' ? 'customDefectHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{tableDefectsvector.implemented_BKC}}</div>

@@ -63,15 +63,18 @@
     <!-- </div> -->
     </div>
     <div class="text-width-right text-left pt-1">
-        <span class="dropdown d-flex float-right">
-            <button  class="dropdown_btn dropdown-toggle pl-0" type="button" id="dropdownMenuButton" (click)="$event.stopPropagation()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <!-- <span class="d-flex float-right">   -->
+        <i class="fa fa-refresh d-flex float-right refresh_icon" *ngIf="Completed" (click)="refreshPage()" aria-hidden="true" matTooltip="Platform Refresh"></i>
+        <i class="fa fa-refresh fa-spin d-flex float-right refresh_icon" *ngIf="InProgress" aria-hidden="true" matTooltip="Refreshing platform in progress..."></i>
+        <!-- </span> -->
+        <!-- <span class="dropdown d-flex float-right">
+             <button  class="dropdown_btn dropdown-toggle pl-0" type="button" id="dropdownMenuButton" (click)="$event.stopPropagation()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-cogs" aria-hidden="true" style="padding-left: 5px; cursor: pointer;"></i>
                         </button>
             <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton" style="right: 0!important;left: unset!important;">
                 <a (click)="refreshPage()" class="dropdown-item">Refresh</a>
-                <!-- <a (click)="tableDetails1(1)" class="dropdown-item">Component Unmapped</a> -->
-            </div>
-        </span>
+            </div> 
+        </span>-->
         <div class="time_div float-right" style="display:inline">
             <span class="pr-2 time_stamp" *ngIf="!(router.url === '/' || router.url === '/query?operation=AddQuery' ||  router.url === '/admin' || router.url === '/ingredient_mapped')"><span>Updated on: {{timelog}}</span></span>
             <span>Version 1.0 <i aria-hidden="true" (click)="openReleaseNotes()" data-toggle="modal" data-target="#releaseInfo" class="fa fa-question-circle" style="padding-left: 2px; cursor: pointer;"></i>

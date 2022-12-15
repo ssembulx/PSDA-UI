@@ -105,18 +105,24 @@ h3 {
 }
 
 .text-width-left {
-    width: 72%;
+    width: 70%;
     display: flex;
 }
 
 .text-width-right {
-    width: 28%;
+    width: 30%;
     text-align: right;
     color: #fff;
 }
 
 .header-version-modal {
     color: #007bff;
+}
+
+.refresh_icon {
+    margin-top: 4px;
+    margin-left: 10px;
+    cursor: pointer;
 }
 
 

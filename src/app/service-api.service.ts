@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient ,HttpBackend} from '@angular/common/http'
+import { HttpClient, HttpBackend } from '@angular/common/http'
 import { environment } from '.././environments/environment';
 
 @Injectable({
@@ -11,12 +11,15 @@ export class ServiceAPIService {
   private API_URL = environment.API_URL;
   private BASE_URL = environment.BASE_URL;
 
-  constructor(private http: HttpClient,backend: HttpBackend) { 
+  constructor(private http: HttpClient, backend: HttpBackend) {
     this.customHttpClient = new HttpClient(backend);
   }
 
   getUserDetails(body) {
     return this.http.post(this.API_URL + 'GetUserDetails', body, { withCredentials: true });
+  }
+  refreshStatusInformation(body) {
+    return this.customHttpClient.post(this.BASE_URL + 'api/Refresh/GetRefreshStatus', body, { withCredentials: true });
   }
   refreshPlatform(body) {
     return this.customHttpClient.post(this.BASE_URL + 'api/Refresh/PlatformRefresh', body, { withCredentials: true });
@@ -277,7 +280,7 @@ export class ServiceAPIService {
   }
 
   public GetToken() {
-    return this.http.get(environment.iamWindowsAuth,{ withCredentials: true }).toPromise();
+    return this.http.get(environment.iamWindowsAuth, { withCredentials: true }).toPromise();
 
   }
   //*** WhoamI APi(user Authentication) ****//
