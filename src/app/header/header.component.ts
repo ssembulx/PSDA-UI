@@ -32,6 +32,10 @@ export class HeaderComponent implements OnInit {
   selectedPlat: any;
   getValue: any;
   avatarurl: any;
+
+  userOnboardInfo:any;
+  userOnboardName:any;
+
   constructor(private apiService: ServiceAPIService, private broadcastService: BroadCastServiceService,
     public router: Router, private aRouter: ActivatedRoute, private helper: HelperService, private notifier: NotifierService) {
     this.notifier = notifier;
@@ -53,6 +57,8 @@ export class HeaderComponent implements OnInit {
       /*   this.helper.setToken(userToken.token)
         this.helper.SetUser(userinfo); */
       this.name = userinfo.name;
+      this.getUserOnboardInfo();
+      console.log(this.name,"dfghjk")
       this.helper.SetUser(userinfo);
       //this.getValue = res.userModelDetails[0].wwid;
       this.avatarurl = userinfo.avatarURL;
@@ -82,6 +88,7 @@ export class HeaderComponent implements OnInit {
 
 
     this.apiService.esService(this.esService).subscribe((res: any) => {
+      debugger
       this.loginUser = res.responses[0].result_table[0].idsid;
       console.log(this.loginUser)
       this.userName =
@@ -91,6 +98,8 @@ export class HeaderComponent implements OnInit {
 
       this.apiService.getUserDetails(this.userName).subscribe((res: any) => {
         this.name = res.userModelDetails[0].name;
+        this.getUserOnboardInfo();
+        console.log(this.name,"fhhhhhhhhhhhhh")
         this.helper.SetUser(res.userModelDetails[0]);
         //this.getValue = res.userModelDetails[0].wwid;
         this.avatarurl = res.userModelDetails[0].avatarURL;
@@ -116,14 +125,14 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    
     this.appTitleBar = this.appBaseName;
 
 
     /* local server config */
-    // this.localServer();
+    this.localServer();
     /* cloud server config */
-    this.cloudServer();
+    // this.cloudServer();
 
     // let getPhoto = {
     //   "requests": [
@@ -173,6 +182,7 @@ export class HeaderComponent implements OnInit {
 
     /* get release note */
     this.apiService.GetVersion().subscribe((res: any) => {
+      debugger
       if (res) {
         this.releaseNote = res.version;
         this.link = res.technologyDetails[0].technologyInfo.split(": ");
@@ -217,5 +227,19 @@ export class HeaderComponent implements OnInit {
 
   platformRemove(platform: any) {
     this.router.navigate(['query'], { queryParams: { platform: platform, operation: "RemoveQuery" } })
+  }
+user:boolean = false;
+
+  getUserOnboardInfo(){
+    this.apiService.GetUserOnboardInfo().subscribe((res:any) =>{
+      debugger
+       this.userOnboardInfo = res.userOnboardInfo;
+      this.userOnboardInfo.forEach((element:any) => {
+         if(element.userName === this.name){
+          this.user = true;
+         }
+      });
+      // this.userOnboardName = res?.userOnboardInfo[0].userName;
+    })
   }
 }

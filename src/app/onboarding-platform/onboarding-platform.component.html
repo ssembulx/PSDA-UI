@@ -1,0 +1,451 @@
+<div class="kt-content">
+    <div class="col-12 mt-2 px-2">
+        <div class="portlet box blue-hoki">
+            <div class="portlet-title">
+                <div class="caption">
+                    <!-- <i class="fa fa-unlink"></i> -->
+                    <a class="tableHeadertext"> 
+                        <strong>Onboarding Platform</strong>
+                    </a>
+                </div>
+                <div class="float right">
+                    <i class="fa fa-info-circle info_icon" (click)="Addinfo(infomodal)" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="my-2 mx-1 row">
+            <!-- <div class="search-bar col-3">
+                <div class="input-group">
+                    <input type="search" name="search" placeholder="Search any field"
+                        class="form-control shadow-none" aria-label="search" [(ngModel)]="searchText">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn save-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-3 searchBar">
+                <input  id="search-term" type="search" matInput placeholder="Search" [(ngModel)]="searchText" #input class="form-control input-sm ng-pristine ng-valid ng-empty ng-touched" placeholder="Search any fields">
+                <i class="fa fa-times" (click)="clearInput('searchText')"></i>
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <div class="col-9">
+                <div class="row float-right">
+                    <div class="action_btn">
+                        <!-- <select class="form-control d-none filter-option mr-3" [(ngModel)]="selected" (change)="changeComponentDropdown(selected)">
+                        <option value="0">All</option>
+                        <option *ngFor="let component of mainComponent" [value]="component.componentID">
+                            {{component.componentName}}
+                        </option>
+                    </select> -->
+                        <button class="save_btn mr-3" (click)="AddRow(addmodal)">+ Add Platform Name</button>
+                    </div>
+                    <div class="action_btn">
+                        <!-- <select class="form-control d-none filter-option mr-3" [(ngModel)]="selected" (change)="changeComponentDropdown(selected)">
+                            <option value="0">All</option>
+                            <option *ngFor="let component of mainComponent" [value]="component.componentID">
+                                {{component.componentName}}
+                            </option>
+                        </select> -->
+                        <!-- <button class="save_btn" (click)="openAddDialog()">+ Add Ingredient Name</button> -->
+                    </div>
+                    <!-- <div class="col-3"><button class="save_btn" (click)="exportexcel()">Download</button></div> -->
+                </div>
+            </div>
+        </div>
+        <hr class="dotted-red" />
+        <!-- <h4 class="text-center" *ngIf="platformData?.length === 0">No Users found.</h4> -->
+        <div class="table-container">
+            <!-- <div class="btn-add-user">
+                <span>Note</span>
+            </div> -->
+            <table class="table table-bordered platform-table">
+                <thead>
+                    <tr>
+                        <th class="v-align"  colspan="13">ACTION</th>
+                        <th class="v-align">SL NO.</th>
+                        <th class="v-align">PLATFORM NAME</th>
+                        <th class="v-align">ORIGINAL QUERY URL</th>
+                        <th class="v-align">QRC QUERY URL</th>
+                        <th class="v-align">GENERATED QUERY URL</th>
+                        <th class="v-align">GENERATED QUERY ID</th>
+                        <th class="v-align">isCSLP</th>
+                        <th class="v-align">POWER ON</th>
+                        <th class="v-align">PRE ALPHA</th>
+                        <th class="v-align">ALPHA</th>
+                        <th class="v-align">POE</th>
+                        <th class="v-align">BETA</th>
+                        <th class="v-align">PV</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let data of platformList | searchFilter: searchText ;let i=index">
+                        <td>
+                            <a (click)="EditPlatformRow(editmodal,data.id)"> <i class="fa fa-pencil"></i></a>
+                            <a (click)="DeleteRow(deletemodal,data.id)"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                        <td>{{i+1}}</td>
+                        <td>{{data['platformName']}}</td>
+                        <td><a href="{{data['originalQueryUrl']}}">Original Query URL</a></td>
+                        <td>{{data['qrcQueryUrl']}}</td>
+                        <td><a href="{{data['generatedQueryUrl']}}">Generated Query URL</a></td>      
+                        <td>{{data['generatedQueryId']}}</td>
+                        <td>{{data['isCSLP']}}</td>
+                        <td>{{data['powerOn']}}</td>
+                        <td>{{data['preAlpha']}}</td>
+                        <td>{{data['alpha']}}</td>
+                        <td>{{data['poe']}}</td>
+                        <td>{{data['beta']}}</td>
+                        <td>{{data['pv']}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+   
+</div>
+
+<!-- =========***** Modal popup for add user*****=============-->
+<ng-template #addmodal let-c="close" let-d="dismiss">
+    <div class="modal-add">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="testModalLabel">Add Platform Details
+            </h1>
+            <!-- <button type="button" class="close" aria-label="Close" (click)="d('Cross click')"> -->
+                <i class="fa fa-times close-icon" aria-hidden="true" (click)="d('Cross click')"></i>
+            <!-- </button> -->
+        </div>        
+        <div class="modal-body">
+          <form class="form" #PlatformTemplate="ngForm" (ngSubmit)="PlatformTemplate.form.valid && onSubmit()" novalidate>
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Platform Name<span style="color:red">*</span> :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="PlatformName" name="name" pattern="[-a-zA-Z0-9_\.]+"
+                   class="col-8 form-control shadow-none i-field" required>
+                  <!-- <span class="text-danger"
+                    *ngIf="(name.touched)">
+                    Name is required
+                  </span> --> 
+                </div>
+            </div> 
+            
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Original Query URL<span style="color:red">*</span> :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="OriginalQueryUrl" class="col-8 form-control shadow-none i-field" required>
+                </div>
+            </div>         
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">QRC Query URL :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="QrcQueryUrl" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div> 
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Generated Query URL<span style="color:red">*</span> :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="GeneratedQueryUrl" class="col-8 form-control shadow-none i-field" required>
+                </div>
+            </div>
+            
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Generated Query ID<span style="color:red">*</span> :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="GeneratedQueryId" class="col-8 form-control shadow-none i-field" required>
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">isCSLP :</label>
+                <div class="col-8">
+                   
+                        <div> 
+                          <!-- <label for="request" id="officallabel">Purpose</label>  -->
+                          <input type = "radio"  id = "yes" value = "True"  [(ngModel)]="isCslp"/>&nbsp;
+                          <label for = "Yes">Yes</label>&nbsp;&nbsp;
+                      
+                          <input type = "radio"  id = "no" value = "False" checked = "checked" [(ngModel)]="isCslp"/>&nbsp;
+                          <label for = "No">No</label>
+                        </div>
+                     
+                    <!-- <input type="text" [(ngModel)]="isCslp" class="col-8 form-control shadow-none i-field" required> -->
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Power On :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="PowerOn" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Pre Alpha :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="PreAlpha" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Alpha :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="Alpha" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">POE :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="Poe" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Beta :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="Beta" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">PV :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="Pv" class="col-8 form-control shadow-none i-field" required>
+                </div>
+            </div>
+
+            <!-- <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Created By :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="CreatedBy" class="col-8 form-control shadow-none i-field" required>
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Type :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="Type" class="col-8 form-control shadow-none i-field" required>
+                </div>
+            </div> -->
+           
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div *ngIf="isAddpopupmsg == true" class="alert alert-success fade show" role="alert">
+                  {{Addpopupmsg}}
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+            </div>
+            <div *ngIf="isAddErrorpopupmsg == true" class="alert alert-danger fade show" role="alert">
+                {{AddErrorpopupmsg}}
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+          </div>
+          <button type="button" class="btn back-btn" aria-label="Close" (click)="d('Cross click')">Cancel</button>
+          <button type="button" class="btn 25 back-btn" (click)="AddPlatform()" [disabled]="PlatformName">Save</button>
+        </div>
+     </div>
+</ng-template>
+
+<!-- =========***** Modal popup for Edit platform*****=============-->
+<ng-template #editmodal let-c="close" let-d="dismiss">
+    <div class="modal-edit">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="testModalLabel">Update Platform Details
+            </h1>
+            <!-- <button type="button" class="close" aria-label="Close" (click)="d('Cross click')"> -->
+                <i class="fa fa-times close-icon" aria-hidden="true" (click)="d('Cross click')"></i>
+            <!-- </button> -->
+        </div>        
+        <div class="modal-body">
+          <!-- <form class="form" #PlatformTemplate="ngForm" (ngSubmit)="PlatformTemplate.form.valid && onSubmit()" novalidate> -->
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Platform Name :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="modal.platformName" class="col-8 form-control shadow-none i-field" required>
+                </div>
+            </div> 
+            
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Original Query URL :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="modal.originalQueryUrl" class="col-8 form-control shadow-none i-field" required>
+                </div>
+            </div>         
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">QRC Query URL :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="modal.qrcQueryUrl" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div> 
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Generated Query URL :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="modal.generatedQueryUrl" class="col-8 form-control shadow-none i-field" required>
+                </div>
+            </div>
+            
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Generated Query ID :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="modal.generatedQueryId" class="col-8 form-control shadow-none i-field" required>
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">isCSLP :</label>
+                <div class="col-8">
+                   
+                        <div> 
+                          <!-- <label for="request" id="officallabel">Purpose</label>  -->
+                          <input type = "radio"  id = "yes" value = "True" checked = "checked" [(ngModel)]="modal.isCslp"/>&nbsp;
+                          <label for = "Yes">Yes</label>&nbsp;&nbsp;
+                      
+                          <input type = "radio"  id = "no" value = "False" [(ngModel)]="modal.isCslp"/>&nbsp;
+                          <label for = "No">No</label>
+                        </div>
+                     
+                    <!-- <input type="text" [(ngModel)]="isCslp" class="col-8 form-control shadow-none i-field" required> -->
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Power On :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="modal.powerOn" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Pre Alpha :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="modal.preAlpha" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Alpha :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="modal.alpha" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">POE :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="modal.poe" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Beta :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="modal.beta" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">PV :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="modal.pv" class="col-8 form-control shadow-none i-field">
+                </div>
+            </div>
+
+            <!-- <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Created By :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="CreatedBy" class="col-8 form-control shadow-none i-field" required>
+                </div>
+            </div>
+
+            <div class="form-group row label-style">
+                <label for="testId" class="col-4 col-form-label">Type :</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="Type" class="col-8 form-control shadow-none i-field" required>
+                </div>
+            </div> -->
+           
+            <!-- </form> -->
+        </div>
+        <div class="modal-footer">
+            <div *ngIf="isUpdatepopupmsg == true" class="alert alert-success fade show" role="alert">
+                  {{Updatepopupmsg}}
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+            </div>
+            <div *ngIf="isUpdateErrorpopupmsg == true" class="alert alert-danger fade show" role="alert">
+                {{UpdateErrorpopupmsg}}
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+          </div>
+          <button type="button" class="btn back-btn" aria-label="Close" (click)="d('Cross click')">Cancel</button>
+          <button type="submit" class="btn back-btn" (click)="UpdateTable()">Update</button>
+        </div>
+     </div>
+</ng-template>
+
+<!-- =========***** Modal popup for Delete row*****=============-->
+<ng-template #deletemodal let-c="close" let-d="dismiss">
+    <div class="modal-delete">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5">Delete Row</h1>
+            <!-- <button type="button" class="close" aria-label="Close" (click)="d('Cross click')"> -->
+                <i class="fa fa-times close-icon" aria-hidden="true" (click)="d('Cross click')"></i>
+            <!-- </button> -->
+        </div>
+        <div class="modal-body">
+        <form>
+            <div class="container">
+            
+                <p class="para-style">Are you sure you want to delete?</p>
+            </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+            <div *ngIf="isDeletepopupmsg == true" class="alert alert-success fade show" role="alert">
+                {{Deletepopupmsg}}
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+          </div>
+          <div *ngIf="isDeleteErrorpopupmsg == true" class="alert alert-danger fade show" role="alert">
+              {{DeleteErrorpopupmsg}}
+            <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+        </div>
+            <button type="button" class="btn back-btn" aria-label="Close" (click)="d('Cross click')">Cancel</button>
+            <button type="button" (click)="ConfirmDelete()" class="btn delete-btn btn-danger">Delete</button>
+        </div>
+    </div>
+</ng-template>
+ 
+
+<!-- =========***** Modal popup for info*****=============-->
+<ng-template #infomodal let-c="close" let-d="dismiss">
+    <div class="modal-info">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5">Info Details</h1>
+            <!-- <button type="button" class="close" aria-label="Close" (click)="d('Cross click')"> -->
+                <i class="fa fa-times close-icon" aria-hidden="true" (click)="d('Cross click')"></i>
+            <!-- </button> -->
+        </div>
+        <div class="modal-body">
+            <table class="table table-bordered user-table" style=" width: 100% !important;margin-bottom: 0;background-color: transparent;overflow-x: auto;display: block;"> 
+                <thead>
+                    <tr>
+                        <th style="width: 0.73%;">Name</th>
+                        <th>Description</th>
+                    </tr>  
+                </thead>              
+                <tbody style="height: auto;">
+                    <tr *ngFor = "let data of infoList">
+                       <td style="text-align:left;width: 0%;">{{data['name']}}</td>
+                       <td style="text-align:left;white-space: pre-line;">{{data['description']}}</td>
+                    <tr>
+                </tbody>
+            </table> 
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn back-btn" aria-label="Close" (click)="d('Cross click')">Cancel</button>
+            <!-- <button type="button" (click)="ConfirmDelete()" class="btn delete-btn btn-danger">Delete</button> -->
+        </div>
+    </div>
+</ng-template>

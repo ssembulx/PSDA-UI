@@ -273,6 +273,31 @@ export class ServiceAPIService {
 
   }
 
+  // ****** onboarding platform details ****** //
+  getOnboardingPlatformData(){
+    return this.http.post(this.API_URL + 'GetPlatforms', { withCredentials: true })
+  }
+
+  // ****** Add onboarding platform details ****** //
+  getAddPlatformDetails(req:any){
+    return this.http.post(this.API_URL + 'CreatePlatform', req, { withCredentials: true })
+  }
+  
+  // ****** Update onboarding platform details ****** //
+  getUpdatePlatformDetails(req:any){
+    return this.http.post(this.API_URL + 'UpdatePlatform', req, { withCredentials: true })
+  }
+
+  // ****** Delete onboarding platform details ****** //
+  getDeletePlatformDetails(req:any){
+    return this.http.post(this.API_URL + 'DeletePlatform', req, { withCredentials: true })
+  }
+
+   // ****** get useronboard info API ****** //
+   GetUserOnboardInfo(){
+    return this.http.post(this.API_URL + 'GetUserOnboard', { withCredentials: true })
+  }
+
   public GetToken() {
     return this.http.get(environment.iamWindowsAuth,{ withCredentials: true }).toPromise();
 

@@ -44,6 +44,8 @@ import { PlatformOnboardingComponent } from './platform-onboarding/platform-onbo
 // import { ResizeColumnDirective } from './report-template/resize-column.directive';
 
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { OnboardingPlatformModule } from './onboarding-platform/onboarding-platform.module';
+
 
 
 
@@ -102,7 +104,7 @@ const customNotifierOptions: NotifierOptions = {
     TestComponent,
     HighlightSearch,
     ProgramMgmtComponent,
-    PlatformOnboardingComponent
+    PlatformOnboardingComponent,
     // ResizeColumnDirective
   ],
   imports: [
@@ -134,7 +136,8 @@ const customNotifierOptions: NotifierOptions = {
     CommonModule,
     NotifierModule.withConfig(customNotifierOptions),
     MatSnackBarModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    OnboardingPlatformModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true }, ServiceAPIService, BroadCastServiceService],
   bootstrap: [AppComponent],

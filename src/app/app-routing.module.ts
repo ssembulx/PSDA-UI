@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { TestComponent } from './test/test.component';
 import { PlatformOnboardingComponent } from './platform-onboarding/platform-onboarding.component'
+import { OnboardingPlatformComponent } from './onboarding-platform/onboarding-platform.component';
 const routes: Routes = [
   {
     path: "",
@@ -89,7 +90,11 @@ const routes: Routes = [
   {
     path: "admin",
     component: LandingPageComponent
-  }
+  },
+  {
+    path: "onboardingPlatform",
+    component: OnboardingPlatformComponent
+  },
 ];
 
 @NgModule({
