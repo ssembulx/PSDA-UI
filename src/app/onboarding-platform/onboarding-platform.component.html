@@ -167,7 +167,7 @@
                           <input type = "radio"  id = "yes" value = "True"  [(ngModel)]="isCslp"/>&nbsp;
                           <label for = "Yes">Yes</label>&nbsp;&nbsp;
                       
-                          <input type = "radio"  id = "no" value = "False" checked = "checked" [(ngModel)]="isCslp"/>&nbsp;
+                          <input type = "radio"  id = "no" value = "False" [(ngModel)]="isCslp"/>&nbsp;
                           <label for = "No">No</label>
                         </div>
                      
@@ -243,7 +243,7 @@
               <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
           </div>
           <button type="button" class="btn back-btn" aria-label="Close" (click)="d('Cross click')">Cancel</button>
-          <button type="button" class="btn 25 back-btn" (click)="AddPlatform()" [disabled]="PlatformName">Save</button>
+          <button type="button" class="btn 25 back-btn" (click)="AddPlatform()">Save</button>
         </div>
      </div>
 </ng-template>

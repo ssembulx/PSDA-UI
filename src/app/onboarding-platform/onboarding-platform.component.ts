@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceAPIService } from '../service-api.service';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { HelperService } from '../helper.service';
+import { deflate } from 'zlib';
 
 @Component({
   selector: 'app-onboarding-platform',
@@ -63,34 +65,25 @@ export class OnboardingPlatformComponent implements OnInit {
     pv:''
   };
   
-  constructor(private apiService: ServiceAPIService, private modalService:NgbModal,config: NgbModalConfig,) 
+  UserDetails:any;
+
+  constructor(private apiService: ServiceAPIService, private modalService:NgbModal,config: NgbModalConfig,private helper: HelperService) 
   { 
     config.backdrop = 'static';
     config.size = 'md';
   }
 
   ngOnInit(): void {
-    // this.getUserDetails();
+    this.getUserDetails();
     this.getOnboardingPlatformData();
   }
 
   getUserDetails(){
-    // this.apiService.esService(this.esService).subscribe((res: any) => {
-    //   this.loginUser = res.responses[0].result_table[0].idsid;
-    //   console.log(this.loginUser)
-    //   this.userName =
-    //   {
-    //     "username": this.loginUser
-    //   }
-
-    //   this.apiService.getUserDetails(this.userName).subscribe((res: any) => {
-    //     this.name = res.userModelDetails[0].name;
-    //     this.helper.SetUser(res.userModelDetails[0]);
-    //     //this.getValue = res.userModelDetails[0].wwid;
-    //     this.avatarurl = res.userModelDetails[0].avatarURL;
-    //     //console.log(this.getValue)
-    //   })
-    // })
+    this.helper.GetUser().subscribe(user => {
+      this.UserDetails = user;
+      console.log(this.UserDetails,"user details=====")
+      }
+    );
   }
   getOnboardingPlatformData(){
     this.apiService.getOnboardingPlatformData().subscribe((res:any) => {
@@ -145,7 +138,7 @@ export class OnboardingPlatformComponent implements OnInit {
   		"poe": this.Poe,
   		"beta": this.Beta,
   		"pv": this.Pv,
-  		"createdBy": "Manjunath Arundathix",
+  		"createdBy": this.UserDetails.name,
   		"type": 'C'
    }
     this.apiService.getAddPlatformDetails(req).subscribe((res:any) =>{
@@ -220,7 +213,7 @@ export class OnboardingPlatformComponent implements OnInit {
         "poe": this.modal.poe,
         "beta": this.modal.beta,
         "pv": this.modal.pv,
-        "modifiedBy": "Thirusangu, ChenthilkumaranX",
+        "modifiedBy": this.UserDetails.name,
         "type": "U"
       }
      this.apiService.getUpdatePlatformDetails(req).subscribe((res:any) => {
@@ -247,7 +240,7 @@ export class OnboardingPlatformComponent implements OnInit {
     ConfirmDelete(){
     let req = {
         "id": this.rowValue,
-         "deletedBy": "Thirusangu, ChenthilkumaranX",
+         "deletedBy": this.UserDetails.name,
          "type": "D"
     }
    this.apiService.getDeletePlatformDetails(req).subscribe((res:any) =>{
