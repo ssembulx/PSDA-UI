@@ -130,27 +130,27 @@ export class HeaderComponent implements OnInit {
 
 
     /* local server config */
-    this.localServer();
+    // this.localServer();
     /* cloud server config */
-    // this.cloudServer();
+    this.cloudServer();
 
-    // let getPhoto = {
-    //   "requests": [
-    //     {
-    //       "command": "get_user_info",
-    //       "command_args": {
-    //         "filter_keys": {},
-    //         "idsid": this.loginUser
-    //       },
-    //       "var_args": [],
-    //       "tran_id": "9ECAADAF-8EE8-4BC5-8FE0-8125AEB90AAE",
-    //       "api_client": "SWAT:swat-article"
-    //     }
-    //   ]
-    // }
-    // this.apiService.esService(getPhoto).subscribe((res: any) => {
-    //   console.log(res)
-    // })
+    let getPhoto = {
+      "requests": [
+        {
+          "command": "get_user_info",
+          "command_args": {
+            "filter_keys": {},
+            "idsid": this.loginUser
+          },
+          "var_args": [],
+          "tran_id": "9ECAADAF-8EE8-4BC5-8FE0-8125AEB90AAE",
+          "api_client": "SWAT:swat-article"
+        }
+      ]
+    }
+    this.apiService.esService(getPhoto).subscribe((res: any) => {
+      console.log(res)
+    })
 
 
     this.aRouter.queryParamMap.subscribe((data: any) => {

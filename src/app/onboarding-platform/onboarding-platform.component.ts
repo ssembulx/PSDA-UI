@@ -21,7 +21,7 @@ export class OnboardingPlatformComponent implements OnInit {
   QrcQueryUrl='';
   GeneratedQueryUrl='';
   GeneratedQueryId='';
-  isCslp='';
+  isCslp='False';
   PowerOn='';
   PreAlpha='';
   Alpha='';

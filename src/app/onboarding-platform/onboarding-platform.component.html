@@ -164,11 +164,28 @@
                    
                         <div> 
                           <!-- <label for="request" id="officallabel">Purpose</label>  -->
-                          <input type = "radio"  id = "yes" value = "True"  [(ngModel)]="isCslp"/>&nbsp;
-                          <label for = "Yes">Yes</label>&nbsp;&nbsp;
-                      
-                          <input type = "radio"  id = "no" value = "False" [(ngModel)]="isCslp"/>&nbsp;
-                          <label for = "No">No</label>
+                          <!-- <input type = "radio"  id = "yes" value = "True"  [(ngModel)]="isCslp"/>&nbsp;
+                          <label for = "Yes">Yes</label>&nbsp;&nbsp; -->
+                          <label>
+                            <input type="radio" name="iscslp"  value="True" [(ngModel)]="isCslp" >
+                            Yes
+                          </label>
+
+                          <label>
+                            <input type="radio" name="iscslp"  value="False" [(ngModel)]="isCslp" checked>
+                            No
+                          </label>
+
+                          <!-- <c-form-check>
+                            <input cFormCheckInput type="radio" value="Ture" name="flexRadioDefault" />
+                            <label cFormCheckLabel>Yes</label>
+                          </c-form-check>
+                          <c-form-check>
+                            <input cFormCheckInput type="radio" value="False"   name="flexRadioDefault" checked/>
+                            <label cFormCheckLabel>No</label>
+                          </c-form-check> -->
+                          <!-- <input type = "radio"  id = "no" value = "False" [(ngModel)]="isCslp"/>&nbsp;
+                          <label for = "No">No</label> -->
                         </div>
                      
                     <!-- <input type="text" [(ngModel)]="isCslp" class="col-8 form-control shadow-none i-field" required> -->
