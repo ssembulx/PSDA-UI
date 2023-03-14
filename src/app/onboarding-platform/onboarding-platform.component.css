@@ -670,7 +670,7 @@ strong{
     position: absolute;
     /* right: -5px;
     bottom: 3px; */
-    right: 2px;
+    right: 1px;
     bottom: 2px;
     height: 35px;
     text-align: center;
@@ -773,6 +773,7 @@ strong{
 }
 a{
     text-decoration: none;
+    cursor: pointer;
 }
 /* 
 tbody {
@@ -867,4 +868,14 @@ label{
 ::ng-deep .modal-content{
         width: 169%;
     margin-left: -104px;
+}
+.para-text{
+    font-weight: 600;
+    font-size: 18px;
+}
+.alert{
+    left: -26rem;
+}
+.text-danger{
+    color: red;
 }

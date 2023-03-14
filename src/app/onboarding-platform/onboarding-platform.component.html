@@ -86,7 +86,8 @@
                             <a (click)="DeleteRow(deletemodal,data.id)"><i class="fa fa-trash-o"></i></a>
                         </td>
                         <td>{{i+1}}</td>
-                        <td>{{data['platformName']}}</td>
+                        <td>
+                            <a (click)="platformChange(data['platformName'])">{{data['platformName']}}</a></td>
                         <td><a href="{{data['originalQueryUrl']}}">Original Query URL</a></td>
                         <td>{{data['qrcQueryUrl']}}</td>
                         <td><a href="{{data['generatedQueryUrl']}}">Generated Query URL</a></td>      
@@ -117,44 +118,44 @@
             <!-- </button> -->
         </div>        
         <div class="modal-body">
-          <form class="form" #PlatformTemplate="ngForm" (ngSubmit)="PlatformTemplate.form.valid && onSubmit()" novalidate>
+          <form class="form" [formGroup]="onBoardingPlatform" was-validated>
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Platform Name<span style="color:red">*</span> :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="PlatformName" name="name" pattern="[-a-zA-Z0-9_\.]+"
-                   class="col-8 form-control shadow-none i-field" required>
-                  <!-- <span class="text-danger"
-                    *ngIf="(name.touched)">
-                    Name is required
-                  </span> --> 
+                    <!-- pattern="^[a-zA-Z0-9_]+$" (input)="validateInput(PlatformName)" -->
+                    <input type="text" [(ngModel)]="PlatformName" pattern="^[a-zA-Z0-9_]+$" class="col-8 form-control"  formControlName="platform" >
+                    <div *ngIf="onBoardingPlatform.controls['platform'].touched && onBoardingPlatform.controls['platform'].invalid" class="text-danger">Allow only Capital,Small letter, Underscore and Numbers</div>
                 </div>
             </div> 
             
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Original Query URL<span style="color:red">*</span> :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="OriginalQueryUrl" class="col-8 form-control shadow-none i-field" required>
+                    <input type="text" [(ngModel)]="OriginalQueryUrl" class="col-8 form-control" formControlName="originalquery">
+                    <div *ngIf="onBoardingPlatform.controls['originalquery'].touched && onBoardingPlatform.controls['originalquery'].invalid" class="text-danger">Required Field</div>
                 </div>
             </div>         
 
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">QRC Query URL :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="QrcQueryUrl" class="col-8 form-control shadow-none i-field">
+                    <input type="text" [(ngModel)]="QrcQueryUrl" class="col-8 form-control">
                 </div>
             </div> 
 
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Generated Query URL<span style="color:red">*</span> :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="GeneratedQueryUrl" class="col-8 form-control shadow-none i-field" required>
+                    <input type="text" [(ngModel)]="GeneratedQueryUrl" class="col-8 form-control"  formControlName="generatequery">
+                    <div *ngIf="onBoardingPlatform.controls['generatequery'].touched && onBoardingPlatform.controls['generatequery'].invalid" class="text-danger">Required Field</div>
                 </div>
             </div>
             
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Generated Query ID<span style="color:red">*</span> :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="GeneratedQueryId" class="col-8 form-control shadow-none i-field" required>
+                    <input type="text" [(ngModel)]="GeneratedQueryId" class="col-8 form-control" formControlName="generatequeryId">
+                    <div *ngIf="onBoardingPlatform.controls['generatequeryId'].touched && onBoardingPlatform.controls['generatequeryId'].invalid" class="text-danger">Required Field</div>
                 </div>
             </div>
 
@@ -169,7 +170,7 @@
                           <label>
                             <input type="radio" name="iscslp"  value="True" [(ngModel)]="isCslp" >
                             Yes
-                          </label>
+                          </label>&nbsp;&nbsp;
 
                           <label>
                             <input type="radio" name="iscslp"  value="False" [(ngModel)]="isCslp" checked>
@@ -317,12 +318,23 @@
                 <div class="col-8">
                    
                         <div> 
-                          <!-- <label for="request" id="officallabel">Purpose</label>  -->
-                          <input type = "radio"  id = "yes" value = "True" checked = "checked" [(ngModel)]="modal.isCslp"/>&nbsp;
+                            <label>
+                                <input type="radio" name="iscslp"  value="True" [(ngModel)]="modal.isCslp">
+                                Yes
+                              </label>&nbsp;&nbsp;
+    
+                              <label>
+                                <input type="radio" name="iscslp"  value="False" [(ngModel)]="modal.isCslp">
+                                No
+                              </label>
+
+                              
+<!--                          
+                          <input type = "radio"  id = "yes" value = "True" [(ngModel)]="modal.isCslp"/>&nbsp;
                           <label for = "Yes">Yes</label>&nbsp;&nbsp;
                       
                           <input type = "radio"  id = "no" value = "False" [(ngModel)]="modal.isCslp"/>&nbsp;
-                          <label for = "No">No</label>
+                          <label for = "No">No</label> -->
                         </div>
                      
                     <!-- <input type="text" [(ngModel)]="isCslp" class="col-8 form-control shadow-none i-field" required> -->
@@ -445,16 +457,17 @@
             <!-- </button> -->
         </div>
         <div class="modal-body">
+            <p class="para-text">Required fields</p>
             <table class="table table-bordered user-table" style=" width: 100% !important;margin-bottom: 0;background-color: transparent;overflow-x: auto;display: block;"> 
                 <thead>
                     <tr>
-                        <th style="width: 0.73%;">Name</th>
+                        <th style="width: 0.48%;">Name</th>
                         <th>Description</th>
                     </tr>  
                 </thead>              
                 <tbody style="height: auto;">
                     <tr *ngFor = "let data of infoList">
-                       <td style="text-align:left;width: 0%;">{{data['name']}}</td>
+                       <td style="text-align:left;width: 0%;font-weight: bold;">{{data['name']}}</td>
                        <td style="text-align:left;white-space: pre-line;">{{data['description']}}</td>
                     <tr>
                 </tbody>

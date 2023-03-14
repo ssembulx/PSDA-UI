@@ -130,9 +130,9 @@ export class HeaderComponent implements OnInit {
 
 
     /* local server config */
-    // this.localServer();
+    this.localServer();
     /* cloud server config */
-    this.cloudServer();
+    // this.cloudServer();
 
     let getPhoto = {
       "requests": [
@@ -200,7 +200,7 @@ export class HeaderComponent implements OnInit {
     let payload = {
       "platform": value,
     }
-    this.router.navigate(['home'], { queryParams: { platform: value } })
+    this.router.navigate(['home'], { queryParams: { platform: value }})
     this.broadcastService.broadcast("APICALL", payload);
   }
   platformAdd() {

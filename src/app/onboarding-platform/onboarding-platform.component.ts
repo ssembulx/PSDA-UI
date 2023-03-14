@@ -3,6 +3,10 @@ import { ServiceAPIService } from '../service-api.service';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { HelperService } from '../helper.service';
 import { deflate } from 'zlib';
+import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
+import { BroadCastServiceService } from '../broad-cast-service.service';
+import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-onboarding-platform',
@@ -10,6 +14,12 @@ import { deflate } from 'zlib';
   styleUrls: ['./onboarding-platform.component.css']
 })
 export class OnboardingPlatformComponent implements OnInit {
+  onBoardingPlatform = new FormGroup({
+    platform : new FormControl('', [Validators.required]),
+    originalquery : new FormControl('', [Validators.required]),
+    generatequery : new FormControl('', [Validators.required]),
+    generatequeryId : new FormControl('', [Validators.required])
+  })
   platformData:any;
   platformList:any;
   infoList:any;
@@ -67,7 +77,8 @@ export class OnboardingPlatformComponent implements OnInit {
   
   UserDetails:any;
 
-  constructor(private apiService: ServiceAPIService, private modalService:NgbModal,config: NgbModalConfig,private helper: HelperService) 
+  constructor(private apiService: ServiceAPIService, private modalService:NgbModal,config: NgbModalConfig,private helper: HelperService,
+    private broadcastService: BroadCastServiceService,public router: Router) 
   { 
     config.backdrop = 'static';
     config.size = 'md';
@@ -122,8 +133,40 @@ export class OnboardingPlatformComponent implements OnInit {
     this.modalReference=this.modalService.open(addmodal)  
   }
 
+  //**** Validate platform input field ***//
+  invalidInput: boolean = false;
+  isValid: boolean = false;
+
+  // validateInput(PlatformName: string) {
+  //   const regex = /^[a-zA-Z0-9_]+$/;
+  //   if (!regex.test(PlatformName)) {
+  //     this.invalidInput = true;
+  //     // alert("Please enter only capital letters, small letters, numbers, and underscores.");
+  //     // this.myInput = '';
+  //   }
+  //   else{
+  //     this.invalidInput = false;
+  //   }
+  //   this.isValid = this.PlatformName.trim().length >= 3;
+  // }
+
+  // invalidInput: boolean = false;
+  // validateInput() {
+  //   const pattern = /^[a-zA-Z0-9]+$/;
+  //   if (!pattern.test(this.PlatformName)) {
+  //     this.invalidInput = true;
+  //   } else {
+  //     this.invalidInput = false;
+  //   }
+  // }
+
   //*** adding paltform data ****//
   AddPlatform(){
+    debugger
+    const regex = /^[a-zA-Z0-9_]+$/;
+    if (regex.test(this.PlatformName)) {
+      this.invalidInput = true;
+    
     debugger
     let req = {
   		"platformName": this.PlatformName,
@@ -158,6 +201,12 @@ export class OnboardingPlatformComponent implements OnInit {
     this.closeResponseMessage();
     // this.modalReference.close();
   }
+  else{
+    this.invalidInput = false;
+    // alert("invalid input")
+
+  }
+}
 
   //**** Close response message method****//
   closeResponseMessage(){
@@ -169,7 +218,7 @@ export class OnboardingPlatformComponent implements OnInit {
        this.isDeletepopupmsg = false;
        this.isDeleteErrorpopupmsg = false;
        this.modalReference.close()
-      }, 3000);
+      },3000);
       // this.modalReference.close();
      }
 
@@ -267,4 +316,19 @@ export class OnboardingPlatformComponent implements OnInit {
   clearInput(arg) {
     this[arg] = '';
   }
+
+//*** Click platform name from table it will redirect to particular cahrt page ****//
+  selectedPlat: any;
+  platformChange(value:any) {
+    debugger
+    // this.PlatformValues = value;
+    this.selectedPlat = value;
+    let payload = {
+      "platform": value,
+    }
+    this.router.navigate(['/home'],{ queryParams: { platform: value }})
+    this.broadcastService.broadcast("APICALL", payload);
+  }
+
+ 
 }
