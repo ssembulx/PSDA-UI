@@ -114,7 +114,7 @@
             <h1 class="modal-title fs-5" id="testModalLabel">Add Platform Details
             </h1>
             <!-- <button type="button" class="close" aria-label="Close" (click)="d('Cross click')"> -->
-                <i class="fa fa-times close-icon" aria-hidden="true" (click)="d('Cross click')"></i>
+                <i class="fa fa-times close-icon" aria-hidden="true" (click)="d('Cross click'); restForm()"></i>
             <!-- </button> -->
         </div>        
         <div class="modal-body">
@@ -252,15 +252,15 @@
             </form>
         </div>
         <div class="modal-footer">
-            <div *ngIf="isAddpopupmsg == true" class="alert alert-success fade show" role="alert">
+            <div *ngIf="isAddpopupmsg == true" class="alert alert-success fade show" role="alert" style="left: -28rem;padding: 3px;margin-bottom: 0px;">
                   {{Addpopupmsg}}
                 <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
             </div>
-            <div *ngIf="isAddErrorpopupmsg == true" class="alert alert-danger fade show" role="alert">
+            <div *ngIf="isAddErrorpopupmsg == true" class="alert alert-danger fade show" role="alert" style="left: -31rem;padding: 3px;margin-bottom: 0px;">
                 {{AddErrorpopupmsg}}
               <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
           </div>
-          <button type="button" class="btn back-btn" aria-label="Close" (click)="d('Cross click')">Cancel</button>
+          <button type="button" class="btn back-btn" aria-label="Close" (click)="d('Cross click'); restForm()">Cancel</button>
           <button type="button" class="btn 25 back-btn" (click)="AddPlatform()">Save</button>
         </div>
      </div>
@@ -400,11 +400,11 @@
             <!-- </form> -->
         </div>
         <div class="modal-footer">
-            <div *ngIf="isUpdatepopupmsg == true" class="alert alert-success fade show" role="alert">
+            <div *ngIf="isUpdatepopupmsg == true" class="alert alert-success fade show" role="alert" style="left: -27.6rem;padding: 3px;margin-bottom: 0px;">
                   {{Updatepopupmsg}}
                 <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
             </div>
-            <div *ngIf="isUpdateErrorpopupmsg == true" class="alert alert-danger fade show" role="alert">
+            <div *ngIf="isUpdateErrorpopupmsg == true" class="alert alert-danger fade show" role="alert" style="left: -27.6rem;padding: 3px;margin-bottom: 0px;">
                 {{UpdateErrorpopupmsg}}
               <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
           </div>
@@ -432,7 +432,7 @@
         </form>
         </div>
         <div class="modal-footer">
-            <div *ngIf="isDeletepopupmsg == true" class="alert alert-success fade show" role="alert">
+            <div *ngIf="isDeletepopupmsg == true" class="alert alert-success fade show" role="alert" style="left: -28rem;padding: 3px;margin-bottom: 0px;">
                 {{Deletepopupmsg}}
               <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
           </div>
@@ -461,7 +461,7 @@
             <table class="table table-bordered user-table" style=" width: 100% !important;margin-bottom: 0;background-color: transparent;overflow-x: auto;display: block;"> 
                 <thead>
                     <tr>
-                        <th style="width: 0.48%;">Name</th>
+                        <th style="width: 0.5%;">Name</th>
                         <th>Description</th>
                     </tr>  
                 </thead>              

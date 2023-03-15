@@ -128,14 +128,18 @@ export class OnboardingPlatformComponent implements OnInit {
     })
   }
 
+  restForm(){
+    this.onBoardingPlatform.reset();
+  }
   //*** calling add paltform data modal popup ****//
   AddRow(addmodal:any){
+    this.onBoardingPlatform.reset();
     this.modalReference=this.modalService.open(addmodal)  
   }
 
   //**** Validate platform input field ***//
-  invalidInput: boolean = false;
-  isValid: boolean = false;
+  // invalidInput: boolean = false;
+  // isValid: boolean = false;
 
   // validateInput(PlatformName: string) {
   //   const regex = /^[a-zA-Z0-9_]+$/;
@@ -165,7 +169,7 @@ export class OnboardingPlatformComponent implements OnInit {
     debugger
     const regex = /^[a-zA-Z0-9_]+$/;
     if (regex.test(this.PlatformName)) {
-      this.invalidInput = true;
+      // this.invalidInput = true;
     
     debugger
     let req = {
@@ -192,8 +196,13 @@ export class OnboardingPlatformComponent implements OnInit {
         this.isAddErrorpopupmsg = true;
        }
        else{
-        this.isAddpopupmsg = true; 
         this.Addpopupmsg = res.result.message;
+        this.isAddpopupmsg = true; 
+        setTimeout(() =>{
+          this.isAddpopupmsg = false; 
+          this.modalReference.close();
+          this.restForm();
+         },3000); 
        }
        this.getOnboardingPlatformData();
     })
@@ -201,11 +210,11 @@ export class OnboardingPlatformComponent implements OnInit {
     this.closeResponseMessage();
     // this.modalReference.close();
   }
-  else{
-    this.invalidInput = false;
-    // alert("invalid input")
+  // else{
+  //   this.invalidInput = false;
+  //   // alert("invalid input")
 
-  }
+  // }
 }
 
   //**** Close response message method****//
@@ -217,8 +226,8 @@ export class OnboardingPlatformComponent implements OnInit {
        this.isUpdateErrorpopupmsg = false;
        this.isDeletepopupmsg = false;
        this.isDeleteErrorpopupmsg = false;
-       this.modalReference.close()
-      },3000);
+      //  this.modalReference.close()
+      },3000); 
       // this.modalReference.close();
      }
 
@@ -269,10 +278,23 @@ export class OnboardingPlatformComponent implements OnInit {
       if(res.result.status == false){
         this.UpdateErrorpopupmsg = res.result.message;
         this.isUpdateErrorpopupmsg = true;
+        setTimeout(() =>{
+          this.isUpdateErrorpopupmsg = false; 
+          this.modalReference.close();
+         },3000);
        }
+      //  else{
+      //   this.isUpdatepopupmsg = true; 
+      //   this.Updatepopupmsg = res.result.message;
+      //  }
        else{
         this.isUpdatepopupmsg = true; 
         this.Updatepopupmsg = res.result.message;
+        setTimeout(() =>{
+          this.isUpdatepopupmsg = false; 
+          this.modalReference.close();
+         },3000); 
+       
        }
        this.getOnboardingPlatformData();
      })
@@ -296,10 +318,19 @@ export class OnboardingPlatformComponent implements OnInit {
     if(res.result.status == false){
       this.DeleteErrorpopupmsg = res.result.message;
       this.isDeleteErrorpopupmsg = true;
+      setTimeout(() =>{
+        this.isDeleteErrorpopupmsg = false; 
+        this.modalReference.close();
+       },3000); 
      }
      else{
       this.isDeletepopupmsg = true; 
       this.Deletepopupmsg = res.result.message;
+      setTimeout(() =>{
+        this.isDeletepopupmsg = false; 
+        this.modalReference.close();
+       },3000); 
+     
      }
      this.getOnboardingPlatformData();
    })
