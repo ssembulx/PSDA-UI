@@ -168,7 +168,7 @@ export class OnboardingPlatformComponent implements OnInit {
   AddPlatform(){
     debugger
     const regex = /^[a-zA-Z0-9_]+$/;
-    if (regex.test(this.PlatformName)) {
+    if (regex.test(this.PlatformName) && this.PlatformName != null) {
       // this.invalidInput = true;
     
     debugger
