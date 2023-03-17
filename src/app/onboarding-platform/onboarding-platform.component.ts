@@ -17,6 +17,7 @@ export class OnboardingPlatformComponent implements OnInit {
   onBoardingPlatform = new FormGroup({
     platform : new FormControl('', [Validators.required]),
     originalquery : new FormControl('', [Validators.required]),
+    qrcqueryurl : new FormControl(''),
     generatequery : new FormControl('', [Validators.required]),
     generatequeryId : new FormControl('', [Validators.required])
   })
