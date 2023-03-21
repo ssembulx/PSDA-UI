@@ -127,7 +127,6 @@
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Platform Name<span style="color:red">*</span> :</label>
                 <div class="col-8">
-                    <!-- pattern="^[a-zA-Z0-9_]+$" (input)="validateInput(PlatformName)" -->
                     <input type="text" pattern="^[a-zA-Z0-9_]+$" class="col-8 form-control" [(ngModel)]="PlatformName" formControlName="platform" >
                     <div *ngIf="onBoardingPlatform.controls['platform'].touched && onBoardingPlatform.controls['platform'].invalid" class="text-danger">Allow only Capital,Small letter, Underscore and Numbers</div>
                 </div>
@@ -166,35 +165,19 @@
 
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">isCSLP :</label>
-                <div class="col-8">
-                   
+                <div class="col-8">                  
                         <div> 
-                          <!-- <label for="request" id="officallabel">Purpose</label>  -->
-                          <!-- <input type = "radio"  id = "yes" value = "True"  [(ngModel)]="isCslp"/>&nbsp;
-                          <label for = "Yes">Yes</label>&nbsp;&nbsp; -->
                           <label>
-                            <input type="radio" name="iscslp"  value="True" [(ngModel)]="isCslp" [ngModelOptions]="{standalone: true}">
+                            <input type="radio" name="iscslp"  value="true" [(ngModel)]="isCslp">
                             Yes
                           </label>&nbsp;&nbsp;
 
                           <label>
-                            <input type="radio" name="iscslp"  value="False" [(ngModel)]="isCslp" checked [ngModelOptions]="{standalone: true}">
+                            <input type="radio" name="iscslp"  value="false" checked [(ngModel)]="isCslp">
                             No
                           </label>
 
-                          <!-- <c-form-check>
-                            <input cFormCheckInput type="radio" value="Ture" name="flexRadioDefault" />
-                            <label cFormCheckLabel>Yes</label>
-                          </c-form-check>
-                          <c-form-check>
-                            <input cFormCheckInput type="radio" value="False"   name="flexRadioDefault" checked/>
-                            <label cFormCheckLabel>No</label>
-                          </c-form-check> -->
-                          <!-- <input type = "radio"  id = "no" value = "False" [(ngModel)]="isCslp"/>&nbsp;
-                          <label for = "No">No</label> -->
                         </div>
-                     
-                    <!-- <input type="text" [(ngModel)]="isCslp" class="col-8 form-control shadow-none i-field" required> -->
                 </div>
             </div>
 
@@ -239,20 +222,6 @@
                     <input type="text" [(ngModel)]="Pv" class="col-8 form-control shadow-none i-field" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
-
-            <!-- <div class="form-group row label-style">
-                <label for="testId" class="col-4 col-form-label">Created By :</label>
-                <div class="col-8">
-                    <input type="text" [(ngModel)]="CreatedBy" class="col-8 form-control shadow-none i-field" required>
-                </div>
-            </div>
-
-            <div class="form-group row label-style">
-                <label for="testId" class="col-4 col-form-label">Type :</label>
-                <div class="col-8">
-                    <input type="text" [(ngModel)]="Type" class="col-8 form-control shadow-none i-field" required>
-                </div>
-            </div> -->
            
             </form>
         </div>
@@ -282,39 +251,44 @@
             <!-- </button> -->
         </div>        
         <div class="modal-body">
+          <form class="form" [formGroup]="onBoardingPlatform" was-validated>
           <!-- <form class="form" #PlatformTemplate="ngForm" (ngSubmit)="PlatformTemplate.form.valid && onSubmit()" novalidate> -->
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Platform Name :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="modal.platformName" class="col-8 form-control shadow-none i-field" required>
+                    <input type="text" pattern="^[a-zA-Z0-9_]+$" class="col-8 form-control" formControlName="platform" [(ngModel)]="modal.platformName">
+                    <div *ngIf="onBoardingPlatform.controls['platform'].touched && onBoardingPlatform.controls['platform'].invalid" class="text-danger">Allow only Capital,Small letter, Underscore and Numbers</div>
                 </div>
             </div> 
             
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Original Query URL :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="modal.originalQueryUrl" class="col-8 form-control shadow-none i-field" required>
+                    <input type="text" [(ngModel)]="modal.originalQueryUrl" class="col-8 form-control" formControlName="originalquery">
+                    <div *ngIf="onBoardingPlatform.controls['originalquery'].touched && onBoardingPlatform.controls['originalquery'].invalid" class="text-danger">Required Field</div>
                 </div>
             </div>         
 
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">QRC Query URL :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="modal.qrcQueryUrl" class="col-8 form-control shadow-none i-field">
+                    <input type="text" [(ngModel)]="modal.qrcQueryUrl" class="col-8 form-control shadow-none i-field"  [ngModelOptions]="{standalone: true}">
                 </div>
             </div> 
 
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Generated Query URL :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="modal.generatedQueryUrl" class="col-8 form-control shadow-none i-field" required>
+                    <input type="text" [(ngModel)]="modal.generatedQueryUrl"  class="col-8 form-control" formControlName="generatequery">
+                    <div *ngIf="onBoardingPlatform.controls['generatequery'].touched && onBoardingPlatform.controls['generatequery'].invalid" class="text-danger">Required Field</div>
                 </div>
             </div>
             
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Generated Query ID :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="modal.generatedQueryId" class="col-8 form-control shadow-none i-field" required>
+                    <input type="text" [(ngModel)]="modal.generatedQueryId"  class="col-8 form-control" formControlName="generatequeryId">
+                    <div *ngIf="onBoardingPlatform.controls['generatequeryId'].touched && onBoardingPlatform.controls['generatequeryId'].invalid" class="text-danger">Required Field</div>
                 </div>
             </div>
 
@@ -324,22 +298,14 @@
                    
                         <div> 
                             <label>
-                                <input type="radio" name="iscslp"  value="True" [(ngModel)]="modal.isCslp">
+                                <input type="radio" name="iscslp"  value="true" [(ngModel)]="modal.isCslp" [ngModelOptions]="{standalone: true}">
                                 Yes
                               </label>&nbsp;&nbsp;
     
                               <label>
-                                <input type="radio" name="iscslp"  value="False" [(ngModel)]="modal.isCslp">
+                                <input type="radio" name="iscslp"  value="false" [(ngModel)]="modal.isCslp" [ngModelOptions]="{standalone: true}">
                                 No
                               </label>
-
-                              
-<!--                          
-                          <input type = "radio"  id = "yes" value = "True" [(ngModel)]="modal.isCslp"/>&nbsp;
-                          <label for = "Yes">Yes</label>&nbsp;&nbsp;
-                      
-                          <input type = "radio"  id = "no" value = "False" [(ngModel)]="modal.isCslp"/>&nbsp;
-                          <label for = "No">No</label> -->
                         </div>
                      
                     <!-- <input type="text" [(ngModel)]="isCslp" class="col-8 form-control shadow-none i-field" required> -->
@@ -349,60 +315,46 @@
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Power On :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="modal.powerOn" class="col-8 form-control shadow-none i-field">
+                    <input type="text" [(ngModel)]="modal.powerOn" class="col-8 form-control shadow-none i-field" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
 
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Pre Alpha :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="modal.preAlpha" class="col-8 form-control shadow-none i-field">
+                    <input type="text" [(ngModel)]="modal.preAlpha" class="col-8 form-control shadow-none i-field" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
 
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Alpha :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="modal.alpha" class="col-8 form-control shadow-none i-field">
+                    <input type="text" [(ngModel)]="modal.alpha" class="col-8 form-control shadow-none i-field" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
 
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">POE :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="modal.poe" class="col-8 form-control shadow-none i-field">
+                    <input type="text" [(ngModel)]="modal.poe" class="col-8 form-control shadow-none i-field" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
 
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">Beta :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="modal.beta" class="col-8 form-control shadow-none i-field">
+                    <input type="text" [(ngModel)]="modal.beta" class="col-8 form-control shadow-none i-field" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
 
             <div class="form-group row label-style">
                 <label for="testId" class="col-4 col-form-label">PV :</label>
                 <div class="col-8">
-                    <input type="text" [(ngModel)]="modal.pv" class="col-8 form-control shadow-none i-field">
+                    <input type="text" [(ngModel)]="modal.pv" class="col-8 form-control shadow-none i-field" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
-
-            <!-- <div class="form-group row label-style">
-                <label for="testId" class="col-4 col-form-label">Created By :</label>
-                <div class="col-8">
-                    <input type="text" [(ngModel)]="CreatedBy" class="col-8 form-control shadow-none i-field" required>
-                </div>
-            </div>
-
-            <div class="form-group row label-style">
-                <label for="testId" class="col-4 col-form-label">Type :</label>
-                <div class="col-8">
-                    <input type="text" [(ngModel)]="Type" class="col-8 form-control shadow-none i-field" required>
-                </div>
-            </div> -->
            
-            <!-- </form> -->
+           </form>
         </div>
         <div class="modal-footer">
             <div *ngIf="isUpdatepopupmsg == true" class="alert alert-success fade show" role="alert" style="left: -27.6rem;padding: 3px;margin-bottom: 0px;">
@@ -414,7 +366,7 @@
               <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
           </div>
           <button type="button" class="btn back-btn" aria-label="Close" (click)="d('Cross click')">Cancel</button>
-          <button type="submit" class="btn back-btn" (click)="UpdateTable()">Update</button>
+          <button type="submit" class="btn back-btn" (click)="UpdateTable()" [disabled]="onBoardingPlatform.invalid">Update</button>
         </div>
      </div>
 </ng-template>
