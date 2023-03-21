@@ -19,7 +19,8 @@ export class OnboardingPlatformComponent implements OnInit {
     originalquery : new FormControl('', [Validators.required]),
     qrcqueryurl : new FormControl(''),
     generatequery : new FormControl('', [Validators.required]),
-    generatequeryId : new FormControl('', [Validators.required])
+    generatequeryId : new FormControl('', [Validators.required]),
+    // isCSLPradion : new FormControl('false'),
   })
   platformData:any;
   platformList:any;
@@ -32,7 +33,7 @@ export class OnboardingPlatformComponent implements OnInit {
   QrcQueryUrl='';
   GeneratedQueryUrl='';
   GeneratedQueryId='';
-  isCslp='False';
+  isCslp='false';
   PowerOn='';
   PreAlpha='';
   Alpha='';
@@ -86,6 +87,7 @@ export class OnboardingPlatformComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // document.getElementById('isCslp').setAttribute("checked", "checked")
     this.getUserDetails();
     this.getOnboardingPlatformData();
   }
@@ -135,7 +137,8 @@ export class OnboardingPlatformComponent implements OnInit {
   //*** calling add paltform data modal popup ****//
   AddRow(addmodal:any){
     this.onBoardingPlatform.reset();
-    this.modalReference=this.modalService.open(addmodal)  
+    this.modalReference=this.modalService.open(addmodal)
+    console.log("radio button",this.onBoardingPlatform.value.isCslp)  
   }
 
   //**** Validate platform input field ***//
@@ -164,7 +167,15 @@ export class OnboardingPlatformComponent implements OnInit {
   //     this.invalidInput = false;
   //   }
   // }
-
+  AddRadioButton(event:any){
+   console.log("click",event)
+   if(event.target.value === 'false'){
+    this.isCslp = 'false';
+   }
+   else{
+    this.isCslp = 'true';
+   }
+  }
   //*** adding paltform data ****//
   AddPlatform(){
     debugger
@@ -173,6 +184,7 @@ export class OnboardingPlatformComponent implements OnInit {
       // this.invalidInput = true;
     
     debugger
+    // let isCSLP = this.onBoardingPlatform.value.isCslp
     let req = {
   		"platformName": this.PlatformName,
   		"originalQueryUrl": this.OriginalQueryUrl,
