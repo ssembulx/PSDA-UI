@@ -60,10 +60,10 @@
             <!-- <div class="btn-add-user">
                 <span>Note</span>
             </div> -->
-            <table class="table table-bordered platform-table">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th class="v-align"  colspan="13">ACTION</th>
+                        <th class="v-align">ACTION</th>
                         <th class="v-align">SL NO.</th>
                         <th class="v-align">PLATFORM NAME</th>
                         <th class="v-align">ORIGINAL QUERY URL</th>
@@ -82,7 +82,7 @@
                 <tbody>
                     <tr *ngFor = "let data of platformList | searchFilter: searchText ;let i=index">
                         <td>
-                            <a (click)="EditPlatformRow(editmodal,data.id)"> <i class="fa fa-pencil"></i></a>
+                            <a (click)="EditPlatformRow(editmodal,data.id)"> <i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
                             <a (click)="DeleteRow(deletemodal,data.id)"><i class="fa fa-trash-o"></i></a>
                         </td>
                         <td>{{i+1}}</td>
@@ -361,7 +361,7 @@
                   {{Updatepopupmsg}}
                 <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
             </div>
-            <div *ngIf="isUpdateErrorpopupmsg == true" class="alert alert-danger fade show" role="alert" style="left: -27.6rem;padding: 3px;margin-bottom: 0px;">
+            <div *ngIf="isUpdateErrorpopupmsg == true" class="alert alert-danger fade show" role="alert" style="left: -31rem;padding: 3px;margin-bottom: 0px;">
                 {{UpdateErrorpopupmsg}}
               <!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
           </div>
