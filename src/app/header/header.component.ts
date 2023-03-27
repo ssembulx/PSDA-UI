@@ -112,18 +112,70 @@ export class HeaderComponent implements OnInit {
     this.notifier.notify(type, message);
   }
 
-  refreshPage() {
-    let paylod = {
-      "platformName": this.selectedPlatform
-    }
-    this.apiService.refreshPlatform(paylod).subscribe((res: any) => {
-      if (res.result.message == 'Refreshed Successfully.') {
-        location.reload();
-        // this.showNotification('success', res.result.message);
-      }
-    });
-  }
 
+  firstClick = true;
+  refreshPage() {
+    if (this.firstClick) {
+      /* let txt = "The " + this.selectedPlatform + " platform refresh has begun"
+      this.showNotification('success', txt); */
+      let paylod = {
+        "platformName": this.selectedPlatform
+      }
+      this.Completed = false;
+      this.InProgress = true;
+      this.setInterFunc();
+      this.apiService.refreshPlatform(paylod).subscribe((res: any) => {
+        if (res.result.message == 'Refreshed Successfully.') {
+          this.Completed = true;
+          this.InProgress = false;
+          location.reload();
+          //  this.showNotification('success', res.result.message);
+        } else {
+          // this.showNotification('success', res.result.message);
+        }
+      });
+      //  this.firstClick = false;
+    }
+    /*  else if (!this.firstClick) {
+       this.firstClick = false;
+       let paylod = {
+         "platformName": this.selectedPlatform
+       }
+       this.apiService.refreshPlatform(paylod).subscribe((res: any) => {
+         if (res.result.message == 'Refreshed Successfully.') {
+           location.reload();
+           this.showNotification('success', res.result.message);
+         } else {
+           this.showNotification('success', res.result.message);
+         }
+       });
+     } */
+  }
+  setInterFunc() {
+
+    let setInter = setInterval(() => {
+      if (this.selectedPlatform != undefined || this.selectedPlatform != null) {
+        let paylod = {
+          "platformName": this.selectedPlatform
+        }
+        this.apiService.refreshStatusInformation(paylod).subscribe((res: any) => {
+          if (res.refreshStatus[0].status == "Completed") {
+            this.Completed = true;
+            this.InProgress = false;
+            // location.reload();
+            clearInterval(setInter);
+            //  this.showNotification('success', res.result.message);
+          } else if (res.refreshStatus[0].status == "InProgress") {
+            this.Completed = false;
+            this.InProgress = true;
+            // this.showNotification('success', res.result.message);
+          }
+        });
+      }
+    }, 20000);
+  }
+  Completed = true;
+  InProgress = false;
   ngOnInit(): void {
     
     this.appTitleBar = this.appBaseName;
@@ -160,6 +212,7 @@ export class HeaderComponent implements OnInit {
         this.platformName = data.params.platform;
         this.platformName = this.platformName;
         this.selectedPlatform = this.platformName;
+        this.firstClick = true;
         console.log(this.platformName, "time stamp")
 
         this.apiService.getLastDataTime().subscribe((res: any) => {
@@ -194,8 +247,10 @@ export class HeaderComponent implements OnInit {
     })
 
   }
+
   selectedPtl;
   platformChange(value) {
+    this.setInterFunc();
     this.selectedPlat = value;
     let payload = {
       "platform": value,

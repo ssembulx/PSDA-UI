@@ -307,7 +307,6 @@ export class ComponentUnmappedComponent implements OnInit {
 
 
   exportexcel(): void {
-    debugger;
     if (this.selection.selected.length > 0) {
       console.log(this.selection.selected)
       let headerNames = [];
@@ -886,7 +885,7 @@ export class ComponentUnmappedComponent implements OnInit {
     console.log(this.changedDomainvalue)
   }
   saveUnMappedComponent(mappedComponentID, mainComponentName, componentName, createdby, createdDate) {
-    debugger;
+     
     let id = this.editComponentDropdown(this.changedDomainvalue);
     let username = document.getElementById('username').innerHTML;
 

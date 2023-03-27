@@ -5,13 +5,16 @@
             <div class="row row-height px-md-3 th_setwidth">
                 <div class="col-6 brd_div">
                     <div class="row">
-                        <h4 class="col-12 home_heading header_blk">Active Sighting Distribution</h4>
+                        <h4 class="col-12 home_heading header_blk">Active Sighting Distribution<i class="fa fa-info-circle float-right" aria-hidden="true" matTooltip="Info" data-toggle="modal" data-target="#allFormulaInfoGetActiveCountModal"></i></h4>
+                        <!--  <button matTooltipClass="example-tooltip-red" matTooltip="QUERY_ID:{{this.QueryID}}  QRC_QUERY:{{this.QRCQuery}}" type="button" class="info_btn" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                          </button> -->
                         <div class="col-4 active-closed-row col_inner_pad">
                             <div class="active_close_table">
                                 <table class="table table-bordered header-grey-table table_ml">
                                     <thead>
                                         <tr>
-                                            <th scope="col">#ACTIVE</th>
+                                            <th style="border-top: transparent;" scope="col">#ACTIVE</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -34,8 +37,8 @@
                             <table class="table table-bordered header-grey-table table_mr">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Exposure</th>
-                                        <th scope="col">#</th>
+                                        <th style="border-top: transparent;" scope="col">Exposure</th>
+                                        <th style="border-top: transparent;" scope="col">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,13 +80,13 @@
                 </div>
                 <div class="col-4 brdr_div">
                     <div class="row">
-                        <h4 class="col-12 home_heading header_blk">Closed Sighting Distribution</h4>
+                        <h4 class="col-12 home_heading header_blk">Closed Sighting Distribution<i class="fa fa-info-circle float-right" aria-hidden="true" matTooltip="Info" data-toggle="modal" data-target="#allFormulaInfoGetClosedCountModal"></i></h4>
                         <div class="col-7 active-closed-row col_inner_pad">
                             <div class="active_close_table">
                                 <table class="table table-bordered header-grey-table table_str">
                                     <thead>
                                         <tr>
-                                            <th scope="col" colspan="2">#Closed
+                                            <th style="border-top: transparent;" scope="col" colspan="2">#Closed
                                                 <br />
                                                 <a class="HeaderText" (click)="sampleData('1','','closed')"><strong>{{closedCount || 0}}</strong></a>
                                             </th>
@@ -104,8 +107,8 @@
                             <table class="table table-bordered header-grey-table table_rit">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Exposure</th>
-                                        <th scope="col">#</th>
+                                        <th style="border-top: transparent;" scope="col">Exposure</th>
+                                        <th style="border-top: transparent;" scope="col">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -142,7 +145,7 @@
                     <table class="table table-bordered header-grey-table table_down">
                         <thead>
                             <tr>
-                                <th scope="col" colspan="2">#Total Sighting
+                                <th scope="col" colspan="2" style="border-top: transparent;">#Total Sighting <i class="fa fa-info-circle float-right" aria-hidden="true" matTooltip="Info" data-toggle="modal" data-target="#allFormulaInfoGetTotalCountModal"></i>
                                     <br />
                                     <a class="HeaderText" (click)="sampleData('1','1-Critical','Total')"> <strong> {{totalCount || 0}}</strong></a>
                                 </th>
@@ -299,8 +302,12 @@
                                 <h4 class="mb-0 p-2 brd_head">
                                     <i class="fa fa-bar-chart pr-1" aria-hidden="true"></i>Open Sightings By Domain and Exposure
                                 </h4>
+                                <!--   <i class="fa fa-info-circle float-right" aria-hidden="true" matTooltip="Info" data-toggle="modal" data-target="#allFormulaInfoGetDomainAndExposureHSDESResult"></i> -->
                                 <mat-icon class="mr-2 float-right mat_ico" (click)="getfullScreen1()">
                                     fullscreen</mat-icon>
+                                <button matTooltipClass="example-tooltip-red" matTooltip="Info" type="button" class="info_btn m-2 float-right" data-toggle="modal" data-target="#allFormulaInfoGetDomainAndExposureHSDESResult">
+                                        <i class="fa fa-info-circle info1_btn" aria-hidden="true"></i>
+                                      </button>
                             </div>
                             <div class="chart_area" id="openSightingchart"></div>
                         </div>
@@ -313,6 +320,9 @@
                                 </h4>
                                 <mat-icon class="mr-2 float-right mat_ico" (click)="getfullScreen2()">
                                     fullscreen</mat-icon>
+                                <button matTooltipClass="example-tooltip-red" matTooltip="Info" type="button" class="info_btn m-2 float-right" data-toggle="modal" data-target="#allFormulaInfoGetDefectsVsRegressionHSDESResult">
+                                        <i class="fa fa-info-circle info1_btn" aria-hidden="true"></i>
+                                      </button>
                             </div>
                             <div class="chart_area1" id="chartdivnew"></div>
                         </div>
@@ -533,6 +543,191 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="allFormulaInfoGetActiveCountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 700px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="exampleModalLabel">Information</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Calculation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of allFormulaInfoGetActiveCount; index as i">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item.names}}</td>
+                                            <td>{{item.calculation}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="allFormulaInfoGetClosedCountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: min-content;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header pb-0">
+                        <h2 class="modal-title" id="exampleModalLabel">Information</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Calculation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of allFormulaInfoGetClosedCount; index as i">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item.names}}</td>
+                                            <td>{{item.calculation}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="allFormulaInfoGetTotalCountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 700px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header pb-0">
+                        <h2 class="modal-title" id="exampleModalLabel">Information</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Calculation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of allFormulaInfoGetTotalCount; index as i">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item.names}}</td>
+                                            <td>{{item.calculation}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="allFormulaInfoGetDomainAndExposureHSDESResult" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 700px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header pb-0">
+                        <h2 class="modal-title" id="exampleModalLabel">Information</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Calculation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of allFormulaInfoGetDomainAndExposureHSDESResult; index as i">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item.names}}</td>
+                                            <td>{{item.calculation}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="allFormulaInfoGetDefectsVsRegressionHSDESResult" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 700px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header pb-0">
+                        <h2 class="modal-title" id="exampleModalLabel">Information</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Calculation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of allFormulaInfoGetDefectsVsRegressionHSDESResult; index as i">
+                                            <th scope="row">{{i+1}}</th>
+                                            <td>{{item.names}}</td>
+                                            <td>{{item.calculation}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -610,7 +805,7 @@
             <div class="row">
                 <div class="col-12 col-lg-6 mt-2 pr-lg-1">
                     <div class="defects main-div border-0">
-                        <div class="portlet box blue-hoki set_mxwidth mx-auto">
+                        <div class="portlet box blue-hoki set_mxwidth mx-auto" style="width: unset">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-list"></i>
@@ -636,13 +831,13 @@
                                          defect_vector set_height">Defect Vector</th>
 
                                         <th rowspan="1" colspan="1" class="tableQRCBlue
-                                         wss_width set_height">WSS Debug</th>
+                                           set_height">WSS Debug</th>
                                         <th rowspan="1" colspan="1" class="tableQRCBlue
-                                         ingred_width set_height">Ingredient</th>
+                                           set_height">Ingredient</th>
                                         <th rowspan="1" colspan="1" class="tableQRCBlue
-                                         verified_width set_height txt_width">Verified eng version & ingredient release to OWR</th>
+                                           set_height txt_width">Verified eng version & ingredient release to OWR</th>
                                         <th rowspan="1" colspan="1" class="tableQRCBlue
-                                         implement_width set_height">Implemented Pending BKC integration /Verification</th>
+                                           set_height">Implemented Pending BKC integration /Verification</th>
                                         <th rowspan="1" colspan="1" class="tableQRCBlue
                                          divBorderStyle total_width set_height">Total</th>
                                     </tr>
@@ -675,28 +870,28 @@
                                             </tr>
                                         </th>
 
-                                        <th colspan="1" class="funct fontie th_border th_style wss_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
                                                 <td class="white_td" [ngClass]="criticalDefectQRC.wssDebug === '' ? 'customHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{criticalDefectQRC.wssDebug}}</div>
                                                 </td>
                                             </tr>
                                         </th>
-                                        <th colspan="1" class="funct fontie th_border th_style ingred_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
                                                 <td class="white_td" [ngClass]="criticalDefectQRC.ingrediant === '' ? 'customHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{criticalDefectQRC.ingrediant}}</div>
                                                 </td>
                                             </tr>
                                         </th>
-                                        <th colspan="1" class="funct fontie th_border th_style verified_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
                                                 <td class="white_td" [ngClass]="criticalDefectQRC.verified_on_eng_OWR === '' ? 'customHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{criticalDefectQRC.verified_on_eng_OWR}}</div>
                                                 </td>
                                             </tr>
                                         </th>
-                                        <th colspan="1" class="funct fontie th_border th_style implement_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu" *ngFor="let criticalDefectQRC of getCriticalDefectsvector">
                                                 <td class="white_td" [ngClass]="criticalDefectQRC.implemented_BKC === '' ? 'customHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{criticalDefectQRC.implemented_BKC}}</div>
@@ -728,7 +923,7 @@
                 </div>
                 <div class="col-12 col-lg-6 mt-2 pl-lg-1">
                     <div class="defects main-div border-0">
-                        <div class="portlet box blue-hoki set_mxwidth mx-auto">
+                        <div class="portlet box blue-hoki set_mxwidth mx-auto" style="width: unset">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-list"></i>
@@ -752,10 +947,10 @@
                                     <tr>
                                         <th rowspan="1" colspan="2" class="tableQRCBlue divBorderStyle defect_vector set_height">Defect Vector</th>
 
-                                        <th rowspan="1" colspan="1" class="tableQRCBlue wss_width set_height">WSS<br>Debug</th>
-                                        <th rowspan="1" colspan="1" class="tableQRCBlue ingred_width set_height">Ingredient</th>
-                                        <th rowspan="1" colspan="1" class="tableQRCBlue verified_width set_height txt_width">Verified eng version & ingredient release to OWR</th>
-                                        <th rowspan="1" colspan="1" class="tableQRCBlue implement_width set_height">Implemented Pending BKC integration /Verification</th>
+                                        <th rowspan="1" colspan="1" class="tableQRCBlue   set_height">WSS<br>Debug</th>
+                                        <th rowspan="1" colspan="1" class="tableQRCBlue   set_height">Ingredient</th>
+                                        <th rowspan="1" colspan="1" class="tableQRCBlue   set_height txt_width">Verified eng version & ingredient release to OWR</th>
+                                        <th rowspan="1" colspan="1" class="tableQRCBlue   set_height">Implemented Pending BKC integration /Verification</th>
                                         <th rowspan="1" colspan="1" class="tableQRCBlue divBorderStyle total_width set_height">Total</th>
                                     </tr>
                                 </thead>
@@ -785,28 +980,28 @@
                                             </tr>
                                         </th>
 
-                                        <th colspan="1" class="funct fontie th_border th_style wss_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu fourthie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
                                                 <td class="white_td" [ngClass]="tableDefectsvector.wssDebug === '' ? 'customDefectHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{tableDefectsvector.wssDebug}}</div>
                                                 </td>
                                             </tr>
                                         </th>
-                                        <th colspan="1" class="funct fontie th_border th_style ingred_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu fourthie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
                                                 <td class="white_td" [ngClass]="tableDefectsvector.ingrediant === '' ? 'customDefectHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{tableDefectsvector.ingrediant}}</div>
                                                 </td>
                                             </tr>
                                         </th>
-                                        <th colspan="1" class="funct fontie th_border th_style verified_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu fourthie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
                                                 <td class="white_td" [ngClass]="tableDefectsvector.verified_on_eng_OWR === '' ? 'customDefectHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{tableDefectsvector.verified_on_eng_OWR}}</div>
                                                 </td>
                                             </tr>
                                         </th>
-                                        <th colspan="1" class="funct fontie th_border th_style implement_width">
+                                        <th colspan="1" class="funct fontie th_border th_style  ">
                                             <tr class="base_tr fifthie_blu fourthie" *ngFor="let tableDefectsvector of  getHighDefectsvector">
                                                 <td class="white_td" [ngClass]="tableDefectsvector.implemented_BKC === '' ? 'customDefectHeight' : ''">
                                                     <div class="text-center px-4 m-0">{{tableDefectsvector.implemented_BKC}}</div>

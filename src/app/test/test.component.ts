@@ -150,7 +150,7 @@ export class TestComponent implements OnInit {
   };
 
   openClosedData(value) {
-    debugger;
+     
     this.Intents = value;
     if (value == 'COE Management/ Lead') {
       this.Title = value;
@@ -843,7 +843,7 @@ export class TestComponent implements OnInit {
   }
   initialLoad = true;
   apiDomainHSDES(countData: any) {
-    debugger;
+     
     this.getDomainHSDES = {
       "platform": this.shortName + "_" + this.SKU,
       "domain": countData,

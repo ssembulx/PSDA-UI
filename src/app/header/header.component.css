@@ -105,18 +105,24 @@ h3 {
 }
 
 .text-width-left {
-    width: 72%;
+    width: 70%;
     display: flex;
 }
 
 .text-width-right {
-    width: 28%;
+    width: 30%;
     text-align: right;
     color: #fff;
 }
 
 .header-version-modal {
     color: #007bff;
+}
+
+.refresh_icon {
+    margin-top: 4px;
+    margin-left: 10px;
+    cursor: pointer;
 }
 
 
@@ -221,7 +227,7 @@ h3 {
 
 .time_div {
     /* margin-right: 2%; */
-    margin-top: 4px;
+    /* margin-top: 4px; */
     font-size: 13px;
 }
 
@@ -349,4 +355,29 @@ h3 {
     color: white;
     /* padding-left: 3px; */
     -webkit-text-fill-color: white;
+}
+
+
+/* .custom-refresh {
+    right: 0 !important;
+    left: unset !important;
+    transform: translate3d(0px, 22px, 0px) !important;
+} */
+
+.custom-refresh-hover:hover .custom-refresh-div {
+    right: 0 !important;
+    left: unset !important;
+    transform: translate3d(0px, 0px, 0px) !important;
+}
+
+
+/* .dropdown:hover .dropdown-menu {
+    transform: translate3d(0px, 0px, 0px) !important;
+} */
+
+::ng-deep .notifier__container-list-item,
+::ng-deep .notifier__container,
+::ng-deep .notifier__container * {
+    height: unset!important;
+    border: none!important;
 }
