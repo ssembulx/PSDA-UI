@@ -75,7 +75,8 @@ td {
     overflow: hidden;
     text-overflow: ellipsis;
     /* position: relative; */
-    max-width: 45px; /* set a maximum width for the cell */
+    max-width: 45px; 
+    min-width: 45px;
   }
   
   td:hover {

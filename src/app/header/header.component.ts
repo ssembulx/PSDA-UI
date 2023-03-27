@@ -130,9 +130,9 @@ export class HeaderComponent implements OnInit {
 
 
     /* local server config */
-    // this.localServer();
+    this.localServer();
     /* cloud server config */
-    this.cloudServer();
+    // this.cloudServer();
 
     let getPhoto = {
       "requests": [
