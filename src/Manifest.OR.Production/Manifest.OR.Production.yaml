@@ -1,0 +1,12 @@
+﻿applications:
+- name: PSDA-UI-PRO-OR
+  env:
+    ENVIRONMENT: Production
+  instances: 3
+  memory: 1024M
+  disk_quota: 1024M
+  routes:
+  - route: PSDA-UI-PRO-OR.apps1-or-int.icloud.intel.com
+  buildpacks: 
+  - staticfile_buildpack
+  stack: cflinuxfs4

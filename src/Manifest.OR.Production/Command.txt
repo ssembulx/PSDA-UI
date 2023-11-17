@@ -1,0 +1,2 @@
+cf login -a https://api.apps1-or-int.icloud.intel.com -u sakthirajanx.sembulingam@intel.com -p view234. -o PSDA -s Production
+cf push -f  Manifest.OR.Production\Manifest.OR.Production.yaml

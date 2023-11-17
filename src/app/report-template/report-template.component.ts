@@ -285,13 +285,22 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
   defaultColumns: string[];
   // defaultColumns: string[] = ['selection_column', 'id', 'title', 'exposure', 'domain', 'reproducibility', 'sysdebug_forum', 'suspected_Ingredient', 'promoted_ID', 'customer_impact', 'customer_summary', 'days_open', 'target'];
 
-  displayedColumns: string[] = ['selection_column', 'id','promoted_ID', 'title', 'exposure', 'domain', 'reproducibility', 'sysdebug_forum', 'suspected_Ingredient'];
+  displayedColumns: string[] = ['selection_column', 'id','promoted_ID', 'title', 'exposure', 'domain', 'reproducibility', 'sysdebug_forum', 'suspected_Ingredient','days_open'];
   trendStatusinitial: { platform: any; ChartType: string; target: string; };
   Countobj: {};
   Countobj2: {};
   selctedIndex: any;
   flag: any;
-
+  milestoneMustFix:any =false;
+  checkValue(event: any){
+    debugger;
+    console.log(event.target.checked);
+    if(event.target.checked){
+      this.chartTypeOpenfilteredCheck = false;
+    } else{
+      this.chartTypeOpenfilteredCheck = true;
+    }
+ }
   constructor(private formBuilder: FormBuilder, private apiService: ServiceAPIService, private router: Router, private broadcastService: BroadCastServiceService,
     private aRouter: ActivatedRoute, private Spinnerservice: SpinnerOverlayService, private notifier: NotifierService, private dialogRef: MatDialog, private changeDetectorRefs: ChangeDetectorRef) {
     this.notifier = notifier;
@@ -1769,7 +1778,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
 
   }
   //open close trend status chart for report
-  chartTypeOpenfilteredCheck = false;
+  chartTypeOpenfilteredCheck = true;
   GetOpenCloseTrendStatus(chartTypeOpenfiltered) {
     //   
     console.log("getOpenCloseTrendStatus", chartTypeOpenfiltered)
@@ -2583,21 +2592,25 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
       console.log(res.defectsAndRegressionInfo);
       this.defectsInfo = res.defectsAndRegressionInfo;
       this.defectsInfo.forEach(element => {
-        let temp = {
-          "ingredients": element.ingredients,
-          "Defectscritical": element.critical,
-          "Defectshigh": element.high,
-          "Defectsmedium": element.medium,
-          "Defectslow": element.low
+        if(element.ingredients != 'Unknown'){
+          let temp = {
+            "ingredients": element.ingredients,
+            "Defectscritical": element.critical,
+            "Defectshigh": element.high,
+            "Defectsmedium": element.medium,
+            "Defectslow": element.low
+          }
+          tempDefects.push(temp);
         }
-        tempDefects.push(temp);
       });
+      debugger;
       //regression
       this.apiService.getDefectsVsRegressionHSDESResult(payl).subscribe((res: any) => {
         console.log(res.defectsAndRegressionInfo);
          
         this.regressionInfo = res.defectsAndRegressionInfo;
         this.regressionInfo.forEach(element => {
+          if(element.ingredients != 'Unknown'){
           let temp = {
             "ingredients": element.ingredients,
             "Regressioncritical": element.critical,
@@ -2607,7 +2620,9 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
             "Regressiontotal": element.total
           }
           tempRegression.push(temp);
+        }
         });
+        debugger;
         tempDefects.forEach(element => {
           tempRegression.forEach(ele => {
             if (element.ingredients == ele.ingredients) {
@@ -2710,6 +2725,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
       series.events.on("shown", arrangeColumns);
       series.columns.template.stroke = colo;
       series.columns.template.fill = colo;
+      series.columns.template.cursorOverStyle = am4core.MouseCursorStyle.pointer;
       // Click
       series.columns.template.events.on("hit", function (ev: any) {
         console.log("clicked on ", ev.target.dataItem._dataContext);
@@ -2745,6 +2761,31 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
       bullet.label.text = "[#ffffff]{valueY.formatNumber('#.a')}";
       bullet.locationY = 0.5;
       bullet.label.hideOversized = true;
+      bullet.label.cursorOverStyle = am4core.MouseCursorStyle.pointer;
+      bullet.label.events.on("hit", function (ev: any) {
+        console.log("clicked on ", ev.target.dataItem._dataContext);
+         
+        let type = (ev.target.dataItem.component.name).split(' ');
+        that.chartdetails.COUNTTYPE = type[0];
+
+        that.domainExposure.platform = that.platformName;
+        that.defectRegressionParam['Ingredient'] = ev.target.dataItem._dataContext.ingredients;
+        that.defectRegressionParam['ChartType'] = type[0];
+        if (type[1] == "Critical") {
+          that.defectRegressionParam['Exposure'] = "1-Critical";
+        } else if (type[1] == "High") {
+          that.defectRegressionParam['Exposure'] = "2-High";
+        } else if (type[1] == "Medium") {
+          that.defectRegressionParam['Exposure'] = "3-Medium";
+        } else if (type[1] == "Low") {
+          that.defectRegressionParam['Exposure'] = "4-Low";
+        }
+        that.defectRegressionParam['platform'] = that.platformName;
+        that.defectRegressionParam['CHARTTYPE'] = 'defectRegressionHSDEC';
+        let t = that.router.serializeUrl(that.router.createUrlTree(['sample'], { queryParams: that.defectRegressionParam }))
+        window.open("#" + t, '_blank')
+        console.log("clicked on ", that.defectRegressionParam);
+      }, this);
 
       return series;
     }
@@ -3043,9 +3084,27 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
   }
   initializeColumnProperties() {
     this.columnShowHideList = [];
+    debugger;
     this.defaultColumns.forEach((element, index) => {
-
-      if (index <= 7) {
+       /*    this.displayedColumns.forEach((ele, index) => {
+          if(element==ele){
+            return this.columnShowHideList.push(
+              { possition: index, name: element, isActive: true }
+            );
+          } else{
+            return this.columnShowHideList.push(
+              { possition: index, name: element, isActive: false })
+          }
+          }) */
+          if (this.displayedColumns.includes(element)) {
+            return this.columnShowHideList.push(
+              { possition: index, name: element, isActive: true }
+            );
+        } else {
+          return this.columnShowHideList.push(
+            { possition: index, name: element, isActive: false })
+        }
+      /* if (index <= 7) {
         return this.columnShowHideList.push(
           { possition: index, name: element, isActive: true }
         );
@@ -3053,7 +3112,7 @@ export class ReportTemplateComponent implements OnInit, AfterViewInit {
         return this.columnShowHideList.push(
           { possition: index, name: element, isActive: false })
 
-      }
+      } */
     });
     console.log(this.columnShowHideList)
     // 
